@@ -1,0 +1,40 @@
+# Maintainer: Mike Andonov <info@archphile.org>
+# Website: http://archphile.org
+# Based on ympd-git from AUR made by the following people:
+# Maintainer: Philippe Mongeau <ph.mongeau@gmail.com>
+
+pkgname=mympd-archphile
+_pkgname=myMPD
+pkgver=2.3.0
+pkgrel=1
+pkgdesc="A standalone MPD Web GUI based on YMPD - Default port set to 80"
+arch=('armv7h' 'aarch64')
+url="http://github.org/jcorporation"
+license=('BSD')
+depends=('libmpdclient' 'openssl')
+makedepends=('cmake' 'git')
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz")
+sha256sums=('0188646f768cc872245cf7e7680402b20799ae31d2879092228c68a566c4a50d')
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+
+ 
+  mkdir build && cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=RELEASE
+  make
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}/build"
+  make DESTDIR="$pkgdir/" install
+  install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.service" "$pkgdir/usr/lib/systemd/system/mympd.service"
+  install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.default" "$pkgdir/etc/default/mympd"
+  sed '/WEB_PORT=8080/c WEB_PORT=80' -i "$pkgdir/etc/default/mympd"
+  sed '/Environment=COVERIMAGE=--coverimage folder.jpg/c Environment=COVERIMAGE=' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
+}
+

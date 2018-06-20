@@ -1,0 +1,89 @@
+# Maintainer: Tux <info@archphile.org>
+# Website: http://archphile.org
+# Based on ffmpeg-headless from AUR made by the following people
+# $Id: PKGBUILD 228056 2014-12-26 11:57:24Z bpiotrowski $
+# Maintainer:  Ionut Biru <ibiru@archlinux.org>
+# Maintainer:  Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Tom Newsom <Jeepster@gmx.co.uk>
+# Contributor: Paul Mattal <paul@archlinux.org>
+
+
+_pkgname=ffmpeg
+pkgname=ffmpeg-archphile
+pkgver=4.0.1
+pkgrel=1
+epoch=1
+pkgdesc='The FFmpeg media toolkit optimized for server (headless) systems'
+arch=('armv7h' 'aarch64')
+url='http://ffmpeg.org/'
+license=('GPL')
+provides=('libavcodec.so' 'libavformat.so'
+          'libavresample.so' 'libavutil.so' 'libpostproc.so' 'libswresample.so'
+          "ffmpeg=${pkgver}")
+conflicts=("ffmpeg")
+replaces=("ffmpeg")
+depends=(
+      'bzip2' 'gnutls' 'lame'
+      'libmodplug' 'libtheora' 'libvorbis'
+      'opencore-amr' 'rtmpdump'
+      'zlib' 'libfdk-aac' 'libvorbis.so'
+)
+makedepends=('yasm')
+source=("https://ffmpeg.org/releases/${_pkgname}-${pkgver}.tar.xz")
+
+sha256sums=('605f5c01c60db35d3b617a79cabb2c7032412be243554602eeed1b628125c0ee')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+}
+
+
+build() {
+  
+  cd ${_pkgname}-${pkgver}
+
+  #[[ $CARCH == "armv7h" || $CARCH == "aarch64" ]] && CONFIG='--host-cflags="-fPIC"'
+
+  ./configure \
+    --prefix='/usr' \
+    --disable-debug \
+    --disable-static \
+    --disable-stripping \
+    --disable-avdevice \
+    --disable-avfilter \
+    --disable-swscale \
+    --disable-ffplay \
+    --disable-network \
+    --disable-bsfs \
+    --disable-filters \
+    --disable-parsers \
+    --disable-indevs \
+    --disable-outdevs \
+    --disable-encoders \
+    --enable-decoders \
+    --enable-avresample \
+    --enable-gnutls \
+    --enable-gpl \
+    --enable-libmodplug \
+    --enable-libmp3lame \
+    --enable-libopencore_amrnb \
+    --enable-libopencore_amrwb \
+    --enable-libopus \
+    --enable-librtmp \
+    --enable-libtheora \
+    --enable-libvorbis \
+    --enable-runtime-cpudetect \
+    --enable-shared \
+    --enable-swresample \
+    --enable-version3 \
+    --enable-libfdk_aac \
+    --enable-nonfree
+
+  make
+}
+
+package() {
+  cd ${_pkgname}-${pkgver}
+  make DESTDIR="${pkgdir}" install install-man
+}
