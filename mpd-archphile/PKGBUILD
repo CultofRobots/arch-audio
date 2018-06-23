@@ -17,7 +17,7 @@ pkgdesc='Flexible, powerful, server-side application for playing music. Light ve
 url='http://www.musicpd.org/'
 license=('GPL')
 arch=('armv7h' 'aarch64')
-depends=('flac' 'audiofile' 'libsndfile' 'icu' 'libmad' 'curl' 'faad2' 'sqlite' 'libmms' 'libid3tag' 'libmpdclient' 'libsoxr' 'ffmpeg-archphile' 'avahi' 'opus' 'libshout')
+depends=('flac' 'audiofile' 'libsndfile' 'icu' 'libmad' 'curl' 'faad2' 'sqlite' 'libmms' 'libid3tag' 'libmpdclient' 'libsoxr' 'ffmpeg-archphile' 'avahi' 'opus')
 makedepends=('boost' 'doxygen')
 provides=("mpd=$pkgver")
 conflicts=('mpd' 'mpd-archphile-sacd' 'mpd-archphile-native-dsd' 'mpd-archphile-minimal')
@@ -51,7 +51,7 @@ build() {
 	--disable-jack \
 	--disable-modplug \
 	--disable-pulse \
-	--enable-shout \
+	--disable-shout \
 	--disable-sidplay \
 	--disable-soundcloud \
 	--enable-opus \
