@@ -51,7 +51,7 @@ build() {
 	--disable-jack \
 	--disable-modplug \
 	--disable-pulse \
-	--disable-shout \
+	--enable-shout \
 	--disable-sidplay \
 	--disable-soundcloud \
 	--enable-opus \
