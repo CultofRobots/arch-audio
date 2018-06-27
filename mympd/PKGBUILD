@@ -6,7 +6,7 @@
 pkgname=mympd
 _pkgname=myMPD
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A standalone MPD Web GUI based on YMPD - Default port set to 80"
 arch=('armv7h' 'aarch64')
 url="http://github.org/jcorporation"
@@ -23,17 +23,19 @@ sha256sums=('0188646f768cc872245cf7e7680402b20799ae31d2879092228c68a566c4a50d')
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
 
-  mkdir build && cd build
+  mkdir release && cd release
   cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=RELEASE
   make
 }
 
 package() {
-  cd "${srcdir}/${_pkgname}-${pkgver}/build"
+  cd "${srcdir}/${_pkgname}-${pkgver}/release"
   make DESTDIR="$pkgdir/" install
   install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.service" "$pkgdir/usr/lib/systemd/system/mympd.service"
   install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.default" "$pkgdir/etc/default/mympd"
   sed '/WEB_PORT=8080/c WEB_PORT=80' -i "$pkgdir/etc/default/mympd"
   sed '/Environment=COVERIMAGE=--coverimage folder.jpg/c Environment=COVERIMAGE=' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
+  sed -i -e 's/mpd\.css/mpd\.min\.css/' -e 's/mpd\.js/mpd\.min\.js/' "$pkgdir/usr/share/mympd/htdocs/index.html"
+  sed -i -e 's/mpd\.css/mpd\.min\.css/' -e 's/player\.js/player\.min\.js/' "$pkgdir/usr/share/mympd/htdocs/player.html"
 }
 
