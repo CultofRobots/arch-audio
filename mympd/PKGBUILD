@@ -3,7 +3,7 @@
 # Based on ympd-git from AUR made by the following people:
 # Maintainer: Philippe Mongeau <ph.mongeau@gmail.com>
 
-pkgname=mympd-archphile
+pkgname=mympd
 _pkgname=myMPD
 pkgver=2.3.0
 pkgrel=1
@@ -17,13 +17,15 @@ optdepends=()
 provides=()
 conflicts=()
 replaces=()
-source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('0188646f768cc872245cf7e7680402b20799ae31d2879092228c68a566c4a50d')
+install=post.install
+source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
+        'post.install')
+sha256sums=('0188646f768cc872245cf7e7680402b20799ae31d2879092228c68a566c4a50d'
+            '602966eb290c3dc5e6d18de03ee4e920f3870c14704c8b0cf526375e959c2fcf')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
 
- 
   mkdir build && cd build
   cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=RELEASE
   make
