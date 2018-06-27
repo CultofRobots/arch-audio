@@ -17,11 +17,8 @@ optdepends=()
 provides=()
 conflicts=()
 replaces=()
-install=post.install
-source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
-        'post.install')
-sha256sums=('0188646f768cc872245cf7e7680402b20799ae31d2879092228c68a566c4a50d'
-            '602966eb290c3dc5e6d18de03ee4e920f3870c14704c8b0cf526375e959c2fcf')
+source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz")
+sha256sums=('0188646f768cc872245cf7e7680402b20799ae31d2879092228c68a566c4a50d')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
