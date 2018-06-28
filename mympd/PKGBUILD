@@ -5,7 +5,7 @@
 
 pkgname=mympd
 _pkgname=myMPD
-pkgver=2.3.0
+pkgver=3.0.1
 pkgrel=2
 pkgdesc="A standalone MPD Web GUI based on YMPD - Default port set to 80"
 arch=('armv7h' 'aarch64')
@@ -17,25 +17,60 @@ optdepends=()
 provides=()
 conflicts=()
 replaces=()
-source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('0188646f768cc872245cf7e7680402b20799ae31d2879092228c68a566c4a50d')
+install=post.install
+source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
+        'post.install')
+sha256sums=('ced5c1101d2a6158a87fe70064e18cbd3723f15cebdbba4ec8b4768b03b18fa5'
+            '602966eb290c3dc5e6d18de03ee4e920f3870c14704c8b0cf526375e959c2fcf')
 
 build() {
+  if [ -f ${srcdir}/${_pkgname}-${pkgver}/buildtools/closure-compiler.jar ]
+  then
+    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.js -nt ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.min.js ] && \
+      java -jar ${srcdir}/${_pkgname}-${pkgver}/buildtools/closure-compiler.jar ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.js > ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.min.js
+    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.js -nt  ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.min.js ] && \
+      java -jar ${srcdir}/${_pkgname}-${pkgver}/buildtools/closure-compiler.jar ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.js > ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.min.js
+  else
+    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.js -nt ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.min.js ] && \
+      cp ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.js ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.min.js
+    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.js -nt  ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.min.js ] && \
+      cp ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.js  ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.min.js
+  fi
+    
+  if [ -f ${srcdir}/${_pkgname}-${pkgver}/buildtools/closure-stylesheets.jar ]
+  then    
+    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.css -nt ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.min.css ] && \
+      java -jar ${srcdir}/${_pkgname}-${pkgver}/buildtools/closure-stylesheets.jar ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.css > ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.min.css
+  else
+    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.css -nt ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.min.css ] && \
+      cp ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.css ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.min.css    
+  fi
+  
   cd "${srcdir}/${_pkgname}-${pkgver}"
-
-  mkdir release && cd release
-  cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=RELEASE
+  
+  [ -d release ] || mkdir release
+  cd release
+  cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=RELEASE ..
   make
 }
 
 package() {
   cd "${srcdir}/${_pkgname}-${pkgver}/release"
   make DESTDIR="$pkgdir/" install
-  install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.service" "$pkgdir/usr/lib/systemd/system/mympd.service"
-  install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.default" "$pkgdir/etc/default/mympd"
-  sed '/WEB_PORT=8080/c WEB_PORT=80' -i "$pkgdir/etc/default/mympd"
-  sed '/Environment=COVERIMAGE=--coverimage folder.jpg/c Environment=COVERIMAGE=' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
   sed -i -e 's/mpd\.css/mpd\.min\.css/' -e 's/mpd\.js/mpd\.min\.js/' "$pkgdir/usr/share/mympd/htdocs/index.html"
   sed -i -e 's/mpd\.css/mpd\.min\.css/' -e 's/player\.js/player\.min\.js/' "$pkgdir/usr/share/mympd/htdocs/player.html"
+
+  install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.service" "$pkgdir/usr/lib/systemd/system/mympd.service"
+  install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.default" "$pkgdir/etc/default/mympd"
+
+  # FIXES FOR DEFAULT
+  sed '/COVERIMAGE=--coverimage folder.jpg/c COVERIMAGE=folder.jpg' -i "$pkgdir/etc/default/mympd"
+  sed '/STATEFILE=--statefile \/var\/lib\/mympd\/mympd.state/c STATEFILE=\/var\/lib\/mympd\/mympd.state' -i "$pkgdir/etc/default/mympd"
+
+  # FIXES FOR SERVICE FILE
+  sed '/Environment=COVERIMAGE=--coverimage folder.jpg/c Environment=COVERIMAGE=folder.jpg' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
+  sed '/Environment=STATEFILE=--statefile \/var\/lib\/mympd\/mympd.state/c Environment=STATEFILE=\/var\/lib\/mympd\/mympd.state' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
+  sed 's/$COVERIMAGE/--coverimage $COVERIMAGE/g' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
+  sed 's/$STATEFILE/--statefile  $STATEFILE/g' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
 }
 
