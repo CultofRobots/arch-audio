@@ -4,7 +4,7 @@
 
 pkgname=mympd
 _pkgname=myMPD
-pkgver=3.2.0
+pkgver=3.2.1
 pkgrel=1
 pkgdesc="A standalone MPD Web GUI based on YMPD - Default port set to 80"
 arch=('armv7h' 'aarch64')
@@ -19,7 +19,7 @@ replaces=()
 install=post.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
         'post.install')
-sha256sums=('139c7a270267775ce0b37ae8cdd43de23083f319684605940ad86b23255f5460'
+sha256sums=('f22d41e0ca8e31762d53947d2114853dba59bf99dfd9b7972846834aedb1ee9f'
             'c7addf94ff814b631c8807dd3551f1fceeb3cbcca259239fd9aedf1f8199ce68')
 
 build() {
