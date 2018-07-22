@@ -65,6 +65,9 @@ package() {
   cd "${srcdir}/${_pkgname}-${pkgver}/release"
   make DESTDIR="$pkgdir/" install
 
+  install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.service" "$pkgdir/usr/lib/systemd/system/mympd.service"
+  install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/options" "$pkgdir/etc/default/options"
+
   echo "Replacing javascript and stylesheets with minified files"
   sed -i -e 's/mpd\.css/mpd\.min\.css/' -e 's/mpd\.js/mpd\.min\.js/' $pkgdir/usr/share/mympd/htdocs/index.html
   sed -i -e 's/mpd\.css/mpd\.min\.css/' -e 's/player\.js/player\.min\.js/' $pkgdir/usr/share/mympd/htdocs/player.html
@@ -73,15 +76,6 @@ package() {
   echo "Minifying html"
   perl -i -pe 's/^\s*//gm; s/\s*$//gm' $pkgdir/usr/share/mympd/htdocs/index.html
   perl -i -pe 's/^\s*//gm; s/\s*$//gm' $pkgdir/usr/share/mympd/htdocs/player.html
-
-  if [ -d /etc/systemd/system ]
-  then
-    if [ ${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.service -nt /etc/systemd/system/mympd.service ]
-    then
-      [[ -d $pkgdir/usr/lib/systemd/system/ ]] || mkdir -p $pkgdir/usr/lib/systemd/system/
-      cp -v ${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.service $pkgdir/usr/lib/systemd/system/
-    fi
-  fi
 
   # FIXES FOR OPTIONS 
   sed 's/^SSL/#SSL/' -i "$pkgdir/etc/mympd/options"
