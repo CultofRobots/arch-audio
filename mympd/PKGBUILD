@@ -76,5 +76,8 @@ package() {
   echo "Minifying html"
   perl -i -pe 's/^\s*//gm; s/\s*$//gm' $pkgdir/usr/share/mympd/htdocs/index.html
   perl -i -pe 's/^\s*//gm; s/\s*$//gm' $pkgdir/usr/share/mympd/htdocs/player.html
+
+  # DISABLE SSL IN OPTIONS
+  sed 's/^SSL/#SSL/' -i "$pkgdir/etc/mympd/options"
 }
 
