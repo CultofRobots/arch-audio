@@ -76,17 +76,5 @@ package() {
   echo "Minifying html"
   perl -i -pe 's/^\s*//gm; s/\s*$//gm' $pkgdir/usr/share/mympd/htdocs/index.html
   perl -i -pe 's/^\s*//gm; s/\s*$//gm' $pkgdir/usr/share/mympd/htdocs/player.html
-
-  # FIXES FOR OPTIONS 
-  sed 's/^SSL/#SSL/' -i "$pkgdir/etc/mympd/options"
-  sed '/COVERIMAGE=--coverimage folder.jpg/c COVERIMAGE=folder.jpg' -i "$pkgdir/etc/mympd/options"
-  sed '/STATEFILE=--statefile \/var\/lib\/mympd\/mympd.state/c STATEFILE=\/var\/lib\/mympd\/mympd.state' -i "$pkgdir/etc/mympd/options"
-
-  # FIXES FOR SERVICE FILE
-  sed '/Requires=/s/$/ mpd.service/' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
-  sed '/Environment=COVERIMAGE=--coverimage folder.jpg/c Environment=COVERIMAGE=folder.jpg' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
-  sed '/Environment=STATEFILE=--statefile \/var\/lib\/mympd\/mympd.state/c Environment=STATEFILE=\/var\/lib\/mympd\/mympd.state' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
-  sed 's/$COVERIMAGE/--coverimage $COVERIMAGE/g' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
-  sed 's/$STATEFILE/--statefile  $STATEFILE/g' -i "$pkgdir/usr/lib/systemd/system/mympd.service"
 }
 
