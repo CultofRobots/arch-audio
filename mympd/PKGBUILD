@@ -20,7 +20,7 @@ install=post.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
         'post.install')
 sha256sums=('d2b78eefea1f1f66b03b2da62a260ba85a4b9dad07b8c281e96a9e5dedf0991d'
-            'c7addf94ff814b631c8807dd3551f1fceeb3cbcca259239fd9aedf1f8199ce68')
+            '16a8dfcd698ae4ee43afcb2cd96f772144981ae3e42ca7ea47a9aafd1bb8c989')
 
 build() {
 if [ -f ${srcdir}/${_pkgname}-${pkgver}/buildtools/closure-compiler.jar ]
