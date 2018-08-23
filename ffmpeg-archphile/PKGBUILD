@@ -18,7 +18,7 @@ arch=('armv7h' 'aarch64')
 url='http://ffmpeg.org/'
 license=('GPL')
 provides=('libavcodec.so' 'libavformat.so'
-          'libavresample.so' 'libavutil.so' 'libpostproc.so' 'libswresample.so'
+          'libswresample.so' 'libavutil.so' 'libpostproc.so' 'libswresample.so'
           "ffmpeg=${pkgver}")
 conflicts=("ffmpeg")
 replaces=("ffmpeg")
@@ -62,7 +62,7 @@ build() {
     --disable-outdevs \
     --disable-encoders \
     --enable-decoders \
-    --enable-avresample \
+    --enable-swresample \
     --enable-gnutls \
     --enable-gpl \
     --enable-libmodplug \
