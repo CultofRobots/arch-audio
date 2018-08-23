@@ -11,7 +11,7 @@
 _pkgname=ffmpeg
 pkgname=ffmpeg-archphile
 pkgver=4.0.2
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='The FFmpeg media toolkit optimized for server (headless) systems'
 arch=('armv7h' 'aarch64')
