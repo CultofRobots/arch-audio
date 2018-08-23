@@ -71,7 +71,6 @@ build() {
     --enable-libopencore_amrwb \
     --enable-libopus \
     --enable-librtmp \
-    --enable-libtheora \
     --enable-libvorbis \
     --enable-runtime-cpudetect \
     --enable-shared \
