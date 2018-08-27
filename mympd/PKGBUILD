@@ -5,7 +5,7 @@
 
 pkgname=mympd
 _pkgname=myMPD
-pkgver=3.5.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="A standalone MPD Web GUI based on YMPD - Default port set to 80"
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -17,11 +17,11 @@ optdepends=()
 provides=()
 conflicts=()
 replaces=()
-install=post.install
+install=mympd.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
-        'post.install')
-sha256sums=('83f2106296be1c93d11209f4e73fe267cd2ffa677af5823e8211ec347591cb9a'
-            '17fe3190f25edf2d0b71f5be9ed364f7ca5c0d0555481003393f43afa8740891')
+        'mympd.install')
+sha256sums=('8eb1d77ca4a0fb23de07be382a8c2c628d12d3c0de97f7ca964ff328dfb078bc'
+            'dd2079dd620851698f35c9d2432114ac3795b2ba5ea8c79cecf83aba0772f664')
 
 prepare() {
   export java=$(which java 2> /dev/null)
@@ -31,16 +31,16 @@ prepare() {
     echo "Minifying javascript"
     [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.js -nt ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/player.min.js ] && \
       java -jar ${srcdir}/${_pkgname}-${pkgver}/dist/buildtools/closure-compiler.jar ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.js > ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/player.min.js
-    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.js -nt  ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/mpd.min.js ] && \
-      java -jar ${srcdir}/${_pkgname}-${pkgver}/dist/buildtools/closure-compiler.jar ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.js > ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/mpd.min.js
+    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mympd.js -nt  ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/mympd.min.js ] && \
+      java -jar ${srcdir}/${_pkgname}-${pkgver}/dist/buildtools/closure-compiler.jar ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mympd.js > ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/mympd.min.js
     [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/sw.js -nt ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/sw.min.js ] && \
       java -jar ${srcdir}/${_pkgname}-${pkgver}/dist/buildtools/closure-compiler.jar ${srcdir}/${_pkgname}-${pkgver}/htdocs/sw.js > ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/sw.min.js
   else
     echo "${srcdir}/${_pkgname}-${pkgver}/dist/buildtools/closure-compiler.jar not found, using non-minified files"
     [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.js -nt ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/player.min.js ] && \
       cp ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/player.js ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/player.min.js
-    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.js -nt  ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/mpd.min.js ] && \
-      cp ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mpd.js  ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/mpd.min.js
+    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mympd.js -nt  ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/mympd.min.js ] && \
+      cp ${srcdir}/${_pkgname}-${pkgver}/htdocs/js/mympd.js  ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/mympd.min.js
     [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/sw.js -nt ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/sw.min.js ] && \
       cp ${srcdir}/${_pkgname}-${pkgver}/htdocs/sw.js ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/sw.min.js    
   fi
@@ -48,19 +48,19 @@ prepare() {
   if [ -f ${srcdir}/${_pkgname}-${pkgver}/dist/buildtools/closure-stylesheets.jar ] && [ "$java" != "$NULL" ]
   then
     echo "Minifying stylesheets"
-    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.css -nt ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/css/mpd.min.css ] && \
-      java -jar ${srcdir}/${_pkgname}-${pkgver}/dist/buildtools/closure-stylesheets.jar --allow-unrecognized-properties ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.css > ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/css/mpd.min.css
+    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mympd.css -nt ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/css/mympd.min.css ] && \
+      java -jar ${srcdir}/${_pkgname}-${pkgver}/dist/buildtools/closure-stylesheets.jar --allow-unrecognized-properties ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mympd.css > ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/css/mympd.min.css
   else
     echo "${srcdir}/${_pkgname}-${pkgver}/dist/buildtools/closure-stylesheets.jar not found, using non-minified files"
-    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.css -nt ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/css/mpd.min.css ] && \
-      cp ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mpd.css ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/css/mpd.min.css    
+    [ ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mympd.css -nt ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/css/mympd.min.css ] && \
+      cp ${srcdir}/${_pkgname}-${pkgver}/htdocs/css/mympd.css ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/css/mympd.min.css    
   fi
 
   echo "Replacing javascript and stylesheets with minified files"
-  sed -e 's/mpd\.css/mpd\.min\.css/' -e 's/mpd\.js/mpd\.min\.js/' ${srcdir}/${_pkgname}-${pkgver}/htdocs/index.html > ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/index.html
-  sed -e 's/mpd\.css/mpd\.min\.css/' -e 's/player\.js/player\.min\.js/' ${srcdir}/${_pkgname}-${pkgver}/htdocs/player.html > ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/player.html
-  sed -i -e 's/mpd\.css/mpd\.min\.css/' -e 's/mpd\.js/mpd\.min\.js/' -e 's/player\.js/player\.min\.js/' ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/sw.min.js
-  sed -i -e 's/\/sw\.js/\/sw\.min\.js/' ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/mpd.min.js
+  sed -e 's/mympd\.css/mympd\.min\.css/' -e 's/mympd\.js/mympd\.min\.js/' ${srcdir}/${_pkgname}-${pkgver}/htdocs/index.html > ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/index.html
+  sed -e 's/mympd\.css/mympd\.min\.css/' -e 's/player\.js/player\.min\.js/' ${srcdir}/${_pkgname}-${pkgver}/htdocs/player.html > ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/player.html
+  sed -i -e 's/mympd\.css/mympd\.min\.css/' -e 's/mympd\.js/mympd\.min\.js/' -e 's/player\.js/player\.min\.js/' ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/sw.min.js
+  sed -i -e 's/\/sw\.js/\/sw\.min\.js/' ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/js/mympd.min.js
   echo "Minifying html"
   perl -i -pe 's/^\s*//gm; s/\s*$//gm' ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/index.html
   perl -i -pe 's/^\s*//gm; s/\s*$//gm' ${srcdir}/${_pkgname}-${pkgver}/dist/htdocs/player.html
@@ -80,6 +80,6 @@ package() {
   make DESTDIR="$pkgdir/" install
 
   install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.service" "$pkgdir/usr/lib/systemd/system/mympd.service"
-  install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.conf" "$pkgdir/etc/mympd/mympd.conf"
+  install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.conf" "$pkgdir/etc/mympd/mympd.conf.dist" 
 }
 

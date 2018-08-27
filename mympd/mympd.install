@@ -1,18 +1,25 @@
 post_install() {
+  post_upgrade;
+}
+
+post_upgrade() {
   echo "Fixing ownership of /var/lib/mympd"
   sudo chown nobody /var/lib/mympd
 
   echo "Trying to link musicdir to library"
   if [ -f /etc/mpd.conf ]
   then
-    LIBRARY=$(grep music_directory /etc/mpd.conf | awk {'print $2'} | sed -e 's/"//g')
-    [ "$LIBRARY" != "" ] && [ ! -e /usr/share/mympd/htdocs/library ] && ln -s "$LIBRARY" /usr/share/mympd/htdocs/library
+    LIBRARY=$(grep ^music_directory /etc/mpd.conf | awk {'print $2'} | sed -e 's/"//g')
+    [ "$LIBRARY" != "" ] && [ ! -e /usr/share/mympd/htdocs/library ] && sudo ln -s "$LIBRARY" /usr/share/mympd/htdocs/library
   else
     echo "/etc/mpd.conf not found, you must link your musicdir manually to /usr/share/mympd/htdocs/library"
   fi
 
+  echo "Creating dir for cover pictures"
+  [ -d /usr/share/mympd/htdocs/pics ] || mkdir /usr/share/mympd/htdocs/pics
+  
   echo "Disabling SSL by default"
-  sed '/^ssl = true/c ssl = false' -i "/etc/mympd/mympd.conf"
+  sed '/^ssl = true/c ssl = false' -i "/etc/mympd/mympd.conf.dist"
 
   echo "Installing systemd service"
   if [ -d /etc/systemd/system ]
@@ -26,6 +33,18 @@ post_install() {
     fi
   fi
 
-  echo "Edit /etc/mympd/mympd.conf before starting mympd"
+  if [ ! -f /etc/mympd/mympd.conf ]
+  then 
+    mv /etc/mympd/mympd.conf.dist /etc/mympd/mympd.conf
+  fi
+
+  echo "Edit /etc/mympd/mympd.conf before starting myMPD"
+}
+
+post_remove() {
+  if [ -f /etc/mympd/mympd.conf ]
+  then 
+    mv /etc/mympd/mympd.conf /etc/mympd/mympd.pacsave
+  fi
 }
 
