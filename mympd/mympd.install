@@ -44,7 +44,7 @@ post_upgrade() {
 post_remove() {
   if [ -f /etc/mympd/mympd.conf ]
   then 
-    mv /etc/mympd/mympd.conf /etc/mympd/mympd.pacsave
+    mv /etc/mympd/mympd.conf /etc/mympd/mympd.conf.pacsave
   fi
 }
 

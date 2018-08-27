@@ -21,7 +21,7 @@ install=mympd.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
         'mympd.install')
 sha256sums=('8eb1d77ca4a0fb23de07be382a8c2c628d12d3c0de97f7ca964ff328dfb078bc'
-            'dd2079dd620851698f35c9d2432114ac3795b2ba5ea8c79cecf83aba0772f664')
+            'b09d6e47672f268b5ef3549fcc927ddf189231f6de14fd86a039058a6e811591')
 
 prepare() {
   export java=$(which java 2> /dev/null)
