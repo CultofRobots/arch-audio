@@ -48,5 +48,11 @@ post_remove() {
   then 
     mv /etc/mympd/mympd.conf /etc/mympd/mympd.conf.pacsave
   fi
+
+  if [ -f /etc/systemd/system/multi-user.target.wants/mympd.service ]
+    then
+    echo "disabling mympd.service"
+    systemctl stop mympd && systemctl disable mympd
+  fi
 }
 
