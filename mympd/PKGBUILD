@@ -1,7 +1,7 @@
-# Based on ympd-git from AUR made by the following people:
-# Maintainer: Philippe Mongeau <ph.mongeau@gmail.com>
-# Maintainer: Mike Andonov <info@archphile.org>
-# Maintainer: K. Loz <cultofrobots@gmail.com>
+# Maintainer: K. Loz <cultofrobots [at] prtonmail [dot] com>
+# Based on jcorporation's myMPD mkrelease.sh 
+# Website: https://github.com/jcorporation/myMPD
+# PKGBUILD Based on mympd-archphile by Mike Andonov <info [at] archphile [dot] org>
 
 pkgname=mympd
 _pkgname=myMPD
