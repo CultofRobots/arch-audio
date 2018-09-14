@@ -5,12 +5,12 @@
 
 pkgname=mympd
 _pkgname=myMPD
-pkgver=4.1.0
+pkgver=4.1.1
 pkgrel=1
 pkgdesc="A standalone MPD Web GUI based on YMPD - Default port set to 80"
 arch=('x86_64' 'armv7h' 'aarch64')
-url="http://github.org/jcorporation"
-license=('BSD')
+url="http://github.org/jcorporation/myMPD"
+license=('GPL')
 depends=('libmpdclient' 'openssl')
 makedepends=('cmake' 'git')
 optdepends=()
@@ -20,8 +20,8 @@ replaces=()
 install=mympd.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
         'mympd.install')
-sha256sums=('ec776fa76b2623f27e147abbb0e182d54fb8b80917a35533e58d95ca9f0571d1'
-            'b01671a1153764d96655069f0a9ddf8ab2f7370f60a3789f6f1b4f370474df67')
+sha256sums=('12ca8d83533a649dcf7586c89c80324f86d6d199b14d345658b6ba9af8041ac6'
+            'ef1f79e4b4eccbd0d94b6b3de76df1a2940f43ae1fe58fc9bd1bafa7196ad11b')
 
 prepare() {
   export java=$(which java 2> /dev/null)
@@ -84,4 +84,3 @@ package() {
 
   install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.service" "$pkgdir/usr/lib/systemd/system/mympd.service"
 }
-

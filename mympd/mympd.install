@@ -102,4 +102,3 @@ post_remove() {
   # remove leftover directories
   rmdir -v /usr/share/{mympd/htdocs/,mympd/}
 }
-
