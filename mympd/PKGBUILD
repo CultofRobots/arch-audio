@@ -20,7 +20,7 @@ replaces=()
 install=mympd.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
         'mympd.install')
-sha256sums=('d3ac7e8f495d20337c93656c7ce551677e0d155b9f2372715326860e24bbafda'
+sha256sums=('2f5802597e53569a89636836f9ba47934fe6d32720a938e12e8686f0c76462da'
             'ef1f79e4b4eccbd0d94b6b3de76df1a2940f43ae1fe58fc9bd1bafa7196ad11b')
 
 prepare() {
