@@ -1,12 +1,11 @@
-# Maintainer: Tux <info@archphile.org>
+# Maintainer: Mike Andonov <info@archphile.org>
 # Website: http://archphile.org
 # Based on ffmpeg-headless from AUR made by the following people
-# $Id: PKGBUILD 228056 2014-12-26 11:57:24Z bpiotrowski $
-# Maintainer:  Ionut Biru <ibiru@archlinux.org>
-# Maintainer:  Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 # Contributor: Paul Mattal <paul@archlinux.org>
-
 
 _pkgname=ffmpeg
 pkgname=ffmpeg-archphile
@@ -14,75 +13,91 @@ pkgver=4.0.2
 pkgrel=2
 epoch=1
 pkgdesc='The FFmpeg media toolkit optimized for server (headless) systems'
-arch=('armv7h' 'aarch64')
+arch=('armv7h' 'aarch64' 'x86_64')
 url='http://ffmpeg.org/'
-license=('GPL')
-provides=('libavcodec.so' 'libavformat.so'
-          'libswresample.so' 'libavutil.so' 'libpostproc.so' 'libswresample.so'
-          "ffmpeg=${pkgver}")
+license=('GPL3')
+depends=('bzip2' 'glibc' 'gmp' 'gnutls' 'gsm'
+         'lame' 'libmodplug'
+         'libtheora' 'libvorbis' 'libxml2'
+         'opus' 'rtmpdump'
+         'xz' 'zlib')
+makedepends=('yasm')
+provides=('libavcodec.so' 'libavdevice.so' 'libavfilter.so' 'libavformat.so'
+          'libavresample.so' 'libavutil.so' 'libpostproc.so' 'libswresample.so'
+          'libswscale.so' 'ffmpeg')
 conflicts=("ffmpeg")
 replaces=("ffmpeg")
-depends=(
-      'bzip2' 'gnutls' 'lame'
-      'libmodplug' 'libtheora' 'libvorbis'
-      'opencore-amr' 'rtmpdump'
-      'zlib' 'libfdk-aac' 'libvorbis.so'
-)
-makedepends=('yasm')
 source=("https://ffmpeg.org/releases/${_pkgname}-${pkgver}.tar.xz")
-
 sha256sums=('a95c0cc9eb990e94031d2183f2e6e444cc61c99f6f182d1575c433d62afb2f97')
 
-prepare() {
-  cd ${_pkgname}-${pkgver}
-
-}
-
-
 build() {
-  
   cd ${_pkgname}-${pkgver}
 
-  #[[ $CARCH == "armv7h" || $CARCH == "aarch64" ]] && CONFIG='--host-cflags="-fPIC"'
+  [[ $CARCH == "armv7h" || $CARCH == "aarch64" ]] && CONFIG='--host-cflags="-fPIC"'
 
   ./configure \
     --prefix='/usr' \
     --disable-debug \
+    --disable-encoders \
+    --disable-ffplay \
+    --disable-filters \
+    --disable-fontconfig \
+    --disable-htmlpages \
+    --disable-indevs \
+    --disable-libass \
+    --disable-libbluray \
+    --disable-libdrm \
+    --disable-libfreetype \
+    --disable-libfribidi \
+    --disable-libiec61883 \
+    --disable-libopencore_amrnb \
+    --disable-libopencore_amrwb \
+    --disable-libopenjpeg \
+    --disable-libpulse \
+    --disable-libsoxr \
+    --disable-libspeex \
+    --disable-libssh \
+    --disable-libv4l2 \
+    --disable-libvidstab \
+    --disable-libvpx \
+    --disable-libwebp \
+    --disable-libx264 \
+    --disable-libx265 \
+    --disable-libxcb \
+    --disable-libxvid \
+    --disable-nvenc \
+    --disable-omx \
+    --disable-outdevs \
+    --disable-parsers \
+    --disable-sdl2 \
     --disable-static \
     --disable-stripping \
-    --disable-avdevice \
-    --disable-avfilter \
+    --disable-vaapi \
+    --disable-vdpau \
+    --disable-xlib \
     --disable-swscale \
-    --disable-ffplay \
-    --disable-network \
-    --disable-bsfs \
-    --disable-filters \
-    --disable-parsers \
-    --disable-indevs \
-    --disable-outdevs \
-    --disable-encoders \
     --enable-decoders \
-    --enable-swresample \
+    --enable-gmp \
     --enable-gnutls \
     --enable-gpl \
+    --enable-libgsm \
     --enable-libmodplug \
     --enable-libmp3lame \
-    --enable-libopencore_amrnb \
-    --enable-libopencore_amrwb \
     --enable-libopus \
     --enable-librtmp \
+    --enable-libtheora \
     --enable-libvorbis \
+    --enable-libxml2 \
     --enable-runtime-cpudetect \
     --enable-shared \
     --enable-swresample \
     --enable-version3 \
-    --enable-libfdk_aac \
-    --enable-nonfree
 
   make
 }
 
 package() {
   cd ${_pkgname}-${pkgver}
+
   make DESTDIR="${pkgdir}" install install-man
 }
