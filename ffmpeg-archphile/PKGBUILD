@@ -23,8 +23,8 @@ depends=('bzip2' 'glibc' 'gmp' 'gnutls' 'gsm'
          'xz' 'zlib')
 makedepends=('yasm')
 provides=('libavcodec.so' 'libavdevice.so' 'libavfilter.so' 'libavformat.so'
-          'libavresample.so' 'libavutil.so' 'libpostproc.so' 'libswresample.so'
-          'libswscale.so' 'ffmpeg')
+          'libavutil.so' 'libpostproc.so' 'libswresample.so'
+          'ffmpeg')
 conflicts=("ffmpeg")
 replaces=("ffmpeg")
 source=("https://ffmpeg.org/releases/${_pkgname}-${pkgver}.tar.xz")
