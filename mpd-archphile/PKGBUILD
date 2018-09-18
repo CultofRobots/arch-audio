@@ -44,7 +44,6 @@ build() {
         --enable-httpd-output \
 	--enable-lame-encoder \
 	--enable-libmpdclient \
-        --enable-modplug \
 	--enable-opus \
 	--enable-pipe-output \
 	--enable-sndfile \
@@ -58,7 +57,6 @@ build() {
         --disable-iso9660 \
         --disable-jack \
         --disable-lsr \
-	--disable-mad \
         --disable-mpg123 \
         --disable-nfs \
         --disable-oss \
