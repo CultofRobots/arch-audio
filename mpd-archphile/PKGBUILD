@@ -39,46 +39,44 @@ build() {
 	./configure \
 	--prefix=/usr \
 	--sysconfdir=/etc \
+	--enable-audiofile \
+	--enable-ffmpeg \
+        --enable-httpd-output \
+	--enable-lame-encoder \
 	--enable-libmpdclient \
 	--enable-mad \
-	--enable-soxr \
-	--enable-ffmpeg \
-	--enable-audiofile \
-	--enable-sndfile \
-	--enable-pipe-output \
-	--disable-wavpack \
-	--disable-ao \
-	--disable-jack \
-	--disable-modplug \
-	--disable-pulse \
-	--disable-shout \
-	--disable-sidplay \
-	--disable-soundcloud \
 	--enable-opus \
-	--disable-vorbis \
-	--disable-ipv6 \
-	--disable-recorder-output \
-	--disable-iso9660 \
-	--disable-zzip \
-	--disable-wildmidi \
-	--disable-oss \
-	--disable-fluidsynth \
-	--disable-gme \
-	--disable-bzip2 \
-	--disable-lame-encoder \
-	--disable-shine-encoder \
+	--enable-pipe-output \
+	--enable-sndfile \
+	--enable-soxr \
+        --enable-soundcloud \
+        --disable-ao \
+        --disable-bzip2 \
+        --disable-fluidsynth \
+        --disable-gme \
+        --disable-ipv6 \
+        --disable-iso9660 \
+        --disable-jack \
+        --disable-lsr \
+        --disable-mikmod \
+        --disable-modplug \
+        --disable-mpg123 \
+        --disable-nfs \
+        --disable-oss \
+        --disable-oss \
+        --disable-pulse \
+        --disable-recorder-output \
+        --disable-shine-encoder \
+        --disable-shout \
+        --disable-sidplay \
+        --disable-smbclient \
         --disable-twolame-encoder \
+        --disable-vorbis \
         --disable-vorbis-encoder \
         --disable-wave-encoder \
-        --disable-nfs \
-        --disable-smbclient \
-        --enable-httpd-output \
-        --disable-oss \
-        --disable-mikmod \
-	--disable-modplug \
-        --disable-mpg123 \
-	--disable-wildmidi \
-        --disable-lsr \
+        --disable-wavpack \
+        --disable-wildmidi \
+        --disable-zzip \
 	--with-zeroconf=avahi \
 	--with-systemduserunitdir=/usr/lib/systemd/user \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system
