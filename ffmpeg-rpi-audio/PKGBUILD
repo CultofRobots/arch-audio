@@ -1,0 +1,67 @@
+# Maintainer: K Loz <cultofrobots [a] gmail [dot] com>
+# Based on ffmpeg-headless from AUR made by the following people
+# Contributor: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+# Contributor: Tom Newsom <Jeepster@gmx.co.uk>
+# Contributor: Paul Mattal <paul@archlinux.org>
+
+_pkgname=ffmpeg
+pkgname=ffmpeg-rpi-audio
+pkgver=4.0.2
+pkgrel=2
+epoch=1
+pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
+arch=('armv7h')
+url='http://ffmpeg.org/'
+license=('GPL3')
+depends=('bzip2' 'glibc' 'gnutls' 'xz' 'zlib'
+         'lame' 'libvorbis' 'libsoxr' 'opus' 'rtmpdump')
+makedepends=('yasm')
+provides=('libavcodec.so' 'libavdevice.so' 'libavfilter.so' 'libavformat.so'
+          'libavutil.so' 'libpostproc.so' 'libswresample.so'
+          'ffmpeg')
+conflicts=('ffmpeg')
+replaces=('ffmpeg' 'ffmpeg-archphile')
+source=("https://ffmpeg.org/releases/${_pkgname}-${pkgver}.tar.xz")
+sha256sums=('a95c0cc9eb990e94031d2183f2e6e444cc61c99f6f182d1575c433d62afb2f97')
+
+build() {
+  cd ${_pkgname}-${pkgver}
+
+  [[ $CARCH == "armv7h" || $CARCH == "aarch64" ]] && CONFIG='--host-cflags="-fPIC"'
+
+  ./configure \
+    --prefix='/usr' \
+    --disable-htmlpages \
+    --disable-podpages \
+    --disable-txtpages \
+    --disable-everything \
+    --enable-protocols \
+    --enable-decoder=aac \
+    --enable-decoder=ac3 \
+    --enable-decoder=flac \
+    --enable-decoder=mp3 \
+    --enable-demuxer=aac \
+    --enable-demuxer=ac3 \
+    --enable-demuxer=flac \
+    --enable-demuxer=mp3 \
+    --enable-demuxer=ogg \
+    --enable-demuxer=opus \
+    --enable-libmp3lame \
+    --enable-libopus \
+    --enable-librtmp \
+    --enable-libsoxr \
+    --enable-libvorbis \
+    --enable-gpl \
+    --enable-nonfree \
+    --enable-shared 
+  
+  make
+}
+
+package() {
+  cd ${_pkgname}-${pkgver}
+
+  make DESTDIR="${pkgdir}" install install-man
+}
