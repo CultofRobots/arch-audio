@@ -57,6 +57,7 @@ build() {
         --disable-iso9660 \
         --disable-jack \
         --disable-lsr \
+        --disable-modplug \
         --disable-mpg123 \
         --disable-nfs \
         --disable-oss \
