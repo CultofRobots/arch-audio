@@ -44,7 +44,7 @@ build() {
         --enable-httpd-output \
 	--enable-lame-encoder \
 	--enable-libmpdclient \
-	--enable-mad \
+        --enable-modplug \
 	--enable-opus \
 	--enable-pipe-output \
 	--enable-sndfile \
@@ -58,25 +58,18 @@ build() {
         --disable-iso9660 \
         --disable-jack \
         --disable-lsr \
-        --disable-mikmod \
-        --disable-modplug \
+	--disable-mad \
         --disable-mpg123 \
         --disable-nfs \
         --disable-oss \
-        --disable-oss \
         --disable-pulse \
-        --disable-recorder-output \
         --disable-shine-encoder \
-        --disable-shout \
-        --disable-sidplay \
         --disable-smbclient \
         --disable-twolame-encoder \
-        --disable-vorbis \
         --disable-vorbis-encoder \
         --disable-wave-encoder \
         --disable-wavpack \
         --disable-wildmidi \
-        --disable-zzip \
 	--with-zeroconf=avahi \
 	--with-systemduserunitdir=/usr/lib/systemd/user \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system
