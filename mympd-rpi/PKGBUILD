@@ -7,7 +7,7 @@
 
 pkgname=mympd-rpi
 _pkgname=myMPD
-pkgver=4.1.2
+pkgver=4.2.0
 pkgrel=1
 pkgdesc="A standalone MPD Web GUI based on YMPD - Default port set to 80"
 arch=('armv7h' 'aarch64')
@@ -22,8 +22,9 @@ replaces=(mympd)
 install=mympd-rpi.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
         'mympd-rpi.install')
-sha256sums=('2f5802597e53569a89636836f9ba47934fe6d32720a938e12e8686f0c76462da'
-            'ef1f79e4b4eccbd0d94b6b3de76df1a2940f43ae1fe58fc9bd1bafa7196ad11b')
+sha256sums=('e6f2e5d8348e57fb9576cdd241b371c064a8be0fb6b9d4c81867dc5c8c85e152'
+            'dec2bc5f8fc9a2f31042452b226a304346388b127b91cc0156df2095288b4b67')
+backup=('etc/mympd/mympd.conf')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
@@ -38,9 +39,6 @@ build() {
 package() {
   cd "${srcdir}/${_pkgname}-${pkgver}/release"
   make DESTDIR="$pkgdir/" install
-
-  ### DON'T OVERWRITE CURRENT CONFIG ###
-  mv "${pkgdir}/etc/mympd/mympd.conf" "${pkgdir}/etc/mympd/mympd.conf.dist"
 
   install -Dm644  "${srcdir}/${_pkgname}-${pkgver}/contrib/mympd.service" "$pkgdir/usr/lib/systemd/system/mympd.service"
 
