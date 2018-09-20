@@ -24,7 +24,6 @@ source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
         'mympd-rpi.install')
 sha256sums=('e6f2e5d8348e57fb9576cdd241b371c064a8be0fb6b9d4c81867dc5c8c85e152'
             'dec2bc5f8fc9a2f31042452b226a304346388b127b91cc0156df2095288b4b67')
-backup=('etc/mympd/mympd.conf')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
@@ -34,7 +33,6 @@ build() {
   cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=RELEASE ..
   make
 }
-
 
 package() {
   cd "${srcdir}/${_pkgname}-${pkgver}/release"
