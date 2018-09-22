@@ -48,6 +48,7 @@ build() {
     --enable-mad \
     --enable-mms \
     --enable-opus \
+    --enable-shout \
     --enable-sndfile \
     --enable-soundcloud \
     --enable-wave-encoder \
