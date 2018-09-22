@@ -10,12 +10,12 @@
 pkgname=mpd-rpi
 _pkgname=mpd
 pkgver=0.20.21
-pkgrel=1
+pkgrel=2
 pkgdesc='Flexible, powerful, server-side application for playing music. Light version optimized for raspberry pi ARM7+ distribution.'
 url='http://www.musicpd.org/'
 license=('GPL')
 arch=('armv7h' 'aarch64')
-depends=('audiofile' 'avahi' 'curl' 'faad2' 'ffmpeg' 'flac' 'icu' 'libid3tag' 'libmad' 'libmms' 'libmpdclient' 'libsndfile' 'libsoxr' 'opus' 'sqlite')
+depends=('audiofile' 'avahi' 'curl' 'faad2' 'ffmpeg' 'flac' 'icu' 'libid3tag' 'libmad' 'libmpdclient' 'libsndfile' 'libsoxr' 'opus' 'sqlite')
 makedepends=('boost' 'doxygen')
 provides=("mpd=$pkgver")
 conflicts=('mpd')
@@ -46,9 +46,7 @@ build() {
     --enable-audiofile \
     --enable-lame-encoder \
     --enable-mad \
-    --enable-mms \
     --enable-opus \
-    --enable-shout \
     --enable-sndfile \
     --enable-soundcloud \
     --enable-wave-encoder \
@@ -58,6 +56,8 @@ build() {
     --disable-adplug \
     --disable-ao \
     --disable-bzip2 \
+    --disable-cdio-paranoia \
+    --disable-dsd \
     --disable-fluidsynth \
     --disable-gme \
     --disable-haiku \
@@ -66,7 +66,7 @@ build() {
     --disable-jack \
     --disable-lsr \
     --disable-libwrap \
-    --disable-cdio-paranoia \
+    --disable-mms \
     --disable-modplug \
     --disable-mpc \
     --disable-mpg123 \
@@ -74,6 +74,7 @@ build() {
     --disable-oss \
     --disable-pulse \
     --disable-roar \
+    --disable-shout \
     --disable-sidplay \
     --disable-shine-encoder \
     --disable-sndio \
