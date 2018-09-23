@@ -15,7 +15,7 @@ pkgdesc='Flexible, powerful, server-side application for playing music. Light ve
 url='http://www.musicpd.org/'
 license=('GPL')
 arch=('armv7h' 'aarch64')
-depends=('audiofile' 'avahi' 'curl' 'faad2' 'ffmpeg' 'flac' 'icu' 'libid3tag' 'libmad' 'libmms' 'libmpdclient' 'libsndfile' 'libsoxr' 'opus' 'sqlite')
+depends=('audiofile' 'avahi' 'curl' 'faad2' 'ffmpeg' 'flac' 'icu' 'libid3tag' 'libmad' 'libmpdclient' 'libsoxr' 'opus' 'sqlite')
 makedepends=('boost' 'doxygen')
 provides=("mpd=$pkgver")
 conflicts=('mpd')
@@ -27,7 +27,7 @@ source=("https://www.musicpd.org/download/${_pkgname}/${pkgver%.*}/${_pkgname}-$
 sha256sums=('8322764dc265c20f05c8c8fdfdd578b0722e74626bef56fcd8eebfb01acc58dc'
             '4e20576ea53141fc398f8e586f30bdf06a404ca099db037724ef80f15c7f2ea3'
             '0b74c6e5db08daab3091dc15a6b0c75210ba2f9e98fa074f6cfd605a461056b6'
-            '8e3a9e9de18b0bd469fcca938bda89ca86e34147d9a0c4a2f1d07c077f6a69c4')
+            '350fb467d8fa56d9fcd09fe47a67a5a7fc9c9bde950ba725218f99b841107e57')
 backup=('etc/mpd.conf')
 
 
@@ -46,11 +46,10 @@ build() {
     --enable-audiofile \
     --enable-lame-encoder \
     --enable-mad \
-    --enable-mms \
     --enable-opus \
-    --enable-sndfile \
     --enable-soundcloud \
     --enable-wave-encoder \
+    --enable-wavpack \
     --disable-nfs \
     --disable-smbclient \
     --disable-webdav \
@@ -67,6 +66,7 @@ build() {
     --disable-jack \
     --disable-lsr \
     --disable-libwrap \
+    --disable-mms \
     --disable-modplug \
     --disable-mpc \
     --disable-mpg123 \
@@ -78,9 +78,10 @@ build() {
     --disable-sidplay \
     --disable-shine-encoder \
     --disable-sndio \
+    --disable-sndfile \
     --disable-twolame-encoder \
+    --disable-vorbis \
     --disable-vorbis-encoder \
-    --disable-wavpack \
     --disable-wildmidi \
     --disable-zlib \
     --enable-icu \
