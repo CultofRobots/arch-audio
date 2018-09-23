@@ -44,6 +44,7 @@ build() {
     --enable-pipe-output \
     --enable-aac \
     --enable-audiofile \
+    --enable-dsd \
     --enable-lame-encoder \
     --enable-mad \
     --enable-opus \
@@ -57,7 +58,6 @@ build() {
     --disable-ao \
     --disable-bzip2 \
     --disable-cdio-paranoia \
-    --disable-dsd \
     --disable-fluidsynth \
     --disable-gme \
     --disable-haiku \
