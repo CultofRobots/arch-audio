@@ -1,0 +1,111 @@
+# Maintainer: robot <cultofrobots [at] protonmail [dot] com>
+# Website: https://github.com/CultofRobots/
+# Based on official arch linux mpd PKGBUILD made by the following people:
+# Maintainer: Gaetan Bisson <bisson@archlinux.org>
+# Contributor: Angel Velasquez <angvp@archlinux.org>
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
+# Contributor: Damir Perisa <damir.perisa@bluewin.ch>
+# Contributor: Ben <ben@benmazer.net>
+
+pkgname=mpd-rpi
+_pkgname=mpd
+pkgver=0.20.21
+pkgrel=3
+pkgdesc='Flexible, powerful, server-side application for playing music. Minimal version with ffmpeg handling most decoding.'
+url='http://www.musicpd.org/'
+license=('GPL')
+arch=('armv7h' 'aarch64')
+depends=('audiofile' 'avahi' 'curl' 'ffmpeg' 'flac' 'icu' 'lame' 'libid3tag' 'libmpdclient' 'libsoxr' 'opus' 'sqlite')
+makedepends=('boost' 'doxygen')
+provides=("mpd=$pkgver")
+conflicts=('mpd')
+replaces=('mpd')
+source=("https://www.musicpd.org/download/${_pkgname}/${pkgver%.*}/${_pkgname}-${pkgver}.tar.xz"
+        'tmpfiles.d'
+        'sysusers.d'
+        'mpd.conf')
+sha256sums=('8322764dc265c20f05c8c8fdfdd578b0722e74626bef56fcd8eebfb01acc58dc'
+            '4e20576ea53141fc398f8e586f30bdf06a404ca099db037724ef80f15c7f2ea3'
+            '0b74c6e5db08daab3091dc15a6b0c75210ba2f9e98fa074f6cfd605a461056b6'
+            '58103ba438ab92a67af69d2cc9566e9b77cf0f7fb5e89b7f02c9a4e33b3f252e')
+backup=('etc/mpd.conf')
+
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --enable-alsa \
+    --enable-ffmpeg \
+    --enable-soxr \
+    --enable-httpd-output \
+    --enable-pipe-output \
+    --enable-audiofile \
+    --enable-flac \
+    --enable-lame-encoder \
+    --enable-opus \
+    --enable-soundcloud \
+    --enable-wave-encoder \
+    --disable-aac \
+    --disable-nfs \
+    --disable-smbclient \
+    --disable-webdav \
+    --disable-adplug \
+    --disable-ao \
+    --disable-bzip2 \
+    --disable-cdio-paranoia \
+    --disable-dsd \
+    --disable-fluidsynth \
+    --disable-gme \
+    --disable-haiku \
+    --disable-ipv6 \
+    --disable-iso9660 \
+    --disable-jack \
+    --disable-lsr \
+    --disable-libwrap \
+    --disable-mad \
+    --disable-mms \
+    --disable-modplug \
+    --disable-mpc \
+    --disable-mpg123 \
+    --disable-openal \
+    --disable-oss \
+    --disable-pulse \
+    --disable-roar \
+    --disable-shout \
+    --disable-sidplay \
+    --disable-shine-encoder \
+    --disable-sndfile \
+    --disable-sndio \
+    --disable-twolame-encoder \
+    --disable-vorbis \
+    --disable-vorbis-encoder \
+    --disable-wavpack \
+    --disable-wildmidi \
+    --disable-zlib \
+    --enable-icu \
+    --enable-id3 \
+    --enable-libmpdclient \
+    --enable-systemd-daemon \
+    --with-zeroconf=avahi \
+    --with-systemduserunitdir=/usr/lib/systemd/user \
+    --with-systemdsystemunitdir=/usr/lib/systemd/system
+
+  make
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 ../mpd.conf "${pkgdir}"/etc/mpd.conf
+  install -Dm644 ../tmpfiles.d "${pkgdir}"/usr/lib/tmpfiles.d/mpd.conf
+  install -Dm644 ../sysusers.d "${pkgdir}"/usr/lib/sysusers.d/mpd.conf
+
+  install -Dm644 "${pkgdir}"/usr/lib/systemd/{system,user}/mpd.service
+  sed '/WantedBy=/c WantedBy=default.target' -i "${pkgdir}"/usr/lib/systemd/{system,user}/mpd.service
+  sed '/ExecStart=/c ExecStart=/usr/bin/nice -n -16 /usr/bin/mpd --no-daemon' -i "${pkgdir}"/usr/lib/systemd/{system,user}/mpd.service
+
+}
