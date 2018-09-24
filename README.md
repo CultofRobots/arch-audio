@@ -11,6 +11,6 @@ Audio software PKGBUILDs for Arch Linux and Arch Linux ARM
 
 ## PKGBUILDs specific tor Arch Linux ARM:
 * ffmpeg-rpi-audio (Audio only ffmpeg build)
-* mpd-rpi (Minimal Music Player Daemon build for ARM)
 * mympd-rpi (Standalone and mobile friendly web mpdclient. Built for ARM)
+* mympd-rpi-minimal (Standalone and mobile friendly web mpdclient. Built for ARM)
 
