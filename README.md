@@ -3,7 +3,7 @@
 Audio software PKGBUILDs for Arch Linux and Arch Linux ARM
 
 ## PKGBUILDs
-* [**alsaequal**])https://aur.archlinux.org/packages/alsaequal/) Real-time adjustable equalizer plugin for ALSA sound server
+* [**alsaequal**](https://aur.archlinux.org/packages/alsaequal/) Real-time adjustable equalizer plugin for ALSA sound server
 * [**mpd-sima**](https://kaliko.me/code/mpd-sima/): Automatically add tracks to the MPD playlist based on last.fm recommendations
 * [**mpdas**](http://50hz.ws/mpdas/): MPD last.fm scrobbler written in C++ using libcurl
 * [**mpdscribble**](https://www.musicpd.org/clients/mpdscribble/): MPD last.fm/libre.fm scrobbler
