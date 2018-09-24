@@ -7,7 +7,7 @@ Audio software PKGBUILDs for Arch Linux and Arch Linux ARM
 * [**mpd-sima**](https://kaliko.me/code/mpd-sima/): Automatically add tracks to the MPD playlist based on last.fm recommendations
 * [**mpdas**](http://50hz.ws/mpdas/): MPD last.fm scrobbler written in C++ using libcurl
 * [**mpdscribble**](https://www.musicpd.org/clients/mpdscribble/): MPD last.fm/libre.fm scrobbler
-* [**mympd**] Standalone and mobile friendly web mpdclient
+* [**mympd**](https://github.com/jcorporation/myMPD): Standalone and mobile friendly web mpdclient
 * [**python-musicpd**](https://aur.archlinux.org/packages/python-musicpd/): required for mpd-sima (unavailable in official arch linux repositories).
 
 ## PKGBUILDs specific tor Arch Linux ARM:
