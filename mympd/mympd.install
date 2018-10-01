@@ -11,11 +11,8 @@ post_upgrade() {
   [ "$?" = "2" ] && useradd --system -d /var/lib/mympd -s /usr/sbin/nologin -g mympd mympd
 
   # fix ownership of /var/lib/mympd
-  if ! [ $(stat -c '%U:%G' /var/lib/mympd/) = 'mympd:mympd' ]
-  then
-    echo "INFO: Fixing ownership of /var/lib/mympd"
-    chown -R mympd.mympd /var/lib/mympd
-  fi
+  echo "INFO: Fixing ownership of /var/lib/mympd"
+  chown -R mympd.mympd /var/lib/mympd
 
   # link music directory to mympd if not already exising 
   echo "INFO: Trying to link musicdir to library"
@@ -56,6 +53,21 @@ post_upgrade() {
   # disable ssl by default on mympd.conf.dist (chrome hates localhost.localdomain)
   echo "INFO: Disabling SSL by default in dist config"
   sed '/^ssl = true/c ssl = false' -i "/etc/mympd/mympd.conf.dist"
+
+  # move smartpls into place unless already existing
+  for PLDIST in /var/lib/mympd/smartpls/*.dist
+  do
+    if [ -f "$PLDIST" ]
+    then
+      PLS=$(basename $PLDIST .dist)
+      if [ -f /var/lib/mympd/smartpls/$PLS ]
+      then
+        rm $PLDIST
+      else
+        mv -v $PLDIST /var/lib/mympd/smartpls/$PLS
+      fi
+    fi
+  done
 
   # move config into place unless already existing
   if [ ! -f /etc/mympd/mympd.conf ]
