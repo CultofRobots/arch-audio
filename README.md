@@ -11,6 +11,7 @@ Audio software PKGBUILDs for Arch Linux and Arch Linux ARM
 * [**python-musicpd**](https://aur.archlinux.org/packages/python-musicpd/): required for mpd-sima (unavailable in official arch linux repositories).
 
 ## PKGBUILDs specific tor Arch Linux ARM:
+* [**cli-visualizer-rpi**](https://github.com/dpayne/cli-visualizer/) A cli visualizer for mpd built for Raspberry Pi 2/3.
 * [**ffmpeg-rpi-audio**](https://www.ffmpeg.org/) ffmpeg for headless Raspberry Pi audio server built without video codecs.
 * [**mpd-rpi**](https://www.musicpd.org/): Streamlined MPD for Raspberry Pi
 * [**mpd-rpi-minimal**](https://www.musicpd.org/): MPD for Raspberry Pi built with limited native audio decoders (decoding handled mostly by ffmpeg).
