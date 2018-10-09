@@ -3,6 +3,7 @@
 # Maintainer: robot <cultofrobots [at] protonmail [dot] com>
 
 pkgname="cli-visualizer-rpi"
+_pkgname="cli-visualizer"
 pkgver=1.8
 pkgrel=8
 pkgdesc="A cli visualizer for mpd built for Raspberry Pi 2/3"
@@ -17,17 +18,17 @@ source=('https://github.com/dpayne/cli-visualizer/archive/v1.8.tar.gz')
 sha256sums=('927e4c18403c7a40397e8698ffefd1b37250be20fa0ec55fda9a82cf9cc8ba51')
 
 build() {
-    cd $pkgname-$pkgver
+    cd $_pkgname-$pkgver
     cmake ./
     make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $_pkgname-$pkgver
   install -Dm755 vis "$pkgdir/usr/bin/vis"
-  install -Dm644 examples/blue "$pkgdir"/usr/share/doc/"$pkgname"/blue
-  install -Dm644 examples/config "$pkgdir"/usr/share/doc/"$pkgname"/config
-  install -Dm644 examples/rainbow "$pkgdir"/usr/share/doc/"$pkgname"/rainbow
-  install -Dm644 examples/basic_colors "$pkgdir"/usr/share/doc/"$pkgname"/basic_colors
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/"$pkgname"/LICENSE
+  install -Dm644 examples/blue "$pkgdir"/usr/share/doc/"$_pkgname"/blue
+  install -Dm644 examples/config "$pkgdir"/usr/share/doc/"$_pkgname"/config
+  install -Dm644 examples/rainbow "$pkgdir"/usr/share/doc/"$_pkgname"/rainbow
+  install -Dm644 examples/basic_colors "$pkgdir"/usr/share/doc/"$_pkgname"/basic_colors
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/"$_pkgname"/LICENSE
 }
