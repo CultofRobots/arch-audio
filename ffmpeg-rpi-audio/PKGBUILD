@@ -10,7 +10,7 @@
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
 pkgver=4.0.2
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
 arch=('armv7h')
@@ -24,11 +24,11 @@ provides=('libavcodec.so' 'libavdevice.so' 'libavfilter.so' 'libavformat.so'
           'ffmpeg')
 conflicts=('ffmpeg')
 replaces=('ffmpeg' 'ffmpeg-archphile')
-source=("https://ffmpeg.org/releases/${_pkgname}-${pkgver}.tar.xz")
-sha256sums=('a95c0cc9eb990e94031d2183f2e6e444cc61c99f6f182d1575c433d62afb2f97')
+source=("git+https://git.ffmpeg.org/ffmpeg.git#tag=n${pkgver}")
+sha256sums=('SKIP')
 
 build() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}
 
   [[ $CARCH == "armv7h" || $CARCH == "aarch64" ]] && CONFIG='--host-cflags="-fPIC"'
 
@@ -67,7 +67,7 @@ build() {
 }
 
 package() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}
 
   make DESTDIR="${pkgdir}" install install-man
 }
