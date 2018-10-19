@@ -10,7 +10,7 @@
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
 pkgver=4.0.2
-pkgrel=3
+pkgrel=4
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
 arch=('armv7h')
@@ -53,9 +53,15 @@ build() {
     --enable-decoder=dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,dst,dts,dolby_e \
     --enable-decoder=pcm_alaw,pcm_bluray,pcm_dvd,pcm_lxf,pcm_mulaw,pcm_zork \
     --enable-decoder=pcm_f16le,pcm_f24le,pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le \
-    --enable-decoder=pcm_s16be,pcm_s16be_planar,pcm_s16le,pcm_s16le_planar,pcm_s24be,pcm_s24daud,pcm_s24le,pcm_s24le_planar \
-    --enable-decoder=pcm_s32be,pcm_s32le,pcm_s32le_planar,pcm_s64be,pcm_s64le \
-    --enable-decoder=pcm_u16be,pcm_u16le,pcm_u24be,pcm_u24le,pcm_u32be,pcm_u32le \
+    --enable-decoder=pcm_s8,pcm_s8_planar \
+    --enable-decoder=pcm_s16be,pcm_s16be_planar,pcm_s16le,pcm_s16le_planar \
+    --enable-decoder=pcm_s24be,pcm_s24daud,pcm_s24le,pcm_s24le_planar \
+    --enable-decoder=pcm_s32be,pcm_s32le,pcm_s32le_planar \ 
+    --enable-decoder=pcm_s64be,pcm_s64le \
+    --enable-decoder=pcm_u8 \
+    --enable-decoder=pcm_u16be,pcm_u16le \ 
+    --enable-decoder=pcm_u24be,pcm_u24le \ 
+    --enable-decoder=pcm_u32be,pcm_u32le \
     --enable-demuxer=aac,ac3,dts,flac,mp3 \
     --enable-demuxer=pcm_alaw,pcm_mulaw \
     --enable-demuxer=pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le \
