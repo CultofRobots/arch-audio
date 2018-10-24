@@ -9,8 +9,8 @@
 
 pkgname=mpd-rpi
 _pkgname=mpd
-pkgver=0.20.21
-pkgrel=3
+pkgver=0.20.22
+pkgrel=1
 pkgdesc='Flexible, powerful, server-side application for playing music. Minimal version with ffmpeg handling most decoding.'
 url='http://www.musicpd.org/'
 license=('GPL')
@@ -24,7 +24,7 @@ source=("https://www.musicpd.org/download/${_pkgname}/${pkgver%.*}/${_pkgname}-$
         'tmpfiles.d'
         'sysusers.d'
         'mpd.conf')
-sha256sums=('8322764dc265c20f05c8c8fdfdd578b0722e74626bef56fcd8eebfb01acc58dc'
+sha256sums=('78f4c4e2b5b5b4c542037f970c9253486b24e4a52e122d5859cd615b3b9a7cdd'
             '4e20576ea53141fc398f8e586f30bdf06a404ca099db037724ef80f15c7f2ea3'
             '0b74c6e5db08daab3091dc15a6b0c75210ba2f9e98fa074f6cfd605a461056b6'
             '5a64a5616b63af283b32343c8555eca8960c84b38f56471d7a509c481b2da1a9')
