@@ -7,7 +7,7 @@
 # Contributor: Damir Perisa <damir.perisa@bluewin.ch>
 # Contributor: Ben <ben@benmazer.net>
 
-pkgname=mpd-rpi
+pkgname=mpd-rpi-minimal
 _pkgname=mpd
 pkgver=0.20.22
 pkgrel=1
