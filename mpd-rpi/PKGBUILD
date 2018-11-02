@@ -15,7 +15,7 @@ pkgdesc='Flexible, powerful, server-side application for playing music. Light ve
 url='http://www.musicpd.org/'
 license=('GPL')
 arch=('armv7h' 'aarch64')
-depends=('audiofile' 'avahi' 'curl' 'faad2' 'ffmpeg' 'icu' 'libid3tag' 'libmad' 'libmpdclient' 
+depends=('audiofile' 'avahi' 'curl' 'faad2' 'ffmpeg' 'icu' 'libid3tag' 'libmad' 'libmpdclient' 'libnfs' 
          'libsamplerate' 'libsoxr' 'libsystemd' 'libupnp' 'opus' 'sqlite' 'wavpack' 'yajl' 'zlib')
 makedepends=('boost' 'meson' 'python-sphinx')
 provides=("mpd=$pkgver")
@@ -28,7 +28,7 @@ source=("https://www.musicpd.org/download/${_pkgname}/${pkgver}/${_pkgname}-${pk
 sha256sums=('8b0ee75fb62ba69a4a127d51fb7011c60067de3f92d050184c52420d70b1528c'
             '4e20576ea53141fc398f8e586f30bdf06a404ca099db037724ef80f15c7f2ea3'
             '0b74c6e5db08daab3091dc15a6b0c75210ba2f9e98fa074f6cfd605a461056b6'
-            '7fccb2813863ed6021b67a22b4a2323b7c3e088f66f3c6be853fb316f2d1496e')
+            '80017f8a9aa1556ab8951ed42939b77daed763dcd959d49b33db68f8c9c0fa56')
 backup=('etc/mpd.conf')
 
 prepare() {
@@ -54,7 +54,6 @@ build() {
     # Disabled Input plugins
 		'-Dcdio_paranoia=disabled'
 		'-Dmms=disabled'
-		'-Dnfs=disabled'
 		'-Dsmbclient=disabled'
     # Disabled Commercial services
 		'-Dqobuz=disabled'
