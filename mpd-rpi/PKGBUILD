@@ -28,7 +28,7 @@ source=("https://www.musicpd.org/download/${_pkgname}/${pkgver}/${_pkgname}-${pk
 sha256sums=('8b0ee75fb62ba69a4a127d51fb7011c60067de3f92d050184c52420d70b1528c'
             '4e20576ea53141fc398f8e586f30bdf06a404ca099db037724ef80f15c7f2ea3'
             '0b74c6e5db08daab3091dc15a6b0c75210ba2f9e98fa074f6cfd605a461056b6'
-            '80017f8a9aa1556ab8951ed42939b77daed763dcd959d49b33db68f8c9c0fa56')
+            '3706ebed882421bc9d5d9f4fd71dcd261984f56aa5b45945cbf1330fd8aab584')
 backup=('etc/mpd.conf')
 
 prepare() {
