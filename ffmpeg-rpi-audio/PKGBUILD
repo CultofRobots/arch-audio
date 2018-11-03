@@ -18,7 +18,8 @@ url='http://ffmpeg.org/'
 license=('GPL3')
 depends=('bzip2' 'glibc' 'gnutls' 'xz' 'zlib'
          'lame' 'libvorbis' 'libsoxr' 'opus' 'rtmpdump')
-makedepends=('yasm')
+makedepends=('git' 'ladspa' 'yasm')
+optdepends=('ladspa: LADSPA filters')
 provides=('libavcodec.so' 'libavdevice.so' 'libavfilter.so' 'libavformat.so'
           'libavutil.so' 'libpostproc.so' 'libswresample.so'
           'ffmpeg')
