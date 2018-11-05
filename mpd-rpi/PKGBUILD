@@ -10,7 +10,7 @@
 pkgname=mpd-rpi
 _pkgname=mpd
 pkgver=0.21.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Flexible, powerful, server-side application for playing music. Light version optimized for raspberry pi ARM7+ distribution.'
 url='http://www.musicpd.org/'
 license=('GPL')
@@ -71,7 +71,6 @@ build() {
 		'-Dmpg123=disabled'
 		'-Dsidplay=disabled'
 		'-Dsndfile=disabled'
-		'-Dvorbis=disabled' # let opus decode it
 		'-Dwildmidi=disabled'
     # Disabled Encoder plugins
 		'-Dvorbisenc=disabled' # use opus
