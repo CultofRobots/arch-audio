@@ -9,22 +9,46 @@
 
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
-pkgver=4.1
-pkgrel=3
+pkgver=4.1.1
+pkgrel=1
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
 arch=('armv7h')
 url='http://ffmpeg.org/'
 license=('GPL3')
-depends=('bzip2' 'glibc' 'gnutls' 'xz' 'zlib'
-         'lame' 'libvorbis' 'libsoxr' 'opus' 'rtmpdump')
-makedepends=('git' 'ladspa' 'yasm')
+depends=(
+  bzip2
+  glibc
+  gnutls
+  xz
+  zlib
+  lame
+  libvorbis
+  libsoxr
+  opus
+  rtmpdump
+)
+makedepends=(
+  git
+  ladspa
+  yasm
+)
 optdepends=('ladspa: LADSPA filters')
-provides=('libavcodec.so' 'libavdevice.so' 'libavfilter.so' 'libavformat.so'
-          'libavutil.so' 'libpostproc.so' 'libswresample.so'
-          'ffmpeg')
+provides=(
+  libavcodec.so
+  libavdevice.so
+  libavfilter.so
+  libavformat.so
+  libavutil.so
+  libpostproc.so
+  libswresample.so
+  ffmpeg
+)
 conflicts=('ffmpeg')
-replaces=('ffmpeg' 'ffmpeg-archphile')
+replaces=(
+  ffmpeg
+  ffmpeg-archphile
+)
 source=("git+https://git.ffmpeg.org/ffmpeg.git#tag=n${pkgver}")
 sha256sums=('SKIP')
 
@@ -69,7 +93,7 @@ build() {
     --enable-demuxer=pcm_s16be,pcm_s16le,pcm_s24be,pcm_s24le,pcm_s32be,pcm_s32le \
     --enable-demuxer=pcm_u16be,pcm_u16le,pcm_u24be,pcm_u24le,pcm_u32be,pcm_u32le \
     --enable-parser=aac,ac3,flac,opus,vorbis
- 
+
   make
 }
 
