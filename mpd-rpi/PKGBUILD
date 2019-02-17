@@ -10,7 +10,7 @@
 pkgname=mpd-rpi
 _pkgname=mpd
 pkgver=0.21.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Flexible, powerful, server-side application for playing music. Light version optimized for raspberry pi ARM7+ distribution.'
 url='http://www.musicpd.org/'
 license=('GPL')
@@ -43,7 +43,6 @@ build() {
     # Disabled from official Arch Linux PKGBUILD
 		'-Dchromaprint=disabled' # appears not to be used for anything
 		'-Dsidplay=disabled' # unclear why but disabled in the past
-		'-Dlibwrap=disabled' # twentieth century's over
 		'-Dadplug=disabled' # not in an official repo
 		'-Dsndio=disabled' # interferes with detection of alsa devices
 		'-Dshine=disabled' # not in an official repo
@@ -73,7 +72,7 @@ build() {
 		'-Dsndfile=disabled'
 		'-Dwildmidi=disabled'
     # Disabled Encoder plugins
-		'-Dvorbisenc=disabled' # use opus
+		#'-Dvorbisenc=disabled' # enabled until opus streams tags properly in icecast
 		'-Dtwolame=disabled'
     # Disabled Output plugins
 		'-Dao=disabled'
