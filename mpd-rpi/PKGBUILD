@@ -10,7 +10,7 @@
 pkgname=mpd-rpi
 _pkgname=mpd
 pkgver=0.21.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Flexible, powerful, server-side application for playing music. Light version optimized for raspberry pi ARM7+ distribution.'
 url='http://www.musicpd.org/'
 license=('GPL')
@@ -81,7 +81,6 @@ build() {
 		'-Dopenal=disabled'
 		'-Doss=disabled'
 		'-Dpulse=disabled'
-		'-Dshout=disabled' # will probably be enabled again in the near future
   )
   arch-meson .. ${_opts[@]}
   ninja
