@@ -16,7 +16,7 @@ url='http://www.musicpd.org/'
 license=('GPL')
 arch=('armv7h' 'aarch64')
 depends=('audiofile' 'avahi' 'curl' 'faad2' 'ffmpeg' 'icu' 'libid3tag' 'libmad' 'libmpdclient' 'libnfs' 
-         'libsamplerate' 'libsoxr' 'libsystemd' 'libupnp' 'opus' 'sqlite' 'wavpack' 'yajl' 'zlib')
+         'libsamplerate' 'libsoxr' 'libupnp' 'opus' 'sqlite' 'systemd-libs' 'wavpack' 'yajl' 'zlib')
 makedepends=('boost' 'meson' 'python-sphinx')
 provides=("mpd=$pkgver")
 conflicts=('mpd')
