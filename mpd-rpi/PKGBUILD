@@ -10,12 +10,12 @@
 pkgname=mpd-rpi
 _pkgname=mpd
 pkgver=0.21.4
-pkgrel=3
+pkgrel=4
 pkgdesc='Flexible, powerful, server-side application for playing music. Light version optimized for raspberry pi ARM7+ distribution.'
 url='http://www.musicpd.org/'
 license=('GPL')
 arch=('armv7h' 'aarch64')
-depends=('audiofile' 'avahi' 'curl' 'faad2' 'ffmpeg' 'icu' 'libid3tag' 'libmad' 'libmpdclient' 'libnfs' 
+depends=('audiofile' 'avahi' 'curl' 'faad2' 'ffmpeg' 'icu' 'libid3tag' 'libmad' 'libmpdclient' 
          'libsamplerate' 'libsoxr' 'libupnp' 'opus' 'sqlite' 'systemd-libs' 'wavpack' 'yajl' 'zlib')
 makedepends=('boost' 'meson' 'python-sphinx')
 provides=("mpd=$pkgver")
@@ -32,54 +32,60 @@ sha256sums=('247112eabf1b818a4052db7f0f5917ab00831ebc60a1ec3bf1154da4dc16a5c7'
 backup=('etc/mpd.conf')
 
 prepare() {
-	cd "${srcdir}/${_pkgname}-${pkgver}"
-	rm -fr build
-	install -d build
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  rm -fr build
+  install -d build
 }
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}/build"
   _opts=('-Ddocumentation=true'
-    # Disabled from official Arch Linux PKGBUILD
-		'-Dchromaprint=disabled' # appears not to be used for anything
-		'-Dsidplay=disabled' # unclear why but disabled in the past
-		'-Dadplug=disabled' # not in an official repo
-		'-Dsndio=disabled' # interferes with detection of alsa devices
-		'-Dshine=disabled' # not in an official repo
-    # Disabled Network support
-		'-Dipv6=disabled'
-    # Disabled Storage plugins
-		'-Dwebdav=disabled'
-    # Disabled Input plugins
-		'-Dcdio_paranoia=disabled'
-		'-Dmms=disabled'
-		'-Dsmbclient=disabled'
-    # Disabled Commercial services
-		'-Dqobuz=disabled'
-		'-Dtidal=disabled'
-    # Disabled Archive plugins
-		'-Dbzip2=disabled'
-		'-Diso9660=disabled'
-		'-Dzzip=disabled'
-    # Disabled Decoder plugins
-		'-Dfluidsynth=disabled'
-		'-Dgme=disabled'
-		'-Dmikmod=disabled'
-		'-Dmodplug=disabled'
-		'-Dmpcdec=disabled'
-		'-Dmpg123=disabled'
-		'-Dsidplay=disabled'
-		'-Dsndfile=disabled'
-		'-Dwildmidi=disabled'
-    # Disabled Encoder plugins
-		#'-Dvorbisenc=disabled' # enabled until opus streams tags properly in icecast
-		'-Dtwolame=disabled'
-    # Disabled Output plugins
-		'-Dao=disabled'
-		'-Djack=disabled'
-		'-Dopenal=disabled'
-		'-Doss=disabled'
-		'-Dpulse=disabled'
+         # Disabled from official Arch Linux PKGBUILD
+         '-Dchromaprint=disabled' # appears not to be used for anything
+         '-Dsidplay=disabled' # unclear why but disabled in the past
+         '-Dadplug=disabled' # not in an official repo
+         '-Dsndio=disabled' # interferes with detection of alsa devices
+         '-Dshine=disabled' # not in an official repo
+         # Disabled Network support
+         '-Dipv6=disabled'
+         # Disabled Storage plugins
+         '-Dwebdav=disabled'
+         # Disabled Input plugins
+         '-Dcdio_paranoia=disabled'
+         '-Dmms=disabled'
+         '-Dnfs=disabled' # supports only NFS version 3.
+         '-Dsmbclient=disabled'
+         # Disabled Commercial services
+         '-Dqobuz=disabled'
+         '-Dtidal=disabled'
+         # Disabled Archive plugins
+         '-Dbzip2=disabled'
+         '-Diso9660=disabled'
+         '-Dzzip=disabled'
+         # Disabled Decoder plugins
+         '-Dfluidsynth=disabled'
+         '-Dgme=disabled'
+         '-Dmikmod=disabled'
+         '-Dmodplug=disabled'
+         '-Dmpcdec=disabled'
+         '-Dmpg123=disabled'
+         '-Dsidplay=disabled'
+         '-Dsndfile=disabled'
+         '-Dwildmidi=disabled'
+         # Disabled Encoder plugins
+         #'-Dvorbisenc=disabled' # enabled until opus streams tags properly in icecast
+         '-Dtwolame=disabled'
+         # Disabled Filter plugins
+         '-Dlibsamplerate=disabled'
+         # Disabled Output plugins
+         '-Dao=disabled'
+         '-Djack=disabled'
+         '-Dopenal=disabled'
+         '-Doss=disabled'
+         '-Dpulse=disabled'
+         '-Drecorder=false'
+         # Misc libraries
+         '-Dzeroconf=avahi'
   )
   arch-meson .. ${_opts[@]}
   ninja
@@ -89,16 +95,16 @@ package() {
   cd "${srcdir}/${_pkgname}-${pkgver}/build"
   DESTDIR="${pkgdir}" ninja install
   install -Dm644 ../doc/mpdconf.example "${pkgdir}"/usr/share/doc/mpd/mpdconf.example
-	install -Dm644 ../doc/mpd.conf.5 "${pkgdir}"/usr/share/man/man5/mpd.conf.5
-	install -Dm644 ../doc/mpd.1 "${pkgdir}"/usr/share/man/man1/mpd.1
+  install -Dm644 ../doc/mpd.conf.5 "${pkgdir}"/usr/share/man/man5/mpd.conf.5
+  install -Dm644 ../doc/mpd.1 "${pkgdir}"/usr/share/man/man1/mpd.1
 
-	install -Dm644 ../../tmpfiles.d "${pkgdir}"/usr/lib/tmpfiles.d/mpd.conf
-	install -Dm644 ../../sysusers.d "${pkgdir}"/usr/lib/sysusers.d/mpd.conf
+  install -Dm644 ../../tmpfiles.d "${pkgdir}"/usr/lib/tmpfiles.d/mpd.conf
+  install -Dm644 ../../sysusers.d "${pkgdir}"/usr/lib/sysusers.d/mpd.conf
   install -Dm644 ../../mpd.conf "${pkgdir}"/etc/mpd.conf
 
-	sed \
-		-e '/\[Service\]/a User=mpd' \
-		-e '/WantedBy=/c WantedBy=default.target' \
-		-i "${pkgdir}"/usr/lib/systemd/system/mpd.service
+  sed \
+    -e '/\[Service\]/a User=mpd' \
+    -e '/WantedBy=/c WantedBy=default.target' \
+    -i "${pkgdir}"/usr/lib/systemd/system/mpd.service
 }
 
