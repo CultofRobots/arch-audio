@@ -43,6 +43,7 @@ provides=(
   libpostproc.so
   libswresample.so
   ffmpeg
+  ffmpeg-archphile
 )
 conflicts=('ffmpeg')
 replaces=(
