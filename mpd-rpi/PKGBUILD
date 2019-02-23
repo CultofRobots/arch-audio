@@ -9,14 +9,14 @@
 
 pkgname=mpd-rpi
 _pkgname=mpd
-pkgver=0.21.4
-pkgrel=4
+pkgver=0.21.5
+pkgrel=1
 pkgdesc='Flexible, powerful, server-side application for playing music. Light version optimized for raspberry pi ARM7+ distribution.'
 url='http://www.musicpd.org/'
 license=('GPL')
 arch=('armv7h' 'aarch64')
 depends=('audiofile' 'avahi' 'curl' 'faad2' 'ffmpeg' 'icu' 'libid3tag' 'libmad' 'libmpdclient' 
-         'libsamplerate' 'libsoxr' 'libupnp' 'opus' 'sqlite' 'systemd-libs' 'wavpack' 'yajl' 'zlib')
+         'libsamplerate' 'libshout' 'libsoxr' 'libvorbis' 'libupnp' 'opus' 'sqlite' 'systemd-libs' 'wavpack' 'yajl' 'zlib')
 makedepends=('boost' 'meson' 'python-sphinx')
 provides=("mpd=$pkgver")
 conflicts=('mpd')
@@ -25,7 +25,7 @@ source=("https://www.musicpd.org/download/${_pkgname}/${pkgver%.*}/${_pkgname}-$
         'tmpfiles.d'
         'sysusers.d'
         'mpd.conf')
-sha256sums=('247112eabf1b818a4052db7f0f5917ab00831ebc60a1ec3bf1154da4dc16a5c7'
+sha256sums=('2ea9f0eb3a7bdae5d705adf4e8ec45ef38b5b9ddf133f32b8926dd4e205b0ef9'
             '4e20576ea53141fc398f8e586f30bdf06a404ca099db037724ef80f15c7f2ea3'
             '0b74c6e5db08daab3091dc15a6b0c75210ba2f9e98fa074f6cfd605a461056b6'
             '3706ebed882421bc9d5d9f4fd71dcd261984f56aa5b45945cbf1330fd8aab584')
@@ -46,6 +46,7 @@ build() {
          '-Dadplug=disabled' # not in an official repo
          '-Dsndio=disabled' # interferes with detection of alsa devices
          '-Dshine=disabled' # not in an official repo
+         '-Dtremor=disabled' # Fixed-point vorbis decoder plugin (not in an official repo)
          # Disabled Network support
          '-Dipv6=disabled'
          # Disabled Storage plugins
