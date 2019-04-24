@@ -10,7 +10,7 @@
 pkgname=mpd-rpi
 _pkgname=mpd
 pkgver=0.21.8
-pkgrel=2
+pkgrel=1
 pkgdesc='Flexible, powerful, server-side application for playing music. Light version optimized for raspberry pi ARM7+ distribution.'
 url='http://www.musicpd.org/'
 license=('GPL')
