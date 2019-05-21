@@ -9,7 +9,7 @@
 
 pkgname=mpd-rpi
 _pkgname=mpd
-pkgver=0.21.8
+pkgver=0.21.9
 pkgrel=1
 pkgdesc='Flexible, powerful, server-side application for playing music. Light version optimized for raspberry pi ARM7+ distribution.'
 url='http://www.musicpd.org/'
@@ -25,7 +25,7 @@ source=("https://www.musicpd.org/download/${_pkgname}/${pkgver%.*}/${_pkgname}-$
         'tmpfiles.d'
         'sysusers.d'
         'mpd.conf')
-sha256sums=('23e083f11356c66bfb4a53c00568d370f57707df56496b299c414aaae59a9757'
+sha256sums=('39e25376ac2f4db26c3d074eba2ebeba10879a29c71abab33571019c1e520d3e'
             '4e20576ea53141fc398f8e586f30bdf06a404ca099db037724ef80f15c7f2ea3'
             '0b74c6e5db08daab3091dc15a6b0c75210ba2f9e98fa074f6cfd605a461056b6'
             '3706ebed882421bc9d5d9f4fd71dcd261984f56aa5b45945cbf1330fd8aab584')
