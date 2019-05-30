@@ -1,0 +1,111 @@
+# Maintainer: robot <cultofrobots [at] protonmail [dot] com>
+# Website: https://github.com/CultofRobots/
+# Based on official arch linux mpd PKGBUILD made by the following people:
+# Maintainer: Gaetan Bisson <bisson@archlinux.org>
+# Contributor: Angel Velasquez <angvp@archlinux.org>
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
+# Contributor: Damir Perisa <damir.perisa@bluewin.ch>
+# Contributor: Ben <ben@benmazer.net>
+
+pkgname=mpd-headless
+_pkgname=mpd
+pkgver=0.21.9
+pkgrel=1
+pkgdesc='Flexible, powerful, server-side application for playing music, optimized for headless server'
+url='http://www.musicpd.org/'
+license=('GPL')
+arch=('x86_64')
+depends=('audiofile' 'avahi' 'curl' 'faad2' 'ffmpeg' 'icu' 'libid3tag' 'libmad' 'libmpdclient' 
+         'libsamplerate' 'libshout' 'libsoxr' 'libvorbis' 'libupnp' 'opus' 'sqlite' 'systemd-libs' 'wavpack' 'yajl' 'zlib')
+makedepends=('boost' 'meson' 'python-sphinx')
+provides=("mpd=$pkgver")
+conflicts=('mpd')
+replaces=('mpd')
+source=("https://www.musicpd.org/download/${_pkgname}/${pkgver%.*}/${_pkgname}-${pkgver}.tar.xz"
+        'tmpfiles.d'
+        'sysusers.d'
+        'mpd.conf')
+sha256sums=('39e25376ac2f4db26c3d074eba2ebeba10879a29c71abab33571019c1e520d3e'
+            '4e20576ea53141fc398f8e586f30bdf06a404ca099db037724ef80f15c7f2ea3'
+            '0b74c6e5db08daab3091dc15a6b0c75210ba2f9e98fa074f6cfd605a461056b6'
+            '3706ebed882421bc9d5d9f4fd71dcd261984f56aa5b45945cbf1330fd8aab584')
+backup=('etc/mpd.conf')
+
+prepare() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  rm -fr build
+  install -d build
+}
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}/build"
+  _opts=('-Ddocumentation=true'
+         # Disabled from official Arch Linux PKGBUILD
+         '-Dchromaprint=disabled' # appears not to be used for anything
+         '-Dsidplay=disabled' # unclear why but disabled in the past
+         '-Dadplug=disabled' # not in an official repo
+         '-Dsndio=disabled' # interferes with detection of alsa devices
+         '-Dshine=disabled' # not in an official repo
+         '-Dtremor=disabled' # Fixed-point vorbis decoder plugin (not in an official repo)
+         # Disabled Network support
+         '-Dipv6=disabled'
+         # Disabled Storage plugins
+         '-Dwebdav=disabled'
+         # Disabled Input plugins
+         '-Dcdio_paranoia=disabled'
+         '-Dmms=disabled'
+         '-Dnfs=disabled' # supports only NFS version 3.
+         '-Dsmbclient=disabled'
+         # Disabled Commercial services
+         '-Dqobuz=disabled'
+         '-Dtidal=disabled'
+         # Disabled Archive plugins
+         '-Dbzip2=disabled'
+         '-Diso9660=disabled'
+         '-Dzzip=disabled'
+         # Disabled Decoder plugins
+         '-Dfluidsynth=disabled'
+         '-Dgme=disabled'
+         '-Dmikmod=disabled'
+         '-Dmodplug=disabled'
+         '-Dmpcdec=disabled'
+         '-Dmpg123=disabled'
+         '-Dsidplay=disabled'
+         '-Dsndfile=disabled'
+         '-Dwildmidi=disabled'
+         # Disabled Encoder plugins
+         #'-Dvorbisenc=disabled' # enabled until opus streams tags properly in icecast
+         '-Dtwolame=disabled'
+         # Disabled Filter plugins
+         '-Dlibsamplerate=disabled'
+         # Disabled Output plugins
+         '-Dao=disabled'
+         '-Djack=disabled'
+         '-Dopenal=disabled'
+         '-Doss=disabled'
+         '-Dpulse=disabled'
+         '-Drecorder=false'
+         # Misc libraries
+         '-Dzeroconf=avahi'
+  )
+  arch-meson .. ${_opts[@]}
+  ninja
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}/build"
+  DESTDIR="${pkgdir}" ninja install
+  install -Dm644 ../doc/mpdconf.example "${pkgdir}"/usr/share/doc/mpd/mpdconf.example
+  install -Dm644 ../doc/mpd.conf.5 "${pkgdir}"/usr/share/man/man5/mpd.conf.5
+  install -Dm644 ../doc/mpd.1 "${pkgdir}"/usr/share/man/man1/mpd.1
+
+  install -Dm644 ../../tmpfiles.d "${pkgdir}"/usr/lib/tmpfiles.d/mpd.conf
+  install -Dm644 ../../sysusers.d "${pkgdir}"/usr/lib/sysusers.d/mpd.conf
+  install -Dm644 ../../mpd.conf "${pkgdir}"/etc/mpd.conf
+
+  sed \
+    -e '/\[Service\]/a User=mpd' \
+    -e '/WantedBy=/c WantedBy=default.target' \
+    -i "${pkgdir}"/usr/lib/systemd/system/mpd.service
+}
+
