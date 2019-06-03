@@ -24,7 +24,7 @@ post_upgrade() {
   fi
 
   # create ssl certificates unless already existing
-  if [ -d /etc/mympd/ssl ]
+  if [ -d /var/lib/mympd/ssl ]
   then
     echo "INFO: Certificates already created"
   else
@@ -37,12 +37,12 @@ post_upgrade() {
   do
     if [ -f "$PLDIST" ]
     then
-      PLS=$(basename $PLDIST .dist)
-      if [ -f /var/lib/mympd/smartpls/$PLS ]
+      PLS=$(basename "$PLDIST" .dist)
+      if [ -f "/var/lib/mympd/smartpls/$PLS" ]
       then
-        rm $PLDIST
+        rm "$PLDIST"
       else
-        mv -v $PLDIST /var/lib/mympd/smartpls/$PLS
+        mv -v "$PLDIST" "/var/lib/mympd/smartpls/$PLS"
       fi
     fi
   done
@@ -66,11 +66,12 @@ post_upgrade() {
 post_remove() {
   # stop and remove systemd service
   systemctl daemon-reload
-  if `systemctl is-active --quiet mympd`
-    then
-    echo "stopping mympd.service" && systemctl stop mympd 
+  if [ "$(systemctl is-active mympd)" = "active" ]; then
+    echo "stopping mympd.service" 
+    systemctl stop mympd 
   fi
-  echo "disabling mympd.service" && systemctl disable mympd 
+  echo "disabling mympd.service" 
+  systemctl disable mympd 
  
   # backup config 
   if [ -f /etc/mympd/mympd.conf ]
@@ -90,4 +91,3 @@ post_remove() {
   rmdir -v /usr/share/mympd/htdocs/
   rmdir -v /usr/share/mympd/
 }
-
