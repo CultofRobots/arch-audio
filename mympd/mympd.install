@@ -88,6 +88,6 @@ post_remove() {
   [ "$?" != "2" ] && groupdel mympd 
 
   # remove leftover directories
-  rmdir -v /usr/share/mympd/htdocs/
-  rmdir -v /usr/share/mympd/
+  [ -d /usr/share/mympd/htdocs/ ] && rmdir -v /usr/share/mympd/htdocs
+  [ -d /usr/share/mympd ] && rmdir -v /usr/share/mympd/
 }
