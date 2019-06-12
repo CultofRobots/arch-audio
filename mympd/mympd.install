@@ -49,7 +49,7 @@ post_upgrade() {
 
   # fix ownership of /var/lib/mympd
   echo "INFO: Fixing ownership of /var/lib/mympd"
-  chown -R mympd.mympd /var/lib/mympd
+  [ ! $(stat -c '%U:%G' /var/lib/mympd) == "mympd:mympd" ] && chown -R mympd:mympd /var/lib/mympd
 
   # move config into place unless already existing
   if [ ! -f /etc/mympd/mympd.conf ]
@@ -66,13 +66,10 @@ post_upgrade() {
 post_remove() {
   # stop and remove systemd service
   systemctl daemon-reload
-  if [ "$(systemctl is-active mympd)" = "active" ]; then
-    echo "stopping mympd.service" 
-    systemctl stop mympd 
-  fi
-  echo "disabling mympd.service" 
-  systemctl disable mympd 
- 
+  echo "INFO: Stopping and removing mympd systemd service" 
+  [ "$(systemctl is-active mympd)" == "active" ] && systemctl stop mympd 
+  [ -L "/etc/systemd/system/multi-user.target.wants/mympd.service" ] && systemctl -q disable mympd
+
   # backup config 
   if [ -f /etc/mympd/mympd.conf ]
   then 
@@ -80,14 +77,4 @@ post_remove() {
     echo -e "\e[93mINFO\e[0m: /etc/mympd/mympd.conf backed up to /etc/mympd/mympd.conf.pacsave"
   fi
 
-  # remove mympd user and group
-  getent passwd mympd > /dev/null
-  echo -e "\e[93mWARNING\e[0m: Removing \e[1mmympd \e[0muser and group!"
-  [ "$?" != "2" ] && userdel -r mympd
-  getent group mympd > /dev/null
-  [ "$?" != "2" ] && groupdel mympd 
-
-  # remove leftover directories
-  [ -d /usr/share/mympd/htdocs/ ] && rmdir -v /usr/share/mympd/htdocs
-  [ -d /usr/share/mympd ] && rmdir -v /usr/share/mympd/
 }

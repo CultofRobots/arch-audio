@@ -1,12 +1,12 @@
 # Maintainer: robot <cultofrobots [at] protonmail [dot] com>
 # Website: https://github.com/CultofRobots
-# Based on jcorporation's myMPD PKBUILD
+# Based on jcorporation's myMPD PKGBUILD
 # Website: https://github.com/jcorporation/myMPD
 
 pkgname=mympd
 _pkgname=myMPD
 pkgver=5.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc="myMPD is a standalone and mobile friendly web mpdclient."
 arch=('x86_64' 'armv7h' 'aarch64')
 url="http://github.org/jcorporation/myMPD"
@@ -21,13 +21,11 @@ install=mympd.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
         'mympd.install')
 sha256sums=('e54a588c38d9bb59d5d6cd387450b1c28c3a4479e9f58088773097c021921055'
-            '851be0c3f23689b950b018cdd49a279b22ac64f9c2e8de442ffab1b9486dd009')
+            'b267abd32fdbdac9a412665c4473577458bab563616008a86950449b2df09c3c')
 
 build() {
-  cd "${srcdir}/${_pkgname}-${pkgver}"
-  
-  [ -d release ] || mkdir release
-  cd release
+  mkdir "${srcdir}/${_pkgname}-${pkgver}/release"
+  cd "${srcdir}/${_pkgname}-${pkgver}/release"
   cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=RELEASE ..
   make
 }
