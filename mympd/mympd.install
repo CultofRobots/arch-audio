@@ -78,10 +78,16 @@ post_remove() {
   fi
 
   # remove mympd user and group
-  getent passwd mympd > /dev/null
   echo -e "\e[93mWARNING\e[0m: Removing \e[1mmympd \e[0muser and group!"
-  [ "$?" != "2" ] && userdel mympd
-  getent group mympd > /dev/null
-  [ "$?" != "2" ] && groupdel mympd 
+  # remove mympd user (keep files)
+  if [ $(getent passwd mympd) ]
+  then
+    userdel mympd
+  fi
 
+  # remove mympd group
+  if [ $(getent group mympd) ]
+  then
+    groupdel mympd
+  fi
 }
