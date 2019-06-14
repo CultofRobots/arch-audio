@@ -24,8 +24,9 @@ sha256sums=('e54a588c38d9bb59d5d6cd387450b1c28c3a4479e9f58088773097c021921055'
             'ad9d3c02c5b738b09a495ade31e7c422e2a023ed63d0625551ce1f5a23369290')
 
 build() {
-  mkdir "${srcdir}/${_pkgname}-${pkgver}/release"
-  cd "${srcdir}/${_pkgname}-${pkgver}/release"
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  [ -d release ] || mkdir release
+  cd release
   cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=RELEASE ..
   make
 }
