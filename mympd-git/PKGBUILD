@@ -1,0 +1,41 @@
+# Maintainer: Juergen Mang <mail [at] jcgames [dot] de>
+# Contributer: cultofrobots <cultofrobots [at] protonmail [dot] com>
+# Website: https://github.com/jcorporation/myMPD
+
+pkgname=mympd-git
+_pkgname=myMPD
+pkgver=5.4.0.r2.gc9cd3f0
+pkgrel=1
+pkgdesc="myMPD is a standalone and mobile friendly web mpdclient."
+arch=('x86_64' 'armv7h' 'aarch64')
+url="http://github.org/jcorporation/myMPD"
+license=('GPL')
+depends=('libmpdclient' 'openssl')
+makedepends=('cmake')
+optdepends=('libmediainfo')
+provides=()
+conflicts=('mympd')
+replaces=()
+install="mympd.install"
+source=("git+https://github.com/jcorporation/myMPD.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "${srcdir}/${_pkgname}"
+  git describe --long --tags | sed -E 's/^v//; s/([^-]*-g)/r\1/; s/-/./g'
+}
+
+build() {
+  cd "${srcdir}/${_pkgname}"
+  [ -d release ] || mkdir release
+  cd release
+  cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=RELEASE ..
+  make
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}/release"
+  make DESTDIR="$pkgdir/" install
+
+  install -Dm644  "${srcdir}/${_pkgname}/contrib/mympd.service" "$pkgdir/usr/lib/systemd/system/mympd.service"
+}
