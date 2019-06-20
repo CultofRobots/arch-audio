@@ -4,7 +4,7 @@
 
 pkgname=mympd-git
 _pkgname=myMPD
-pkgver=5.4.0.r2.gc9cd3f0
+pkgver=5.4.0.r28.g0f688a7
 pkgrel=1
 pkgdesc="myMPD is a standalone and mobile friendly web mpdclient."
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -26,6 +26,7 @@ pkgver() {
 }
 
 build() {
+  export ARCHLINUX=true
   cd "${srcdir}/${_pkgname}"
   [ -d release ] || mkdir release
   cd release
@@ -38,4 +39,5 @@ package() {
   make DESTDIR="$pkgdir/" install
 
   install -Dm644  "${srcdir}/${_pkgname}/contrib/mympd.service" "$pkgdir/usr/lib/systemd/system/mympd.service"
+  install -Dm644 "${srcdir}/${_pkgname}/contrib/mympd.conf.dist" "$pkgdir/etc/webapps/mympd/mympd.conf"
 }
