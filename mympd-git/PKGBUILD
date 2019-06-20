@@ -39,5 +39,4 @@ package() {
   make DESTDIR="$pkgdir/" install
 
   install -Dm644  "${srcdir}/${_pkgname}/contrib/mympd.service" "$pkgdir/usr/lib/systemd/system/mympd.service"
-  install -Dm644 "${srcdir}/${_pkgname}/contrib/mympd.conf.dist" "$pkgdir/etc/webapps/mympd/mympd.conf"
 }
