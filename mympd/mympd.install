@@ -29,7 +29,7 @@ post_upgrade() {
     echo "INFO: Certificates already created"
   else
     echo "INFO: Creating certificates"
-    /usr/share/mympd/crcert.sh
+    /usr/share/webapps/mympd/crcert.sh
   fi
 
   # move smartpls into place unless already existing
@@ -52,29 +52,29 @@ post_upgrade() {
   chown -R mympd:mympd /var/lib/mympd
 
   # move config into place unless already existing
-  if [ ! -f /etc/mympd/mympd.conf ]
-  then 
-    mv /etc/mympd/mympd.conf.dist /etc/mympd/mympd.conf
+  if [ ! -f /etc/webapps/mympd/mympd.conf ]
+  then
+    mv /etc/webapps/mympd/mympd.conf.dist /etc/webapps/mympd/mympd.conf
   else
     echo -e "\e[93mWARNING\e[0m: \e[1mmympd.conf \e[0minstalled as \e[1mmympd.conf.dist\e[0m"
   fi
 
   # installation complete
-  echo -e "\e[93mWARNING\e[0m: Edit \e[1m/etc/mympd/mympd.conf \e[0mbefore starting myMPD"
+  echo -e "\e[93mWARNING\e[0m: Edit \e[1m/etc/webapps/mympd/mympd.conf \e[0mbefore starting myMPD"
 }
 
 post_remove() {
   # stop and remove systemd service
   systemctl daemon-reload
-  echo "INFO: Stopping and removing mympd systemd service" 
-  [ "$(systemctl is-active mympd)" == "active" ] && systemctl stop mympd 
+  echo "INFO: Stopping and removing mympd systemd service"
+  [ "$(systemctl is-active mympd)" == "active" ] && systemctl stop mympd
   [ -L "/etc/systemd/system/multi-user.target.wants/mympd.service" ] && systemctl -q disable mympd
 
-  # backup config 
-  if [ -f /etc/mympd/mympd.conf ]
-  then 
-    mv /etc/mympd/mympd.conf /etc/mympd/mympd.conf.pacsave
-    echo -e "\e[93mINFO\e[0m: /etc/mympd/mympd.conf backed up to /etc/mympd/mympd.conf.pacsave"
+  # backup config
+  if [ -f /etc/webapps/mympd/mympd.conf ]
+  then
+    mv /etc/webapps/mympd/mympd.conf /etc/webapps/mympd/mympd.conf.pacsave
+    echo -e "\e[93mINFO\e[0m: /etc/webapps/mympd/mympd.conf backed up to /etc/webapps/mympd/mympd.conf.pacsave"
   fi
 
   # remove mympd user and group
