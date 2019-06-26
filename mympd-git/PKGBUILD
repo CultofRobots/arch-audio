@@ -4,7 +4,7 @@
 
 pkgname=mympd-git
 _pkgname=myMPD
-pkgver=5.4.0.r28.g0f688a7
+pkgver=5.5.0.r1.gd02bb5f
 pkgrel=1
 pkgdesc="myMPD is a standalone and mobile friendly web mpdclient."
 arch=('x86_64' 'armv7h' 'aarch64')
