@@ -50,8 +50,14 @@ replaces=(
   ffmpeg
   ffmpeg-archphile
 )
-source=("git+https://git.ffmpeg.org/ffmpeg.git#tag=n${pkgver}")
-sha256sums=('SKIP')
+source=(git+https://git.ffmpeg.org/ffmpeg.git#tag=cbb3c9497549f8856d8cd37ac63af1406a784e58)
+sha256sums=(SKIP)
+
+pkgver() {
+  cd ffmpeg
+
+  git describe --tags | sed 's/^n//'
+}
 
 build() {
   cd ${_pkgname}
@@ -59,7 +65,7 @@ build() {
   [[ $CARCH == "armv7h" || $CARCH == "aarch64" ]] && CONFIG='--host-cflags="-fPIC"'
 
   ./configure \
-    --prefix='/usr' \
+    --prefix=/usr \
     --disable-htmlpages \
     --disable-podpages \
     --disable-txtpages \
