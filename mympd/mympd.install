@@ -1,0 +1,34 @@
+post_install() {
+  post_upgrade;
+}
+
+post_upgrade() {
+  # create mympd user, group if not already existing
+  echo "INFO: Checking status of mympd system user and group"
+  getent group mympd > /dev/null || groupadd --system mympd
+  getent passwd mympd > /dev/null || useradd --system -d /var/lib/mympd -s /usr/sbin/nologin -g mympd mympd
+
+  # install systemd service
+  echo "INFO: Installing systemd service"
+  [ -d /etc/systemd/system ] && systemctl daemon-reload
+
+  # installation complete
+  echo -e "\e[93mWARNING\e[0m: Edit \e[1m/etc/webapps/mympd/mympd.conf \e[0mbefore starting myMPD"
+}
+
+post_remove() {
+  # stop and remove systemd service
+  systemctl daemon-reload
+  echo "INFO: Stopping and removing mympd systemd service"
+  [ "$(systemctl is-active mympd)" == "active" ] && systemctl stop mympd
+  [ -L "/etc/systemd/system/multi-user.target.wants/mympd.service" ] && systemctl -q disable mympd
+
+  # remove mympd user and group
+  echo -e "\e[93mWARNING\e[0m: Removing \e[1mmympd \e[0muser and group!"
+  # remove mympd user (keep files)
+  [ $(getent passwd mympd) ] && userdel mympd
+  # remove mympd group
+  [ $(getent group mympd) ] && groupdel mympd
+
+  echo -e "\e[93mWARNING\e[0m: Please purge /var/lib/mympd manually"
+}
