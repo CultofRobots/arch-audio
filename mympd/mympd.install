@@ -8,12 +8,11 @@ post_upgrade() {
   getent group mympd > /dev/null || groupadd --system mympd
   getent passwd mympd > /dev/null || useradd --system -d /var/lib/mympd -s /usr/sbin/nologin -g mympd mympd
 
-  # install systemd service
-  echo "INFO: Installing systemd service"
-  [ -d /etc/systemd/system ] && systemctl daemon-reload
+  # fix ownership of /var/lib/mympd
+  [ -d /var/lib/mympd ] && chown -R mympd:mympd /var/lib/mympd
 
   # installation complete
-  echo -e "\e[93mWARNING\e[0m: Edit \e[1m/etc/webapps/mympd/mympd.conf \e[0mbefore starting myMPD"
+  echo -e "\e[93mwarning\e[0m: Edit \e[1m/etc/webapps/mympd/mympd.conf \e[0mbefore starting myMPD"
 }
 
 post_remove() {
@@ -24,11 +23,11 @@ post_remove() {
   [ -L "/etc/systemd/system/multi-user.target.wants/mympd.service" ] && systemctl -q disable mympd
 
   # remove mympd user and group
-  echo -e "\e[93mWARNING\e[0m: Removing \e[1mmympd \e[0muser and group!"
+  echo -e "\e[93mwarning\e[0m: Removing \e[1mmympd \e[0muser and group!"
   # remove mympd user (keep files)
   [ $(getent passwd mympd) ] && userdel mympd
   # remove mympd group
   [ $(getent group mympd) ] && groupdel mympd
 
-  echo -e "\e[93mWARNING\e[0m: Please purge /var/lib/mympd manually"
+  echo -e "\e[93mwarning\e[0m: Please purge /var/lib/mympd manually"
 }
