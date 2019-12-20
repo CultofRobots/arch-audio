@@ -5,27 +5,27 @@
 
 pkgname=mympd
 _pkgname=myMPD
-pkgver=5.7.2
-pkgrel=2
-pkgdesc="myMPD is a standalone and mobile friendly web mpdclient."
+pkgver=6.0.0
+pkgrel=1
+pkgdesc="A standalone and mobile friendly web mpdclient."
 arch=('x86_64' 'armv7h' 'aarch64')
 url="http://github.org/jcorporation/myMPD"
 license=('GPL')
-depends=('libmpdclient' 'openssl')
+depends=('openssl' 'libid3tag' 'flac')
 makedepends=('cmake')
-optdepends=('libmediainfo')
+optdepends=()
 provides=()
 conflicts=()
 replaces=()
 backup=('etc/webapps/mympd/mympd.conf')
 install=mympd.install
-source=("https://github.com/jcorporation/${_pkgname}/archive/v.${pkgver}.tar.gz"
+source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
         'mympd.install')
-sha256sums=('1335ba7356b4c9ae92b96b9f7f668120b1104f6384011962ffb92f9b3705b1ba'
+sha256sums=('17592c27d190d0756945cc707f3b30448ea67cb3f31b287b72db3bcafb2126aa'
             '2e78ed2f62e0bee867ca2d079a9acc11f94ba9e647e6688a2c7d08aade44caa2')
 
 build() {
-  cd "${srcdir}/${_pkgname}-v.${pkgver}" || exit 1
+  cd "${srcdir}/${_pkgname}-${pkgver}" || exit 1
   install -d release
   cd release || exit 1
   cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=RELEASE ..
@@ -33,6 +33,6 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/${_pkgname}-v.${pkgver}/release"
+  cd "${srcdir}/${_pkgname}-${pkgver}/release"
   make DESTDIR="$pkgdir/" install
 }
