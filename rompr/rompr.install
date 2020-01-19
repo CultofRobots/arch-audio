@@ -1,0 +1,7 @@
+post_install() {
+  ln -s /usr/share/webapps/rompr /srv/http/
+}
+
+post_remove() {
+  [ -L /srv/http/rompr ] && rm -f /srv/http/rompr
+}

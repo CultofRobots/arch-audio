@@ -1,0 +1,32 @@
+# Maintainer: robot <cultofrobots [at] protonmail [dot] com>
+# Website: https://github.com/CultofRobots
+# Contributer: gls < ghostlovescorebg at gmail dot com >
+
+pkgname=rompr
+pkgver=1.33
+pkgrel=1
+pkgdesc="Web frontend to MPD"
+arch=('x86_64' 'armv7h' 'aarch64')
+url="https://fatg3erman.github.io/RompR/"
+license=('custom')
+depends=('imagemagick' 'php')
+optdepends=('apache' 'lighttpd' 'nginx' 'php-jsonreader-git: Low Memory Mode')
+provides=()
+conflicts=()
+replaces=()
+backup=()
+install=rompr.install
+source=("https://github.com/fatg3erman/RompR/releases/download/${pkgver}/${pkgname}-${pkgver}.zip"
+        'rompr.install')
+sha256sums=('ff52404cacbf9db34e01b88510c80c1d97f48f8de9732d2913e9f3cba49d49b1'
+            'f178fc1c2d0feaa5fe88f090e18a01fa89d7d70fd2588b9224c4656b3ea8c0e2')
+
+build () {
+	cd "${srcdir}/${pkgname}"
+}
+
+package() {
+	cd "${srcdir}"
+	install -d "${pkgdir}/usr/share/webapps"
+	cp -ra rompr "${pkgdir}/usr/share/webapps"
+}
