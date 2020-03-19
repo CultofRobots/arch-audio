@@ -1,0 +1,28 @@
+# Maintainer: robot <cultofrobots [at] protonmail [dot] com>
+# Website: https://github.com/CultofRobots
+# Based on libupnpp from http://archphile.org
+# Maintained by Mike Andonov <info@archphile.org>
+# Contributor: Fabio Loli <loli_fabio@protonmail.com>
+# Contributor: Tristelune <tristelune@archlinux.info>
+
+pkgname=libupnpp
+pkgver=0.18.0
+pkgrel=1
+pkgdesc="A C++ wrapper for libupnp - used with upmpdcli or upplay"
+url="http://www.lesbonscomptes.com/upplay/downloads.html"
+arch=('x86_64' 'armv7h' 'aarch64')
+license=(GPL2)
+depends=(libnpupnp expat)
+source=("http://www.lesbonscomptes.com/upmpdcli/downloads/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('c9659cd36ce70c43e9889a6c3a5eeb28e4f799580727826a6c7aef9bef6b6937')
+
+build(){
+  cd "${pkgname}-${pkgver}"
+  ./configure --prefix=/usr
+  make
+}
+
+package(){
+  cd "${pkgname}-${pkgver}"
+  make DESTDIR="$pkgdir" install
+}
