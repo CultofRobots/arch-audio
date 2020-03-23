@@ -16,7 +16,7 @@ pkgrel=16
 pkgdesc='Real-time adjustable equalizer plugin for ALSA sound server'
 url='https://web.archive.org/web/20161105202833/http://thedigitalmachine.net/alsaequal.html'
 license=('GPL2')
-arch=('x86_64' 'armv7h')
+arch=('x86_64' 'armv7h' 'aarch64')
 
 depends=('alsa-lib' 'caps')
 optdepends=('swh-plugins: to use the mbeq equalizer (15-band)')
