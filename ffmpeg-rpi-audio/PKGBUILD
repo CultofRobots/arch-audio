@@ -10,7 +10,7 @@
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
 pkgver=4.2.2
-pkgrel=2
+pkgrel=4
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
 arch=('x86_64' 'armv7h' 'aarch64')
