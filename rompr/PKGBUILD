@@ -3,7 +3,7 @@
 # Contributer: gls < ghostlovescorebg at gmail dot com >
 
 pkgname=rompr
-pkgver=1.40
+pkgver=1.41
 pkgrel=1
 pkgdesc="Web frontend to MPD"
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -18,7 +18,7 @@ backup=()
 install=rompr.install
 source=("https://github.com/fatg3erman/RompR/releases/download/${pkgver}/${pkgname}-${pkgver}.zip"
         'rompr.install')
-sha256sums=('4804ef10788d19db1547c4c5e1886526bbeead56ddebd99dc2d8d46649cddc43'
+sha256sums=('4c5d9302ebb054e3876c3263246c311661bce7d16b6a4801a825824936771c37'
             'f178fc1c2d0feaa5fe88f090e18a01fa89d7d70fd2588b9224c4656b3ea8c0e2')
 
 build () {
