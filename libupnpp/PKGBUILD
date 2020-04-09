@@ -1,9 +1,9 @@
 # Maintainer: robot <cultofrobots [at] protonmail [dot] com>
 # Website: https://github.com/CultofRobots
-# Based on libupnpp-archphile from http://archphile.org
-# Maintained by Mike Andonov <info@archphile.org>
-# Contributor: Fabio Loli <loli_fabio@protonmail.com>
-# Contributor: Tristelune <tristelune@archlinux.info>
+# Based on Mike Andonov's libupnpp-archphile from http://archphile.org
+# Contributor: Mike Andonov <info [at] archphile [dot] org>
+# Contributor: Fabio Loli <loli_fabio [at] protonmail [dot] com>
+# Contributor: Tristelune <tristelune [at] archlinux [dot] info>
 
 pkgname=libupnpp
 pkgver=0.18.0

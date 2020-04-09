@@ -1,7 +1,7 @@
 # Maintainer: robot <cultofrobots [at] protonmail [dot] com>
 # Website: https://github.com/CultofRobots
-# Based on PKGBUILD from AUR made by the following people:
-# Maintainer: dpayne <darby.payne@gmail.com>
+# Based on PKGBUILD from AUR
+# Contributor: dpayne <darby [dot] payne [at] gmail [dot] com>
 
 pkgname="cli-visualizer-rpi"
 _pkgname="cli-visualizer"

@@ -1,13 +1,7 @@
-# $Id: PKGBUILD, 2009/06/6$
-# Maintainer: Jens John <asterisk@2ion.de>
-# Past maintainer: Alad Wenter <https://wiki.archlinux.org/index.php/Special:EmailUser/Alad>
-# Contributors:
-#     * Alireza Savand <alireza.savand@gmail.com>
-#     * Maxime de Roucy <maxime.deroucy@gmail.com>
-#     * Xyne <ac xunilhcra enyx, backwards>
-#     * speeddefrost
-#     * stefanr
-#     * Bjorn Neergaard <bjorn@neersighted.com>
+# Maintainer: robot <cultofrobots [at] protonmail [dot] com>
+# Website: https://github.com/CultofRobots
+# Based on PKGBUILD from AUR
+# Contributor: Jens John <asterisk [at] 2ion[ dot] de>
 
 pkgname=alsaequal
 pkgver=0.6
@@ -19,7 +13,7 @@ license=('GPL2')
 arch=('x86_64' 'armv7h' 'aarch64')
 
 depends=('alsa-lib' 'caps')
-optdepends=('swh-plugins: to use the mbeq equalizer (15-band)')
+optdepends=('swh-plugins: to use the mbeq 15-band equalizer')
 install=alsaequal.install
 
 source=("https://launchpad.net/ubuntu/+archive/primary/+files/alsaequal_${pkgver}.orig.tar.bz2"

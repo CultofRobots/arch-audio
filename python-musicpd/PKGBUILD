@@ -1,4 +1,7 @@
-# Maintainer: Rasmus Steinke <rasi at xssn dot at>
+# Maintainer: robot <cultofrobots [at] protonmail [dot] com>
+# Website: https://github.com/CultofRobots
+# Based on PKGBUILD from AUR
+# Contributor: Rasmus Steinke <rasi [at] xssn [dot] at>
 
 pkgname=python-musicpd
 pkgver=0.4.4
@@ -14,7 +17,7 @@ source=("https://files.pythonhosted.org/packages/source/${pkgname:0:1}/${pkgname
 sha256sums=('854d700b62064f3c5f70b14f485cbde1186f4b0453131357f3df51812b6aef27')
 
 package() {
-    cd "${srcdir}/${pkgname}-${pkgver}"
-    python setup.py install --prefix=/usr --root="$pkgdir" || return 1
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  python setup.py install --prefix=/usr --root="$pkgdir" || return 1
 }
 

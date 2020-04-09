@@ -1,11 +1,11 @@
 # Maintainer: robot <cultofrobots [at] protonmail [dot] com>
 # Website: https://github.com/CultofRobots
-# Based on ffmpeg-headless from AUR made by the following people
-# Contributor: Maxime Gauduin <alucryd@archlinux.org>
-# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
-# Contributor: Ionut Biru <ibiru@archlinux.org>
-# Contributor: Tom Newsom <Jeepster@gmx.co.uk>
-# Contributor: Paul Mattal <paul@archlinux.org>
+# Based on ffmpeg-headless from AUR
+# Contributor: Maxime Gauduin <alucryd [at] archlinux [dot] org>
+# Contributor: Bartłomiej Piotrowski <bpiotrowski [at] archlinux [dot] org>
+# Contributor: Ionut Biru <ibiru [at] archlinux [dot] org>
+# Contributor: Tom Newsom <Jeepster [at] gmx.co.uk>
+# Contributor: Paul Mattal <paul [at] archlinux [dot] org>
 
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio

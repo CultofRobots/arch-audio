@@ -1,7 +1,7 @@
 # Maintainer: robot <cultofrobots [at] protonmail [dot] com>
 # Website: https://github.com/CultofRobots
-# Based on jcorporation's myMPD PKGBUILD
-# Website: https://github.com/jcorporation/myMPD
+# Based on Juergen Mang's myMPD PKGBUILD from https://github.com/jcorporation/myMPD
+# Contributor: Juergen Mang <mail [at] jcgames [dot] de>
 
 pkgname=mympd
 _pkgname=myMPD

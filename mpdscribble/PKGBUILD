@@ -1,11 +1,11 @@
 # Maintainer: robot <cultofrobots [at] protonmail [dot] com>
 # Website: https://github.com/CultofRobots
-# Based on PKGBUILD from AUR made by the following people:
-# Contributor: jason ryan <jasonwryan@gmail.com>
-# Contributor:  Bartłomiej Piotrowski <nospam@bpiotrowwski.pl>
-# Contributor: Thomas Dziedzic < gostrc at gmail >
-# Contributor: evr <evanroman at gmail>
-# Contributor: Luiz Ribeiro <luizribeiro@gmail.com>
+# Based on PKGBUILD from AUR
+# Contributor: jason ryan <jasonwryan [at] gmail [dot] com>
+# Contributor: Bartłomiej Piotrowski <nospam [at] bpiotrowwski [dot] pl>
+# Contributor: Thomas Dziedzic <gostrc [at] gmail [dot] com>
+# Contributor: evr <evanroman [at] gmail [dot] com>
+# Contributor: Luiz Ribeiro <luizribeiro [at] gmail [dot] com>
 
 pkgname=mpdscribble
 pkgver=0.22
@@ -44,18 +44,14 @@ package() {
 
   make DESTDIR="${pkgdir}" install
 
-  install -Dm644 "${srcdir}"/service \
-    "${pkgdir}"/usr/lib/systemd/system/mpdscribble@.service
-  install -Dm644 "${srcdir}"/user.service \
-    "${pkgdir}"/usr/lib/systemd/user/mpdscribble.service
+  install -Dm644 "${srcdir}"/service "${pkgdir}"/usr/lib/systemd/system/mpdscribble@.service
+  install -Dm644 "${srcdir}"/user.service "${pkgdir}"/usr/lib/systemd/user/mpdscribble.service
 
   # default config is really an example
-  install -D -m644 "${pkgdir}"/etc/mpdscribble.conf \
-    "${pkgdir}"/usr/share/mpdscribble/mpdscribble.conf.example
+  install -D -m644 "${pkgdir}"/etc/mpdscribble.conf "${pkgdir}"/usr/share/mpdscribble/mpdscribble.conf.example
   rm -f "${pkgdir}"/etc/mpdscribble.conf
 
   install -d "${pkgdir}"/var/cache/mpdscribble
   touch "${pkgdir}"/var/cache/mpdscribble/mpdscribble.cache
 }
 
-# vim:set ts=2 sw=2 et:

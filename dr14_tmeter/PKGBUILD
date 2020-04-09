@@ -1,6 +1,7 @@
 # Maintainer: robot <cultofrobots [at] protonmail [dot] com>
 # Website: https://github.com/CultofRobots
-# Contributor: bred <simone.rva [at] gmail [dot] com
+# Based on PKGBUILD from AUR
+# Contributor: bred <simone [dot] rva [at] gmail [dot] com
 
 pkgname=dr14_tmeter
 _pkgname=dr14_t.meter
