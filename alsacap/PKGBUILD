@@ -1,0 +1,27 @@
+# Maintainer: Mike Andonov <info@archphile.org>
+# Website: http://archphile.org
+# Based on the following package from AUR:
+# https://aur.archlinux.org/packages/alsacap/
+
+
+pkgname=alsacap
+pkgver=0
+pkgrel=7
+pkgdesc="ALSA device capability lister"
+depends=('alsa-lib')
+arch=('armv7h' 'aarch64')
+license=('custom:ISC')
+url="http://www.volkerschatz.com/noise/alsa.html#alsacap"
+source=("http://www.volkerschatz.com/noise/$pkgname.tgz")
+sha256sums=('b90f74e86e853ce4f209ee3f99e395f4f6606dbcd0cdfa1c165d3ea92978cbc2')
+
+build() {
+    cd "$srcdir/$pkgname"
+    make
+}
+package() {
+    cd "$srcdir/$pkgname"
+    sed -i -e 's!/usr/local!'"$pkgdir/usr"! Makefile
+    make install
+    install -D -m 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
