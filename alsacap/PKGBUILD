@@ -1,8 +1,8 @@
-# Maintainer: Mike Andonov <info@archphile.org>
-# Website: http://archphile.org
+# Maintainer: robot <cultofrobots [at] protonmail [dot] com>
+# Website: https://cultofrobots.net
 # Based on the following package from AUR:
 # https://aur.archlinux.org/packages/alsacap/
-
+# Contributer: Mike Andonov <info@archphile.org>
 
 pkgname=alsacap
 pkgver=0
