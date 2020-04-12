@@ -5,7 +5,7 @@
 
 pkgname=mympd
 _pkgname=myMPD
-pkgver=6.2.3
+pkgver=6.3.0
 pkgrel=1
 pkgdesc="A standalone and mobile friendly web mpdclient."
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -20,9 +20,11 @@ replaces=()
 backup=('etc/webapps/mympd/mympd.conf')
 install=mympd.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
-        'mympd.install')
-sha256sums=('d19f4ec250c06108e9d32237fef7c90a9d11afa67d5f783cfcf617bde634ace1'
-            '2e78ed2f62e0bee867ca2d079a9acc11f94ba9e647e6688a2c7d08aade44caa2')
+        'mympd.install'
+        'mympd.sysusers')
+sha256sums=('6ade18e5b92693d6b9545c58bbdf7e9aa5eecdfdd844eac1470212755bef85ae'
+            'f32bfd3959be6ffbad555ea439d920f11d9293b104e87437b90093f794f750b3'
+            '82894a939c6adbfd5c719615adefb9a54ded1c221dbbd12b9a46cd90e1be8d8c')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}" || exit 1
@@ -34,5 +36,9 @@ build() {
 
 package() {
   cd "${srcdir}/${_pkgname}-${pkgver}/release"
+
+  install -D -m 644 "${srcdir}/mympd.sysusers" "${pkgdir}/usr/lib/sysusers.d/mympd.conf"
+  install -dm755 "$pkgdir"/var/lib/${pkgname}
+
   make DESTDIR="$pkgdir/" install
 }
