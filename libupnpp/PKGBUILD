@@ -2,14 +2,14 @@
 # Website: https://github.com/CultofRobots
 # Based on Mike Andonov's libupnpp-archphile from http://archphile.org
 # Contributor: Mike Andonov <info [at] archphile [dot] org>
-# Contributor: Fabio Loli <loli_fabio [at] protonmail [dot] com>
+# Contributor: Lolix' Loli <fabio [dot] loli [at] protonmail [dot] com>
 # Contributor: Tristelune <tristelune [at] archlinux [dot] info>
 
 pkgname=libupnpp
 pkgver=0.18.0
 pkgrel=1
 pkgdesc="A C++ wrapper for libupnp - used with upmpdcli or upplay"
-url="http://www.lesbonscomptes.com/upplay/downloads.html"
+url="https://www.lesbonscomptes.com//upmpdcli/libupnpp-refdoc/libupnpp-ctl.html"
 arch=('x86_64' 'armv7h' 'aarch64')
 license=(GPL2)
 depends=(libnpupnp expat)
