@@ -62,6 +62,7 @@ build() {
          # Disabled Archive plugins
          '-Dbzip2=disabled'
          '-Diso9660=disabled'
+         '-Dzzip=disabled'
          # Disabled Decoder plugins
          '-Dfluidsynth=disabled'
          '-Dgme=disabled'
