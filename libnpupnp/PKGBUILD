@@ -6,30 +6,29 @@
 # Contributor: Tristelune <tristelune [at] archlinux [dot] info>
 
 pkgname=libnpupnp
-_pkgname=npupnp-libnpupnp
-pkgver=4.0.3
+pkgver=4.0.5
 pkgrel=1
 pkgdesc="an UPnP library derived from the venerable pupnp"
 url="http://www.lesbonscomptes.com/upplay/downloads.html"
 arch=('x86_64' 'armv7h' 'aarch64')
 license=(GPL2)
 depends=(expat libmicrohttpd)
-source=("https://framagit.org/medoc92/npupnp/-/archive/${pkgname}-v${pkgver}/${_pkgname}-v${pkgver}.tar.gz")
-sha256sums=('ed7367102315c5f37e99ccadd44ec29e367c4b08cc42e50767a730f88bd2aa18')
+source=("http://www.lesbonscomptes.com/upmpdcli/downloads/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('af9b35e26c9733343c0075cd33d05e86771fe999cc01618295d486cc522fdbff')
 
 prepare() {
-  cd "${_pkgname}-v${pkgver}"
+  cd "${pkgname}-${pkgver}"
   ./autogen.sh
 }
 
 build(){
-  cd "${_pkgname}-v${pkgver}"
+  cd "${pkgname}-${pkgver}"
   ./configure --prefix=/usr
   make
 }
 
 package(){
-  cd "${_pkgname}-v${pkgver}"
+  cd "${pkgname}-${pkgver}"
   make DESTDIR="$pkgdir" install
   install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
 }
