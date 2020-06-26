@@ -10,7 +10,7 @@
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
 pkgver=4.2.3
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -62,9 +62,6 @@ pkgver() {
 prepare() {
   cd ${_pkgname}
 
-  # lavf/mp3dec: don't adjust start time; packets are not adjusted
-  # https://crbug.com/1062037
-  git cherry-pick -n 460132c9980f8a1f501a1f69477bca49e1641233
 }
 
 build() {
