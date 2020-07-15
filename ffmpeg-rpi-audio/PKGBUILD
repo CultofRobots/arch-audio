@@ -9,8 +9,8 @@
 
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
-pkgver=4.2.3
-pkgrel=3
+pkgver=4.3.1
+pkgrel=1
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -50,7 +50,10 @@ replaces=(
   ffmpeg
   ffmpeg-archphile
 )
-source=(git+https://git.ffmpeg.org/ffmpeg.git#tag=d3b963cc41824a3c5b2758ac896fb23e20a87875)
+_tag=6b6b9e593dd4d3aaf75f48d40a13ef03bdef9fdb
+source=(
+  git+https://git.ffmpeg.org/ffmpeg.git#tag=${_tag}
+)
 sha256sums=(SKIP)
 
 pkgver() {
@@ -61,7 +64,6 @@ pkgver() {
 
 prepare() {
   cd ${_pkgname}
-
 }
 
 build() {
