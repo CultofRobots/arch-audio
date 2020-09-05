@@ -54,6 +54,7 @@ package() {
   install -vDm 644 "doc/${pkgname}.1" -t "${pkgdir}/usr/share/man/man1/"
 
   install -vDm 644 "../${pkgname}.conf" -t "${pkgdir}/etc/"
+  install -vDm 644 "../${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
   install -vDm 644 "systemd/system/${pkgname}.service.in" "${pkgdir}/usr/lib/systemd/system/${pkgname}@.service"
   install -vDm 644 "systemd/user/${pkgname}.service.in" "${pkgdir}/usr/lib/systemd/user/${pkgname}.service"
   install -vDm 644 "../${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
