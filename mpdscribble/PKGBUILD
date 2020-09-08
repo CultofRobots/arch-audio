@@ -14,8 +14,8 @@ pkgdesc='MPD client which submits track info to {Libre,Last}.fm'
 url="http://www.musicpd.org/"
 arch=('x86_64' 'armv7h' 'aarch64')
 license=('GPL2')
-depends=('boost' 'libmpdclient' 'curl' 'libgcrypt')
-makedepends=('meson' 'ninja')
+depends=('curl' 'libgcrypt' 'libmpdclient')
+makedepends=('boost' 'meson' 'ninja')
 backup=("etc/${pkgname}.conf")
 source=("https://www.musicpd.org/download/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.sig}
         "${pkgname}.conf"
@@ -40,11 +40,6 @@ build() {
         --buildtype=plain \
         build
   ninja -C build
-}
-
-check() {
-  cd "${pkgname}-${pkgver}"
-  ninja -C build test
 }
 
 package() {
