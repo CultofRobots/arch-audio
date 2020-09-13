@@ -22,7 +22,7 @@ install=mympd.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
         'mympd.install'
         'mympd.sysusers')
-sha256sums=('90d621d8d0048304c69ac16aeb331d117c123dd8beb276996d52f994b1b41fc7'
+sha256sums=('0ab5f8b303de3bb0a6ba81c3c4fa0ee399dec55bab75c63e532e7f5231d73e7c'
             'f32bfd3959be6ffbad555ea439d920f11d9293b104e87437b90093f794f750b3'
             '82894a939c6adbfd5c719615adefb9a54ded1c221dbbd12b9a46cd90e1be8d8c')
 
