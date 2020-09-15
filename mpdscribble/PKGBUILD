@@ -15,7 +15,7 @@ url="http://www.musicpd.org/"
 arch=('x86_64' 'armv7h' 'aarch64')
 license=('GPL2')
 depends=('curl' 'libgcrypt' 'libmpdclient')
-makedepends=('boost' 'meson' 'ninja')
+makedepends=('boost' 'meson' 'ninja' 'systemd-libs')
 backup=("etc/${pkgname}.conf")
 source=("https://www.musicpd.org/download/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.sig}
         "${pkgname}.conf"
