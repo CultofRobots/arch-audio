@@ -10,31 +10,31 @@
 
 pkgname=mpd-headless
 _pkgname=mpd
-pkgver=0.21.26
+pkgver=0.22
 pkgrel=1
 pkgdesc="Flexible, powerful, server-side application for playing music, optimized for headless server."
 url="http://www.musicpd.org/"
 license=('GPL2')
 arch=('x86_64')
 depends=('expat' 'gcc-libs' 'glibc' 'lame' 'libgcrypt' 'libmad' 'libshout'
-         'libsoxr' 'libupnp' 'opus' 'sqlite' 'wavpack' 'yajl' 'zlib')
+         'libsoxr' 'opus' 'sqlite' 'wavpack' 'yajl' 'zlib')
 makedepends=('alsa-lib' 'audiofile' 'avahi' 'boost' 'curl' 'dbus' 'faad2'
-             'ffmpeg' 'flac' 'icu' 'libid3tag' 'libmpdclient' 'libogg' 'libvorbis'
-             'meson' 'python-sphinx' 'systemd-libs')
+             'ffmpeg' 'flac' 'icu' 'libid3tag' 'libmpdclient' 'libogg' 'libupnp'
+             'liburing' 'libvorbis' 'meson' 'python-sphinx' 'systemd-libs')
 provides=("mpd=$pkgver")
 conflicts=('mpd')
 replaces=('mpd')
 backup=("etc/${_pkgname}.conf")
-source=("https://www.musicpd.org/download/${_pkgname}/${pkgver%.*}/${_pkgname}-${pkgver}.tar.xz"{,.sig}
+source=("https://www.musicpd.org/download/${_pkgname}/${pkgver}/${_pkgname}-${pkgver}.tar.xz"{,.sig}
         "${_pkgname}.conf"
         "${_pkgname}.sysusers"
         "${_pkgname}.tmpfiles")
-sha512sums=('31eb5d42bcfc942116cb203d8b1ceb8489b46251204f7288d1e8d7e052ff4cab2c8b2087795cc8118c8b86f080613f80cb182163fcb1c5b5027053d53c5a594a'
+sha512sums=('2a6671dc2392dbac65d8339b8cfe86626fc46727bedab80266b24c6d63b0a26a832fc233576866ab5115627efdaa61bbe6876f4d33cb48c21e16fb5b74d3cfe4'
             'SKIP'
             'e1f2cede2aae5500bc473c8a95df28134015fa99b6af781bfe2b5ef57f4624fd4e2e4477d690a6147becab9079934cfe42f1603daa69930a0d9e97393f6f167b'
             '6e467481406279767b709ec6d5c06dbd825c0de09045c52ffa2d21d0604dcfe19b7a92bf42bed25163d66a3a0d1dbde6185a648b433eaf5eac56be90491e2e18'
             'db473db27cd68994c3ee26e78e0fb34d13126301d8861563dcc12a22d62ecb14c4ffb1e0798c6aaccdff34e73bae3fbeeff7b42606c901a2d35e278865cdf35d')
-b2sums=('176c75069190c8df79e5c0b37605abeafac2358dc1840ec66b2eecb809449cf0908b7a3af61c499e88d82b210c8907a752b4f006bcffb7c7d279cbdbc082032f'
+b2sums=('8b95c2a4927e139d2f44d45101e0903ce7b8f0caf7d7d83d978d4aa782369270096c03db398fe13138621d7142c87a15131e20f57fecbc760c2fbaf5cbdcd52b'
         'SKIP'
         '77102efd67d46f6887057aee0fd3b19582b08219be7b0aa8db47f0094e1f062fbd8eb98c9f4c9ea35be7823653c54280bc5f62e62a4eb62321e9c12507acaeaf'
         '4ab6e415284c77802a39d0913d701fe55e56f3c22b19557661fbef77e456b5e1d151da4202695282b956602e716a7afdb994aa2fc17368b9a0d0d051d47a3afb'
@@ -60,7 +60,7 @@ build() {
         --wrap-mode nodownload \
         -D b_lto=true \
         -D b_pie=true \
-        -D documentation=true \
+        -D documentation=enabled \
         -D adplug=disabled \
         -D sndio=disabled \
         -D shine=disabled \
@@ -107,15 +107,12 @@ package() {
   depends+=('libFLAC.so' 'libasound.so' 'libaudiofile.so' 'libavahi-client.so'
             'libavahi-common.so' 'libavcodec.so' 'libavformat.so' 'libavutil.so'
             'libcurl.so' 'libdbus-1.so' 'libfaad.so' 'libicui18n.so' 'libicuuc.so'
-            'libid3tag.so' 'libmpdclient.so' 'libogg.so' 'libsystemd.so' 'libvorbis.so'
-            'libvorbisenc.so')
+            'libid3tag.so' 'libmpdclient.so' 'libogg.so' 'libsystemd.so' 'libupnp.so' 
+            'liburing.so' 'libvorbis.so' 'libvorbisenc.so')
   cd "${_pkgname}-${pkgver}"
   DESTDIR="${pkgdir}" ninja -C build install
   install -vDm 644 "doc/${_pkgname}conf.example" \
     -t "${pkgdir}/usr/share/doc/${_pkgname}/"
-  install -vDm 644 "doc/${_pkgname}.conf.5" -t "${pkgdir}/usr/share/man/man5/"
-  install -vDm 644 "doc/${_pkgname}.1" -t "${pkgdir}/usr/share/man/man1/"
-
   install -vDm 644 "../${_pkgname}.conf" -t "${pkgdir}/etc/"
   install -vDm 644 "../${_pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${_pkgname}.conf"
   install -vDm 644 "../${_pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${_pkgname}.conf"
