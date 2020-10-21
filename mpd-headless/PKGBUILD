@@ -10,22 +10,22 @@
 
 pkgname=mpd-headless
 _pkgname=mpd
-pkgver=0.22
+pkgver=0.22.1
 pkgrel=1
 pkgdesc="Flexible, powerful, server-side application for playing music, optimized for headless server."
 url="http://www.musicpd.org/"
 license=('GPL2')
 arch=('x86_64')
-depends=('expat' 'gcc-libs' 'glibc' 'lame' 'libgcrypt' 'libmad' 'libshout'
+depends=('gcc-libs' 'glibc' 'lame' 'libgcrypt' 'libmad' 'libshout'
          'libsoxr' 'opus' 'sqlite' 'wavpack' 'yajl' 'zlib')
-makedepends=('alsa-lib' 'audiofile' 'avahi' 'boost' 'curl' 'dbus' 'faad2'
+makedepends=('alsa-lib' 'audiofile' 'avahi' 'boost' 'curl' 'dbus' 'expat''faad2' 
              'ffmpeg' 'flac' 'icu' 'libid3tag' 'libmpdclient' 'libogg' 'libupnp'
              'liburing' 'libvorbis' 'meson' 'python-sphinx' 'systemd-libs')
 provides=("mpd=$pkgver")
 conflicts=('mpd')
 replaces=('mpd')
 backup=("etc/${_pkgname}.conf")
-source=("https://www.musicpd.org/download/${_pkgname}/${pkgver}/${_pkgname}-${pkgver}.tar.xz"{,.sig}
+source=("https://www.musicpd.org/download/${_pkgname}/${pkgver%.*}/${_pkgname}-${pkgver}.tar.xz"{,.sig}
         "${_pkgname}.conf"
         "${_pkgname}.sysusers"
         "${_pkgname}.tmpfiles")
@@ -106,9 +106,9 @@ check() {
 package() {
   depends+=('libFLAC.so' 'libasound.so' 'libaudiofile.so' 'libavahi-client.so'
             'libavahi-common.so' 'libavcodec.so' 'libavformat.so' 'libavutil.so'
-            'libcurl.so' 'libdbus-1.so' 'libfaad.so' 'libicui18n.so' 'libicuuc.so'
-            'libid3tag.so' 'libmpdclient.so' 'libogg.so' 'libsystemd.so' 'libupnp.so' 
-            'liburing.so' 'libvorbis.so' 'libvorbisenc.so')
+            'libcurl.so' 'libdbus-1.so' 'libexpat.so' 'libfaad.so' 'libicui18n.so' 
+            'libicuuc.so' 'libid3tag.so' 'libmpdclient.so' 'libogg.so' 'libsystemd.so'
+            'libupnp.so' 'liburing.so' 'libvorbis.so' 'libvorbisenc.so')
   cd "${_pkgname}-${pkgver}"
   DESTDIR="${pkgdir}" ninja -C build install
   install -vDm 644 "doc/${_pkgname}conf.example" \
