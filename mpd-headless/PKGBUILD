@@ -10,7 +10,7 @@
 
 pkgname=mpd-headless
 _pkgname=mpd
-pkgver=0.22.1
+pkgver=0.22.2
 pkgrel=1
 pkgdesc="Flexible, powerful, server-side application for playing music, optimized for headless server."
 url="http://www.musicpd.org/"
