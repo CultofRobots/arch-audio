@@ -10,7 +10,7 @@
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
 pkgver=4.3.1
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -87,6 +87,7 @@ build() {
     --enable-librtmp \
     --enable-libsoxr \
     --enable-libvorbis \
+    --enable-lto \
     --enable-encoder=flac \
     --enable-decoder=aac,ac3,alac,flac,mp3,opus,vorbis \
     --enable-decoder=dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,dst,dts,dolby_e \
