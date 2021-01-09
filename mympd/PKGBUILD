@@ -5,7 +5,7 @@
 
 pkgname=mympd
 _pkgname=myMPD
-pkgver=6.9.1
+pkgver=6.10.0
 pkgrel=1
 pkgdesc="A standalone and mobile friendly web-based MPD client."
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -22,7 +22,7 @@ install=mympd.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
         'mympd.install'
         'mympd.sysusers')
-sha256sums=('548e64c54b30e12fbb35217bf4a344dbe8d5ccf71aad048cb42a34b06f638ea3'
+sha256sums=('80f5a3b3f6758ff0f2d7e3251a3d997e2384dd066fdc3f7168b0df5f17e8ad96'
             'f32bfd3959be6ffbad555ea439d920f11d9293b104e87437b90093f794f750b3'
             '82894a939c6adbfd5c719615adefb9a54ded1c221dbbd12b9a46cd90e1be8d8c')
 
