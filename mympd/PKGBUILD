@@ -28,7 +28,7 @@ sha256sums=('631f3b215f773a3bac6360e29c060cd48668bd285f4c60bf147d19bee2530302'
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}" || exit 1
-  install -d release
+  ./build.sh createassets
   cd release || exit 1
   cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_BUILD_TYPE=RELEASE ..
   make
