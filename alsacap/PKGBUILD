@@ -10,9 +10,9 @@ pkgdesc="ALSA device capability lister"
 depends=('alsa-lib')
 arch=('x86_64' 'armv7h' 'aarch64')
 license=('custom:ISC')
-url="http://www.volkerschatz.com/noise/alsa.html#alsacap"
-source=("http://www.volkerschatz.com/noise/$pkgname.tgz")
-sha256sums=('b90f74e86e853ce4f209ee3f99e395f4f6606dbcd0cdfa1c165d3ea92978cbc2')
+url="https://www.volkerschatz.com/noise/alsa.html#alsacap"
+source=("https://www.volkerschatz.com/noise/$pkgname.tgz")
+sha256sums=('5f17fc733d7187a20643ffd742419f1876218e7e77669c19a78054aa639a4511')
 
 build() {
   cd "$srcdir/$pkgname"
