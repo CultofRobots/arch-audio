@@ -11,7 +11,7 @@
 
 pkgname=mpd-essential
 _pkgname=mpd
-pkgver=0.23
+pkgver=0.23.1
 pkgrel=1
 pkgdesc="Flexible, powerful, server-side application for playing music built with essential components."
 url="http://www.musicpd.org/"
@@ -27,16 +27,16 @@ provides=("mpd=$pkgver")
 conflicts=('mpd')
 replaces=('mpd')
 backup=("etc/${_pkgname}.conf")
-source=("https://www.musicpd.org/download/${_pkgname}/${pkgver}/${_pkgname}-${pkgver}.tar.xz"{,.sig}
+source=("https://www.musicpd.org/download/${_pkgname}/${pkgver%.*}/${_pkgname}-${pkgver}.tar.xz"{,.sig}
         "${_pkgname}.conf"
         "${_pkgname}.sysusers"
         "${_pkgname}.tmpfiles")
-sha512sums=('9602a76e08fbbb6e415e6e7e868f9647bcf5eb510a35cf369a64eeaff35d1c0f95b7bea7a8c2d14163994c78ab612ad32226948a4abeb021d23b7fb4c974e004'
+sha512sums=('98af165881ee85c65ffd22bea77e0a62e13a8a5e8e30dc620761fe51422b605d886a957faf441bfe8f5e0728d651202c7f43e270335337a822258fcb5cd76e9e'
             'SKIP'
             'e1f2cede2aae5500bc473c8a95df28134015fa99b6af781bfe2b5ef57f4624fd4e2e4477d690a6147becab9079934cfe42f1603daa69930a0d9e97393f6f167b'
             '6e467481406279767b709ec6d5c06dbd825c0de09045c52ffa2d21d0604dcfe19b7a92bf42bed25163d66a3a0d1dbde6185a648b433eaf5eac56be90491e2e18'
             'db473db27cd68994c3ee26e78e0fb34d13126301d8861563dcc12a22d62ecb14c4ffb1e0798c6aaccdff34e73bae3fbeeff7b42606c901a2d35e278865cdf35d')
-b2sums=('a7a3b5a66de7c417cec54c270c654bb6bf5552a6e1a527aadbe6daf7aa2451e9ac581f3c83b7d782b97f35ba169b9f1b64ddc752d8242513d67af7ea13732734'
+b2sums=('7b517d72c536496c4ceb579fcce3d4822a45a9975c7f1f53ab3c6e1eb1b133364eea9d62fa4ef53065961e3edf4474ba454aac846d50c5a96428cbacacdb0d9d'
         'SKIP'
         '77102efd67d46f6887057aee0fd3b19582b08219be7b0aa8db47f0094e1f062fbd8eb98c9f4c9ea35be7823653c54280bc5f62e62a4eb62321e9c12507acaeaf'
         '4ab6e415284c77802a39d0913d701fe55e56f3c22b19557661fbef77e456b5e1d151da4202695282b956602e716a7afdb994aa2fc17368b9a0d0d051d47a3afb'
