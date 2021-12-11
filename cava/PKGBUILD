@@ -10,6 +10,7 @@ arch=('x86_64' 'armv7h' 'aarch64')
 url='https://github.com/karlstav/cava'
 license=('MIT')
 depends=('fftw' 'alsa-lib' 'ncurses' 'iniparser' 'portaudio')
+makedepends=('automake' 'autoconf')
 optdepends=('sndio' 'pulseaudio')
 source=("https://github.com/karlstav/cava/archive/${pkgver}.tar.gz")
 sha512sums=('7ab230a479f1643e034ad472b1007589d20cc7d977dec067831321c6a9204c2a7ccc174d77035ace4e8a714a660c2f8d93b3a64ed87fe36d364dc5aff1e45756')
