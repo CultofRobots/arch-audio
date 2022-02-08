@@ -4,8 +4,8 @@
 # Contributor: Rasmus Steinke <rasi [at] xssn [dot] at>
 
 pkgname=python-musicpd
-pkgver=0.4.4
-pkgrel=4
+pkgver=0.7.0
+pkgrel=1
 pkgdesc="An MPD (Music Player Daemon) client library written in pure Python."
 arch=('x86_64' 'armv7h' 'aarch64')
 url="https://pypi.python.org/pypi/python-musicpd"
@@ -13,8 +13,9 @@ license=('GPL')
 depends=('python')
 makedepends=('make')
 makedepends=('python-setuptools')
-source=("https://files.pythonhosted.org/packages/source/${pkgname:0:1}/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
-sha256sums=('854d700b62064f3c5f70b14f485cbde1186f4b0453131357f3df51812b6aef27')
+source=("https://files.pythonhosted.org/packages/ff/bd/fde097f8feeb70562cbcbe29d5dfec06db22e2598a003dc732af96a88711/${pkgname}-${pkgver}.tar.gz")
+#source=("https://files.pythonhosted.org/packages/source/${pkgname:0:1}/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
+sha256sums=('94b90b23fa270a7311f11d8dd7a902f13075d954c2c28a9b915021bab1f79990')
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
