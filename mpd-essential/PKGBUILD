@@ -12,7 +12,7 @@
 pkgname=mpd-essential
 _pkgname=mpd
 pkgver=0.23.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Flexible, powerful, server-side application for playing music built with essential components."
 arch=(x86_64 armv7h aarch64)
 provides=("mpd=$pkgver")
@@ -106,8 +106,7 @@ package() {
             libvorbisenc.so libyajl.so libavfilter.so libixml.so)
   cd "${_pkgname}-${pkgver}"
   DESTDIR="${pkgdir}" ninja -C build install
-  install -vDm 644 "doc/${_pkgname}conf.example" \
-    -t "${pkgdir}/usr/share/doc/${_pkgname}/"
+  install -vDm 644 "doc/${_pkgname}conf.example" -t "${pkgdir}/usr/share/doc/${_pkgname}/"
   install -vDm 644 "../${_pkgname}.conf" -t "${pkgdir}/etc/"
   install -vDm 644 "../${_pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${_pkgname}.conf"
   install -vDm 644 "../${_pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${_pkgname}.conf"
