@@ -1,6 +1,6 @@
 #
 # SPDX-License-Identifier: GPL-2.0-or-later
-# myMPD (c) 2018-2021 Juergen Mang <mail@jcgames.de>
+# myMPD (c) 2018-2022 Juergen Mang <mail@jcgames.de>
 # https://github.com/jcorporation/mympd
 #
 
@@ -9,10 +9,7 @@ post_install() {
 }
 
 post_upgrade() {
-  # fix ownership of /var/lib/mympd
-  [ -d /var/lib/mympd ] && chown -R mympd:mympd /var/lib/mympd
   echo -e "\e[1;93mINFO:\e[1;39m Documentation for myMPD now located at https://jcorporation.github.io/myMPD\e[0m"
-
 }
 
 post_remove() {

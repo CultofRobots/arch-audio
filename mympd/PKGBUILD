@@ -5,24 +5,26 @@
 
 pkgname=mympd
 _pkgname=myMPD
-pkgver=9.2.1
-pkgrel=2
+pkgver=9.2.2
+pkgrel=1
 pkgdesc="A standalone and mobile friendly web-based MPD client."
 arch=('x86_64' 'armv7h' 'aarch64')
 url="https://jcorporation.github.io/myMPD/"
-license=('GPL2')
+license=('GPL3')
 depends=('pcre2' 'openssl' 'libid3tag' 'flac' 'lua')
 makedepends=('cmake' 'perl')
 optdepends=()
 provides=()
 conflicts=()
 replaces=()
-install=mympd.install
+install=${pkgname}.install
 source=("https://github.com/jcorporation/${_pkgname}/archive/v${pkgver}.tar.gz"
-        'mympd.install'
-        'mympd.sysusers')
-sha256sums=('e99911fc07d877649bf908775696f24ab7ccf9312fc6984fefdc9e6e8e95f744'
-            '7c126fd0c8bccebdf0b3359751296953828533e16187df33611686e5e40b5cb5'
+        "${pkgname}.install"
+        "${pkgname}.tmpfiles"
+        "${pkgname}.sysusers")
+sha256sums=('e7372b65818a9eef5e063e51f2fb0ea824b2a76a2e973a92be148a3c12c38abf'
+            '2bf1eaae38740b3fd2c9dde574a8cba84e9b08c15e2f2468bcb4ecad2b9c0f11'
+            '3e291b4ef2965594f0d972dd686fcc416b8beff428948bfda97d2972c4decab4'
             '82894a939c6adbfd5c719615adefb9a54ded1c221dbbd12b9a46cd90e1be8d8c')
 
 build() {
@@ -38,7 +40,7 @@ package() {
   cd "${srcdir}/${_pkgname}-${pkgver}/release"
   make DESTDIR="$pkgdir/" install
 
-  install -Dm644 "${srcdir}/mympd.sysusers" "${pkgdir}/usr/lib/sysusers.d/mympd.conf"
-  install -dm755 "$pkgdir"/var/lib/${pkgname}
+  install -Dm644 "${srcdir}/${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
+  install -Dm644 "${srcdir}/${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
 
 }
