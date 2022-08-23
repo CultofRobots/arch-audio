@@ -9,7 +9,7 @@
 
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
-pkgver=5.0.1
+pkgver=5.1
 pkgrel=1
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
@@ -51,7 +51,7 @@ replaces=(
   ffmpeg
   ffmpeg-archphile
 )
-_tag=9687cae2b468e09e35df4cea92cc2e6a0e6c93b3
+_tag=e0723b7e4e22492275d476fcd30d759e1198bc5b
 source=(
   git+https://git.ffmpeg.org/ffmpeg.git#tag=${_tag}
 )
