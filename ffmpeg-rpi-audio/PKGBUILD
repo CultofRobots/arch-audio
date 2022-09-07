@@ -10,7 +10,7 @@
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
 pkgver=5.1.1
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -18,21 +18,20 @@ url='http://ffmpeg.org/'
 license=('GPL3')
 depends=(
   bzip2
-  glibc
   gnutls
+  lame
+  libbs2b.so
+  libsoxr
+  libvorbis
+  libvorbisenc.so
+  opus
   xz
   zlib
-  lame
-  libvorbis
-  libsoxr
-  opus
-  rtmpdump
 )
 makedepends=(
   clang
   git
   ladspa
-  yasm
 )
 optdepends=('ladspa: LADSPA filters')
 provides=(
@@ -83,17 +82,6 @@ build() {
     --disable-txtpages \
     --disable-swscale \
     --disable-everything \
-    --enable-gpl \
-    --enable-nonfree \
-    --enable-shared \
-    --enable-protocols \
-    --enable-libmp3lame \
-    --enable-libopus \
-    --enable-librtmp \
-    --enable-libsoxr \
-    --enable-libvorbis \
-    --enable-lto \
-    --enable-encoder=flac \
     --enable-decoder=aac,ac3,alac,flac,mp3,opus,vorbis \
     --enable-decoder=dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,dst,dts,dolby_e \
     --enable-decoder=pcm_alaw,pcm_bluray,pcm_dvd,pcm_lxf,pcm_mulaw,pcm_zork \
@@ -112,13 +100,19 @@ build() {
     --enable-demuxer=pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le \
     --enable-demuxer=pcm_s16be,pcm_s16le,pcm_s24be,pcm_s24le,pcm_s32be,pcm_s32le \
     --enable-demuxer=pcm_u16be,pcm_u16le,pcm_u24be,pcm_u24le,pcm_u32be,pcm_u32le \
-    --enable-parser=aac,ac3,flac,opus,vorbis
-
+    --enable-encoder=flac \
+    --enable-gpl \
+    --enable-libbs2b \
+    --enable-libmp3lame \
+    --enable-libopus \
+    --enable-libsoxr \
+    --enable-libvorbis \
+    --enable-lto \
+    --enable-parser=aac,ac3,flac,opus,vorbis \
+    --enable-shared
   make
 }
 
 package() {
-  cd ${_pkgname}
-
-  make DESTDIR="${pkgdir}" install install-man
+  make DESTDIR="${pkgdir}" -C ffmpeg install install-man
 }
