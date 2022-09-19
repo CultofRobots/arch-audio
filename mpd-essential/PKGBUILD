@@ -12,7 +12,7 @@
 pkgname=mpd-essential
 _pkgname=mpd
 pkgver=0.23.9
-pkgrel=1
+pkgrel=3
 pkgdesc="Flexible, powerful, server-side application for playing music built with essential components."
 arch=(x86_64 armv7h aarch64)
 provides=("mpd=$pkgver")
