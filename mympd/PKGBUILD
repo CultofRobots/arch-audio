@@ -6,7 +6,7 @@
 pkgname=mympd
 _pkgname=myMPD
 pkgver=9.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A standalone and mobile friendly web-based MPD client."
 arch=('x86_64' 'armv7h' 'aarch64')
 url="https://jcorporation.github.io/myMPD/"
