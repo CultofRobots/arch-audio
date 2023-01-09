@@ -1,42 +1,43 @@
 # Maintainer: robot <cultofrobots [at] protonmail [dot] com>
 # Website: https://github.com/CultofRobots
 # Based on PKGBUILD from AUR
-# Contributor: Jens John <asterisk [at] 2ion[ dot] de>
+# Contributors:
+#     * Ayush Shenoy <ayush [dot] shenoy92 [at] gmail [dot] com>
+#     * Jens John <asterisk [at] 2ion [dot] de>
+#     * Alad Wenter <https://wiki.archlinux.org/index.php/Special:EmailUser/Alad>
+#     * Alireza Savand <alireza [dot] savand [at] gmail [dot] com>
+#     * Maxime de Roucy <maxime [dot] deroucy [at] gmail [dot] com>
+#     * Xyne <ac xunilhcra enyx, backwards>
+#     * speeddefrost
+#     * stefanr
+#     * Bjorn Neergaard <bjorn [at] neersighted [dot] com>
 
 pkgname=alsaequal
-pkgver=0.6
-pkgrel=16
+pkgver=0.7.1
+pkgrel=1
 
 pkgdesc='Real-time adjustable equalizer plugin for ALSA sound server'
-url='https://web.archive.org/web/20161105202833/http://thedigitalmachine.net/alsaequal.html'
+url='https://github.com/bassdr/alsaequal'
 license=('GPL2')
 arch=('x86_64' 'armv7h' 'aarch64')
 
-depends=('alsa-lib' 'caps')
-optdepends=('swh-plugins: to use the mbeq 15-band equalizer')
+depends=('alsa-lib'
+         'caps'
+         'ladspa')
+optdepends=('swh-plugins: to use the mbeq equalizer (15-band)')
 install=alsaequal.install
 
-source=("https://launchpad.net/ubuntu/+archive/primary/+files/alsaequal_${pkgver}.orig.tar.bz2"
-        'makefile.patch'
-        'false_error.patch'
-        'caps_9.x.patch')
-sha256sums=('916e7d152added24617efc350142438a46099efe062bd8781d36dbf10b4e6ff0'
-            'c3bde63c45066f26fec21a38f6b4fc70d1fe534b9d20c4a9655fc15004c03792'
-            'c1a02bfed6be6385e8ab4ebe7c9c3844e9c0937fbafe0f8d948842c2b7c9f7f0'
-            'ba4e79459af3dab96a808ab581759a5a1cf82a1fe69d014cce959d7686e2313e')
-
-prepare() {
-  cd "$pkgname"
-  for f in "$srcdir"/*.patch; do patch < "$f"; done
-}
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/bassdr/alsaequal/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('25a3da01fd471015ecefe679bcf157be47af307cc11ac5e5888157291eb8ce54')
 
 build() {
-  cd "$pkgname"
+  cd "${srcdir}/${pkgname}-${pkgver}"
   make
 }
 
 package() {
-  cd "$pkgname"
-  install -dm755 "$pkgdir"/usr/lib/alsa-lib
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  install -dm755 "$pkgdir" /usr/lib/alsa-lib
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
   make DESTDIR="$pkgdir" install
 }
