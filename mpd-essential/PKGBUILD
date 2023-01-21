@@ -11,8 +11,8 @@
 
 pkgname=mpd-essential
 _pkgname=mpd
-pkgver=0.23.10
-pkgrel=2
+pkgver=0.23.12
+pkgrel=1
 pkgdesc="Flexible, powerful, server-side application for playing music built with essential components."
 arch=(x86_64 armv7h aarch64)
 provides=("mpd=$pkgver")
@@ -20,94 +20,144 @@ conflicts=(mpd)
 replaces=(mpd)
 url="http://www.musicpd.org/"
 license=(GPL2)
-depends=(gcc-libs glibc lame libgcrypt libmad libshout
-         libsoxr opus sqlite wavpack zlib)
-makedepends=(alsa-lib audiofile avahi boost curl dbus expat faad2 ffmpeg
-             flac fmt icu libid3tag libmpdclient libogg libopenmpt libupnp
-             liburing libvorbis meson python-sphinx systemd-libs yajl)
-backup=("etc/${_pkgname}.conf")
-source=("https://www.musicpd.org/download/${_pkgname}/${pkgver%.*}/${_pkgname}-${pkgver}.tar.xz"{,.sig}
-        "${_pkgname}.conf"
-        "${_pkgname}.sysusers"
-        "${_pkgname}.tmpfiles")
-sha512sums=('15e51a1fab2e187529141ebb25f0bb6cc9c2ad5127c1a9f4c40d1a944ed5bc4e7e76b26eb71f659ddd8a5ce448089e6d3dcf0c302ced8a4d08951ef1b1f09c49'
+depends=(
+  gcc-libs
+  glibc
+  lame
+  libgcrypt
+  libmad
+  libshout
+  libsoxr
+  opus
+  sqlite
+  wavpack
+  zlib
+)
+makedepends=(
+  alsa-lib
+  audiofile
+  avahi
+  boost
+  curl
+  dbus
+  expat
+  faad2
+  ffmpeg
+  flac
+  fmt
+  icu
+  libid3tag
+  libmpdclient
+  libogg
+  libopenmpt
+  libupnp
+  liburing
+  libvorbis
+  meson
+  python-sphinx
+  systemd-libs
+  yajl
+)
+backup=("etc/$_pkgname.conf")
+source=(
+  https://www.musicpd.org/download/$_pkgname/${pkgver%.*}/$_pkgname-${pkgver}.tar.xz{,.sig}
+  $_pkgname.conf
+  $_pkgname.sysusers
+  $_pkgname.tmpfiles
+  $_pkgname.service.override
+)
+sha512sums=('54495b839d86b47ae6e2f6cf4e1baebd0e8eb924742e9db42cc7462ffc4b6f650b83f3eaea291fe905ff5f1975cf875537ffd23a111724013ce58e6df26ce36e'
             'SKIP'
             'e1f2cede2aae5500bc473c8a95df28134015fa99b6af781bfe2b5ef57f4624fd4e2e4477d690a6147becab9079934cfe42f1603daa69930a0d9e97393f6f167b'
             '6e467481406279767b709ec6d5c06dbd825c0de09045c52ffa2d21d0604dcfe19b7a92bf42bed25163d66a3a0d1dbde6185a648b433eaf5eac56be90491e2e18'
-            'db473db27cd68994c3ee26e78e0fb34d13126301d8861563dcc12a22d62ecb14c4ffb1e0798c6aaccdff34e73bae3fbeeff7b42606c901a2d35e278865cdf35d')
-b2sums=('6b648971412a5f83fe9ff2694c030b451393c415de9c34cbea9894555ac7ea87c5a991edfdd41c7cd76511ae0680ecab35eb36ceae5e372900518c9cf5e9c55c'
+            'db473db27cd68994c3ee26e78e0fb34d13126301d8861563dcc12a22d62ecb14c4ffb1e0798c6aaccdff34e73bae3fbeeff7b42606c901a2d35e278865cdf35d'
+            'c1782b82f9db1d30aece43a07230c5d57370f2494a16e108af03815d83968805472f10f53ea5495cf0e08ff8f245430c3c3bc44025af43aaf9ecd12fcd6afc6c')
+b2sums=('b218d9f477e92842638e3fba44c84957a3f656adaaf1ece998847db8d64883b8c997703206f74b37043888757f5f628799a3a35b25ea991f9ad00df1c4ad5e71'
         'SKIP'
         '77102efd67d46f6887057aee0fd3b19582b08219be7b0aa8db47f0094e1f062fbd8eb98c9f4c9ea35be7823653c54280bc5f62e62a4eb62321e9c12507acaeaf'
         '4ab6e415284c77802a39d0913d701fe55e56f3c22b19557661fbef77e456b5e1d151da4202695282b956602e716a7afdb994aa2fc17368b9a0d0d051d47a3afb'
-        'd7b587c25dd5830c27af475a8fdd8102139d7c8fdd6f04fe23b36be030e4411582e289f575c299255ff8183096f7d47247327276f9a24641cbd032d9675b837a')
+        'd7b587c25dd5830c27af475a8fdd8102139d7c8fdd6f04fe23b36be030e4411582e289f575c299255ff8183096f7d47247327276f9a24641cbd032d9675b837a'
+        '753664445d7d5cc0b36f51ac66549beea403b9731cbcb81b0a782974a0a73d90559ba93e6afcaa470b6f2f5a844c09ef695bdf3b1e6dfee97aa080f41b7fe513')
 validpgpkeys=('0392335A78083894A4301C43236E8A58C6DB4512') # Max Kellermann <max@blarg.de>
 
-prepare() {
-  cd "${_pkgname}-${pkgver}"
-  sed -e '/\[Service\]/a User=mpd' \
-      -i "systemd/system/mpd.service.in"
-}
-
 build() {
-  cd "${_pkgname}-${pkgver}"
+  local _meson_options=(
+    -D adplug=disabled
+    -D sndio=disabled
+    -D shine=disabled
+    -D tremor=disabled
+    -D b_ndebug=true
+    -D chromaprint=disabled
+    -D ipv6=disabled
+    -D webdav=disabled
+    -D cdio_paranoia=disabled
+    -D mms=disabled
+    -D nfs=disabled
+    -D smbclient=disabled
+    -D qobuz=disabled
+    -D bzip2=disabled
+    -D iso9660=disabled
+    -D zzip=disabled
+    -D fluidsynth=disabled
+    -D gme=disabled
+    -D mikmod=disabled
+    -D modplug=disabled
+    -D mpcdec=disabled
+    -D mpg123=disabled
+    -D sidplay=disabled
+    -D sndfile=disabled
+    -D wildmidi=disabled
+    -D twolame=disabled
+    -D libsamplerate=disabled
+    -D ao=disabled
+    -D jack=disabled
+    -D openal=disabled
+    -D oss=disabled
+    -D pipewire=disabled
+    -D pulse=disabled
+    -D recorder=false
+  )
+
+
   # NOTE: sndio conflicts with alsa
-  # NOTE: nfs supports only NFS version 3.
-  # NOTE: vorbisenc enabled until opus displays streams tags properly in icecast
-  arch-meson -D documentation=enabled \
-        -D adplug=disabled \
-        -D sndio=disabled \
-        -D shine=disabled \
-        -D tremor=disabled \
-        -D b_ndebug=true \
-        -D chromaprint=disabled \
-        -D ipv6=disabled \
-        -D webdav=disabled \
-        -D cdio_paranoia=disabled \
-        -D mms=disabled \
-        -D nfs=disabled \
-        -D smbclient=disabled \
-        -D qobuz=disabled \
-        -D bzip2=disabled \
-        -D iso9660=disabled \
-        -D zzip=disabled \
-        -D fluidsynth=disabled \
-        -D gme=disabled \
-        -D mikmod=disabled \
-        -D modplug=disabled \
-        -D mpcdec=disabled \
-        -D mpg123=disabled \
-        -D sidplay=disabled \
-        -D sndfile=disabled \
-        -D wildmidi=disabled \
-        -D twolame=disabled \
-        -D libsamplerate=disabled \
-        -D ao=disabled \
-        -D jack=disabled \
-        -D openal=disabled \
-        -D oss=disabled \
-        -D pipewire=disabled \
-        -D pulse=disabled \
-        -D recorder=false \
-       build
+  # TODO: package adplug
+  # TODO: package shine
+  arch-meson "${_meson_options[@]}" build $_pkgname-$pkgver
   ninja -C build
 }
 
 check() {
-  cd "${_pkgname}-${pkgver}"
   ninja -C build test
 }
 
 package() {
-  depends+=(libFLAC.so libasound.so libaudiofile.so libavahi-client.so
-            libavahi-common.so libavcodec.so libavformat.so libavutil.so
-            libcurl.so libdbus-1.so libexpat.so libfaad.so libfmt.so 
-            libicui18n.so libicuuc.so libid3tag.so libmpdclient.so libogg.so
-            libopenmpt.so libsystemd.so libupnp.so liburing.so libvorbis.so 
-            libvorbisenc.so libyajl.so libavfilter.so libixml.so)
-  cd "${_pkgname}-${pkgver}"
-  DESTDIR="${pkgdir}" ninja -C build install
-  install -vDm 644 "doc/${_pkgname}conf.example" -t "${pkgdir}/usr/share/doc/${_pkgname}/"
-  install -vDm 644 "../${_pkgname}.conf" -t "${pkgdir}/etc/"
-  install -vDm 644 "../${_pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${_pkgname}.conf"
-  install -vDm 644 "../${_pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${_pkgname}.conf"
+  depends+=(
+    alsa-lib libasound.so
+    audiofile libaudiofile.so
+    avahi libavahi-{client,common}.so
+    curl libcurl.so
+    dbus libdbus-1.so
+    expat libexpat.so
+    faad2 libfaad.so
+    ffmpeg libav{codec,filter,format,util}.so
+    flac libFLAC.so
+    fmt libfmt.so
+    icu libicui18n.so libicuuc.so
+    libid3tag libid3tag.so
+    libmpdclient libmpdclient.so
+    libogg libogg.so
+    libopenmpt libopenmpt.so
+    libupnp libixml.so libupnp.so
+    liburing liburing.so
+    libvorbis libvorbis{,enc}.so
+    systemd-libs libsystemd.so
+    yajl libyajl.so
+  )
+
+  DESTDIR="$pkgdir" ninja -C build install
+  install -vDm 644 $_pkgname-$pkgver/doc/${_pkgname}conf.example -t "$pkgdir/usr/share/doc/$_pkgname/"
+  install -vDm 644 $_pkgname.service.override "$pkgdir/usr/lib/systemd/system/mpd.service.d/00-arch.conf"
+  install -vDm 644 $_pkgname.conf -t "$pkgdir/etc/"
+  install -vDm 644 $_pkgname.sysusers "$pkgdir/usr/lib/sysusers.d/$_pkgname.conf"
+  install -vDm 644 $_pkgname.tmpfiles "$pkgdir/usr/lib/tmpfiles.d/$_pkgname.conf"
 }
