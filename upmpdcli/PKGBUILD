@@ -6,7 +6,7 @@
 # Contributor: Tilman Vatteroth <tilman.vatteroth [at] udo [dot] edu>
 
 pkgname=upmpdcli
-pkgver=1.6.1
+pkgver=1.7.1
 pkgrel=1
 pkgdesc="A UPnP Media Renderer front-end for the Music Player Daemon (MPD)"
 arch=(x86_64 armv7h aarch64)
@@ -26,7 +26,7 @@ source=("http://www.lesbonscomptes.com/upmpdcli/downloads/${pkgname}-${pkgver}.t
         'upmpdcli.service'
         'upmpdcli.conf'
         'archphile.png')
-sha256sums=('6f4b3385553c8f6fcda9ed7a69778e19df3712f3856a26e1e8307b20a52227bd'
+sha256sums=('9a2e1322c47825f31e2f97ff8c89172e23dd0cea6763f355d7e7ecc71b168d17'
             '26e445afa98f8177ea5202717fe3ac1cda6bb3d4a234a943d918fde4b04bc697'
             'c6470fa5d7e4c2ecd40d026fed37df1c860168dcb7ee92204584657deb7a8931'
             '4ef07303a1aef48eb26c938951bc0f699d46c1600a5c0a877f4f984e701640cb'
