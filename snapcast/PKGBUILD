@@ -6,7 +6,7 @@
 pkgname=snapcast
 _pkgname_snapos=snapos
 pkgver=0.27.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Synchronous multi-room audio player"
 arch=('x86_64' 'armv7h' 'aarch64')
 url="https://github.com/badaix/snapcast"
@@ -19,6 +19,11 @@ depends=(
   opus
   expat
   libsoxr
+)
+optdepends=(
+  'python-websocket-client: stream plugin script'
+  'python-mpd2: stream plugin script'
+  'python-musicbrainzngs: stream plugin script'
 )
 makedepends=(
   alsa-utils
