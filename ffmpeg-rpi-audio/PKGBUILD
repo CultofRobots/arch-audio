@@ -9,7 +9,7 @@
 
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
-pkgver=5.1.2
+pkgver=6.0
 pkgrel=1
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
@@ -50,7 +50,7 @@ replaces=(
   ffmpeg
   ffmpeg-archphile
 )
-_tag=1326fe9d4c85cca1ee774b072ef4fa337694f2e7
+_tag=3949db4d261748a9f34358a388ee255ad1a7f0c0
 source=(
   git+https://git.ffmpeg.org/ffmpeg.git?signed#tag=${_tag}
 )
@@ -82,7 +82,7 @@ build() {
     --disable-txtpages \
     --disable-swscale \
     --disable-everything \
-    --enable-decoder=aac,ac3,alac,flac,mp3,opus,vorbis \
+    --enable-decoder=aac,ac3,alac,bs2b,flac,mp3,opus,vorbis \
     --enable-decoder=dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,dst,dts,dolby_e \
     --enable-decoder=pcm_alaw,pcm_bluray,pcm_dvd,pcm_lxf,pcm_mulaw,pcm_zork \
     --enable-decoder=pcm_f16le,pcm_f24le,pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le \
@@ -100,7 +100,8 @@ build() {
     --enable-demuxer=pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le \
     --enable-demuxer=pcm_s16be,pcm_s16le,pcm_s24be,pcm_s24le,pcm_s32be,pcm_s32le \
     --enable-demuxer=pcm_u16be,pcm_u16le,pcm_u24be,pcm_u24le,pcm_u32be,pcm_u32le \
-    --enable-encoder=flac \
+    --enable-encoder=flac,libvorbis \
+    --enable-filter=bs2b \
     --enable-gpl \
     --enable-libbs2b \
     --enable-libmp3lame \
