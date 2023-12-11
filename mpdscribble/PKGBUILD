@@ -8,7 +8,7 @@
 # Contributor: Luiz Ribeiro <luizribeiro [at] gmail [dot] com>
 
 pkgname=mpdscribble
-pkgver=0.24
+pkgver=0.25
 pkgrel=1
 pkgdesc='MPD client which submits track info to {Libre,Last}.fm'
 url="http://www.musicpd.org/"
@@ -21,13 +21,13 @@ source=("https://www.musicpd.org/download/${pkgname}/${pkgver}/${pkgname}-${pkgv
         "${pkgname}.sysusers"
         "${pkgname}.tmpfiles"
         "${pkgname}.install")
-sha512sums=('cca57f54f69ec1c870805cc58057e6325b6f5897370c315dcd6a64c5dd28ac07fdbddaa8b56f8c1fd88e71d27505f1a87decd68fbdff1f3fe1eaadec8ae80dae'
+sha512sums=('d22c334865794ca45142b2d8edbaffa69cd79b11de33406d1588ea157941973862d3841145a5fe3d530cb8253af944eb9ecc2b6be4fd57c07600e53b63161e47'
             'SKIP'
             '0f5b302ef3124a061a84fdd3dd8dd1a08a31bc99703d7dc32413fe499ea9613babf915f89926578019d8b6a2414e772022203de962bf971de8081af5b07d09c7'
             '67d6f5bfd70f3d949bd3d04bee93e6953ca3b1e50e71b2bc94f359c8abf385537424c3c386ba1d6cbe808b6e4498c4cfd191251076e4df0394a66bcc57ef2c48'
             'f3780fa6abccb7bbf0eec1fe61f47a4b2c0f25db65bb00da747df105eda1c31d6af628dbb4e8311e2302b4fb64ccac604fdc53c991af3e41048df107d65ab595'
            )
-b2sums=('84143ed7f6978aff32fa759bbe90c934ba5c58df294d375921ffb1cd45de13ecd867fb832940088228fdad4c09948cd82c8dfe9b7fe77d6652743d522bfde8b7'
+b2sums=('292addab1b84831f5b987976dea21938ead9888de828919a32e5c9be725b90d86b65be57bfc6637d3b5121902d646002890381d75bba385e982e9387088b38a2'
         'SKIP'
         'ec0ec031f4adc88f0053d3808a3e841bbed6921bf48af7f2f4719bbeffd952c463d914b1e2dfc31b38e170b6c9eb5285d4f6ae44090fe113df66f71c24c53450'
         'b83517c6441800a6570f4c06db5f6cb21e9a538b2c43cdaf1610d532ab5fd4196bd13f755589ec42832ff625bd2362600c6ad50595dcc5afb4fdcf488ae2438e'
@@ -36,11 +36,11 @@ b2sums=('84143ed7f6978aff32fa759bbe90c934ba5c58df294d375921ffb1cd45de13ecd867fb8
 validpgpkeys=('0392335A78083894A4301C43236E8A58C6DB4512') # Max Kellermann <max@blarg.de>
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  meson --prefix=/usr \
-        --buildtype=plain \
-        build
-  ninja -C build
+  cd "${pkgname}"-"${pkgver}"
+  DESTDIR="${pkgdir}" meson setup build \
+  --prefix=/usr \
+  --buildtype=plain
+  meson compile -C build
 }
 
 package() {
