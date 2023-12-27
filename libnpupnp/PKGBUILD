@@ -6,19 +6,22 @@
 # Contributor: Tristelune <tristelune [at] archlinux [dot] info>
 
 pkgname=libnpupnp
-pkgver=5.1.0
+pkgver=6.0.1
 pkgrel=1
 pkgdesc="an UPnP library derived from the venerable pupnp"
 url="http://www.lesbonscomptes.com/upplay/downloads.html"
 arch=('x86_64' 'armv7h' 'aarch64')
 license=(LGPLv2.1)
 depends=(
+  'glibc'
+  'gcc-libs'
   'curl'
   'expat'
   'libmicrohttpd'
 )
+provides=(libnpupnp.so)
 source=("http://www.lesbonscomptes.com/upmpdcli/downloads/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('016c6722cb66645ebc8cd07ad94d1ab7592d673c845de6fdf717c7b47b9a31d5')
+sha256sums=('eaf7a1695d577175ea34754c2387a5dca636eafa63462c5b776d92adff3415fe')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
