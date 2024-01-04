@@ -6,7 +6,7 @@
 # Contributor: Tristelune <tristelune [at] archlinux [dot] info>
 
 pkgname=libnpupnp
-pkgver=6.0.1
+pkgver=6.0.2
 pkgrel=1
 pkgdesc="an UPnP library derived from the venerable pupnp"
 url="http://www.lesbonscomptes.com/upplay/downloads.html"
@@ -21,7 +21,7 @@ depends=(
 )
 provides=(libnpupnp.so)
 source=("http://www.lesbonscomptes.com/upmpdcli/downloads/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('eaf7a1695d577175ea34754c2387a5dca636eafa63462c5b776d92adff3415fe')
+sha256sums=('d40fa148020b99b7a51a91a963b998ca41cac8c95290629cd04a1d7062f68606')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
