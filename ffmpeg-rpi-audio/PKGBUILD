@@ -9,8 +9,8 @@
 
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
-pkgver=6.1.1
-pkgrel=2
+pkgver=7.0.1
+pkgrel=1
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -23,6 +23,7 @@ depends=(
   libbs2b
   libsoxr
   libvorbis
+  mbedtls2
   opus
   xz
   zlib
@@ -48,7 +49,7 @@ replaces=(
   ffmpeg
   ffmpeg-archphile
 )
-_tag=6f4048827982a8f48f71f551a6e1ed2362816eec
+_tag=47f70eda3e2ff003a787e512afd07b0c266f7a70
 source=(
   git+https://git.ffmpeg.org/ffmpeg.git?signed#tag=${_tag}
 )
@@ -57,10 +58,6 @@ validpgpkeys=(DD1EC9E8DE085C629B3E1846B18E8928B3948D64) # Michael Niedermayer <m
 
 prepare() {
   cd ${_pkgname}
-  # FS#79281: fix assembling with binutil as >= 2.41
-  git cherry-pick -n effadce6c756247ea8bae32dc13bb3e6f464f0eb
-  # FS#77813: fix playing ogg files with mplayer
-  git cherry-pick -n cbcc817353a019da4332ad43deb7bbc4e695d02a
 }
 
 pkgver() {
@@ -69,6 +66,7 @@ pkgver() {
 }
 
 build() {
+  export PKG_CONFIG_PATH='/usr/lib/mbedtls2/pkgconfig'
   cd ${_pkgname}
 
   [[ $CARCH == "armv7h" || $CARCH == "aarch64" ]] && CONFIG='--host-cflags="-fPIC"'
@@ -110,8 +108,10 @@ build() {
     --enable-libsoxr \
     --enable-libvorbis \
     --enable-lto \
+    --enable-mbedtls \
     --enable-parser=aac,ac3,flac,opus,vorbis \
-    --enable-shared
+    --enable-shared \
+    --enable-version3
   make
   make doc/ff{mpeg,play}.1
 
