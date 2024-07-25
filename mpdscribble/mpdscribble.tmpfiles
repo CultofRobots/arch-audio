@@ -1,2 +1,0 @@
-d /run/mpdscribble 0755 mpdscribble mpd
-d /var/lib/mpdscribble 0755 mpdscribble mpd
