@@ -11,13 +11,20 @@ arch=('x86_64' 'armv7h' 'aarch64')
 url="https://pypi.python.org/pypi/python-musicpd"
 license=('GPL')
 depends=('python')
-makedepends=('make')
-makedepends=('python-setuptools')
+makedepends=('make'
+             'python-setuptools'
+             'python-build'
+             'python-installer'
+)
 source=("https://files.pythonhosted.org/packages/e9/bd/03fe4735ca2be80bd9aff7309b630a58bc203313b20ecef45fa6f85740c9/${pkgname}-${pkgver}.tar.gz")
 sha256sums=('fc574cd14a2556a8493694bad10fe7adad6148728bfcb892317eff1dc8a9c1ca')
 
-package() {
+build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  python setup.py install --prefix=/usr --root="$pkgdir" || return 1
+  python -m build --wheel --no-isolation
 }
 
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
