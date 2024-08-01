@@ -5,7 +5,7 @@
 
 pkgname=python-musicpd
 pkgver=0.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An MPD (Music Player Daemon) client library written in pure Python."
 arch=('x86_64' 'armv7h' 'aarch64')
 url="https://pypi.python.org/pypi/python-musicpd"
@@ -16,15 +16,16 @@ makedepends=('make'
              'python-build'
              'python-installer'
 )
-source=("https://files.pythonhosted.org/packages/e9/bd/03fe4735ca2be80bd9aff7309b630a58bc203313b20ecef45fa6f85740c9/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('fc574cd14a2556a8493694bad10fe7adad6148728bfcb892317eff1dc8a9c1ca')
+#source=("https://files.pythonhosted.org/packages/e9/bd/03fe4735ca2be80bd9aff7309b630a58bc203313b20ecef45fa6f85740c9/${pkgname}-${pkgver}.tar.gz")
+source=("https://gitlab.com/kaliko/python-musicpd/-/archive/v${pkgver}/python-musicpd-v${pkgver}.tar.gz")
+sha256sums=('ab7f4874806310d935188c5dbad5a5bb160cc5bdbf87bc2bf456e39925f4a807')
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${pkgname}-v${pkgver}"
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${pkgname}-v${pkgver}"
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
