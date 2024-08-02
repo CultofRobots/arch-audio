@@ -16,7 +16,6 @@ makedepends=('make'
              'python-build'
              'python-installer'
 )
-#source=("https://files.pythonhosted.org/packages/e9/bd/03fe4735ca2be80bd9aff7309b630a58bc203313b20ecef45fa6f85740c9/${pkgname}-${pkgver}.tar.gz")
 source=("https://gitlab.com/kaliko/python-musicpd/-/archive/v${pkgver}/python-musicpd-v${pkgver}.tar.gz")
 sha256sums=('ab7f4874806310d935188c5dbad5a5bb160cc5bdbf87bc2bf456e39925f4a807')
 
