@@ -12,7 +12,7 @@
 pkgname=mpd-essential
 _pkgname=mpd
 pkgver=0.23.16
-pkgrel=6
+pkgrel=1
 pkgdesc="Flexible, powerful, server-side application for playing music built with essential components."
 arch=(x86_64 armv7h aarch64)
 provides=("mpd=$pkgver")
@@ -34,7 +34,6 @@ depends=(
 )
 makedepends=(
   alsa-lib
-  audiofile
   avahi
   boost
   curl
@@ -47,6 +46,7 @@ makedepends=(
   git
   icu
   lame
+  libao
   libid3tag
   libmpdclient
   libogg
@@ -85,6 +85,7 @@ build() {
   local _meson_options=(
     -D documentation=enabled
     -D adplug=disabled
+    -D audiofile=disabled
     -D sndio=disabled
     -D shine=disabled
     -D tremor=disabled
@@ -134,7 +135,6 @@ check() {
 package() {
   depends+=(
     alsa-lib libasound.so
-    audiofile libaudiofile.so
     avahi libavahi-{client,common}.so
     curl libcurl.so
     dbus libdbus-1.so
@@ -145,6 +145,7 @@ package() {
     fmt libfmt.so
     icu libicui18n.so libicuuc.so
     lame libmp3lame.so
+    libao libao.so
     libid3tag libid3tag.so
     libmpdclient libmpdclient.so
     libogg libogg.so
