@@ -5,7 +5,7 @@
 
 pkgname=snapcast
 pkgver=0.31.0
-pkgrel=2
+pkgrel=3
 _pkgname_snapweb=snapweb
 _snapweb_version=0.8.0
 pkgdesc="Synchronous multi-room audio player"
@@ -23,6 +23,7 @@ depends=(
   libpulse
 )
 optdepends=(
+  "jack2: JACK low-latency audio server"
   "python-websocket-client: stream plugin script"
   "python-mpd2: stream plugin script"
   "python-musicbrainzngs: stream plugin script"
