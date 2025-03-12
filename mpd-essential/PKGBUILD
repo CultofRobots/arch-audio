@@ -11,8 +11,8 @@
 
 pkgname=mpd-essential
 _pkgname=mpd
-pkgver=0.23.17
-pkgrel=2
+pkgver=0.24
+pkgrel=1
 pkgdesc="Flexible, powerful, server-side application for playing music built with essential components."
 arch=(x86_64 armv7h aarch64)
 provides=("mpd=$pkgver")
@@ -27,6 +27,7 @@ depends=(
   gcc-libs
   glibc
   libmad
+  libnfs
   libshout
   libsoxr
   wavpack
@@ -35,7 +36,6 @@ depends=(
 makedepends=(
   alsa-lib
   avahi
-  boost
   curl
   dbus
   expat
@@ -57,6 +57,7 @@ makedepends=(
   meson
   opus
   python-sphinx
+  python-sphinx_rtd_theme
   sqlite
   systemd
   yajl
@@ -69,12 +70,12 @@ source=(
   $_pkgname.tmpfiles
   $_pkgname.service.override
 )
-sha512sums=('6c156fd543f426dd7927dac4871d0fc00c3766e55447a800c1987a9a0652384bfddad56aaff8c5a4c3c9ac5e537492dbc67b64a7f493f9b85c17145f901f5c1c'
+sha512sums=('3d05984ffe961a0a43a9bf69a276097dc8fd349a5074def62d5232f051cd856de7de628204ca285599bd1baa83ff261c1e8fb8d7bb6b2069d8c9fded3684e330'
             'e1f2cede2aae5500bc473c8a95df28134015fa99b6af781bfe2b5ef57f4624fd4e2e4477d690a6147becab9079934cfe42f1603daa69930a0d9e97393f6f167b'
             'd66c1d771160ee1781a05e57f383acc466babb29924c07d83ac0e763c14380dd1f279ba7b4aec508dc70245370d9732b4bc6287df1a2e06a920f3b73551d3032'
             'db473db27cd68994c3ee26e78e0fb34d13126301d8861563dcc12a22d62ecb14c4ffb1e0798c6aaccdff34e73bae3fbeeff7b42606c901a2d35e278865cdf35d'
             'c1782b82f9db1d30aece43a07230c5d57370f2494a16e108af03815d83968805472f10f53ea5495cf0e08ff8f245430c3c3bc44025af43aaf9ecd12fcd6afc6c')
-b2sums=('25365047cd8238fbcd2adc0cf4ae28c1403810b55939bf106f0139e75341c065c788f288eebfffe515264150ba5410bf25cf98ae03514f0d3038ae95fb451e83'
+b2sums=('3d05984ffe961a0a43a9bf69a276097dc8fd349a5074def62d5232f051cd856de7de628204ca285599bd1baa83ff261c1e8fb8d7bb6b2069d8c9fded3684e330'
         '77102efd67d46f6887057aee0fd3b19582b08219be7b0aa8db47f0094e1f062fbd8eb98c9f4c9ea35be7823653c54280bc5f62e62a4eb62321e9c12507acaeaf'
         '814c2314de6040e895657a8c8d62f11bc38c224a3c0ef5cbf280c0e141c80f04b0ac5026be06fd5dc4a4b764f3d91ab46f365da0a7bd466abc3aed02b0612165'
         'd7b587c25dd5830c27af475a8fdd8102139d7c8fdd6f04fe23b36be030e4411582e289f575c299255ff8183096f7d47247327276f9a24641cbd032d9675b837a'
@@ -95,7 +96,6 @@ build() {
     -D webdav=disabled
     -D cdio_paranoia=disabled
     -D mms=disabled
-    -D nfs=disabled
     -D smbclient=disabled
     -D qobuz=disabled
     -D bzip2=disabled
