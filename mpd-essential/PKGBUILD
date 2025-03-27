@@ -46,7 +46,6 @@ makedepends=(
   git
   icu
   lame
-  libao
   libid3tag
   libmpdclient
   libogg
