@@ -18,10 +18,13 @@ arch=(x86_64 armv7h aarch64)
 provides=("mpd=$pkgver")
 conflicts=(mpd)
 replaces=(mpd)
-url="http://www.musicpd.org/"
+url="https://www.musicpd.org/"
+_url="https://github.com/MusicPlayerDaemon/MPD"
 license=(
   BSD-2-Clause
   GPL-2.0-or-later
+  ISC
+  LGPL-2.1-only
 )
 depends=(
   gcc-libs
@@ -54,15 +57,17 @@ makedepends=(
   liburing
   libvorbis
   meson
+  nlohmann-json
   opus
   python-sphinx
   python-sphinx_rtd_theme
   sqlite
   systemd
 )
-backup=("etc/$_pkgname.conf")
+checkdepends=(gtest)
+backup=(etc/$_pkgname.conf)
 source=(
-  $_pkgname::git+https://github.com/MusicPlayerDaemon/MPD.git#tag=v${pkgver}?signed
+  $_pkgname::git+$_url?signed#tag=v${pkgver}
   $_pkgname.conf
   $_pkgname.sysusers
   $_pkgname.tmpfiles
@@ -89,6 +94,7 @@ build() {
     -D shine=disabled
     -D tremor=disabled
     -D b_ndebug=true
+    -D test=true
     -D chromaprint=disabled
     -D ipv6=disabled
     -D webdav=disabled
@@ -122,12 +128,12 @@ build() {
   # NOTE: sndio conflicts with alsa
   # TODO: package adplug
   # TODO: package shine
-  arch-meson "${_meson_options[@]}" build $_pkgname
-  ninja -C build
+  arch-meson $_pkgname build "${_meson_options[@]}"
+  meson compile -C build
 }
 
 check() {
-  ninja -C build test
+  meson test -C build --print-errorlogs
 }
 
 package() {
@@ -156,10 +162,9 @@ package() {
     systemd-libs libsystemd.so
   )
 
-  DESTDIR="$pkgdir" ninja -C build install
+  meson install -C build --destdir "$pkgdir"
   install -vDm 644 $_pkgname/doc/${_pkgname}conf.example -t "$pkgdir/usr/share/doc/$_pkgname/"
-  # NOTE: BSD-2-Clause license file currently missing: https://github.com/MusicPlayerDaemon/MPD/issues/1877
-  # install -vDm 644 $_pkgname-$pkgver/LICENSES/BSD-2-Clause -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $_pkgname-$pkgver/LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
   install -vDm 644 $_pkgname.service.override "$pkgdir/usr/lib/systemd/system/mpd.service.d/00-arch.conf"
   install -vDm 644 $_pkgname.conf -t "$pkgdir/etc/"
   install -vDm 644 $_pkgname.sysusers "$pkgdir/usr/lib/sysusers.d/$_pkgname.conf"
