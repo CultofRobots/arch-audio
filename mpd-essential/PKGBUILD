@@ -11,7 +11,7 @@
 
 pkgname=mpd-essential
 _pkgname=mpd
-pkgver=0.24.2
+pkgver=0.24.3
 pkgrel=1
 pkgdesc="Flexible, powerful, server-side application for playing music built with essential components."
 arch=(x86_64 armv7h aarch64)
@@ -59,7 +59,6 @@ makedepends=(
   python-sphinx_rtd_theme
   sqlite
   systemd
-  yajl
 )
 backup=("etc/$_pkgname.conf")
 source=(
@@ -69,12 +68,12 @@ source=(
   $_pkgname.tmpfiles
   $_pkgname.service.override
 )
-sha512sums=('a9949251d9c84e22a23c36eaec180ea687ea5dbee0d7afe38710e83e11bac79950edee0a180409da840bbc2ed411c0bd2ca064331c0a468292a88a3da51e3fb3'
+sha512sums=('896e637cd662ee8f9c58a724d41546cf6659b2f7edc67a3380d3bd01ea59085c4032b4819f6f974285931fe1282be26c597ef3d83007beffe3b5dd5de1ce845e'
             'e1f2cede2aae5500bc473c8a95df28134015fa99b6af781bfe2b5ef57f4624fd4e2e4477d690a6147becab9079934cfe42f1603daa69930a0d9e97393f6f167b'
             'd66c1d771160ee1781a05e57f383acc466babb29924c07d83ac0e763c14380dd1f279ba7b4aec508dc70245370d9732b4bc6287df1a2e06a920f3b73551d3032'
             'db473db27cd68994c3ee26e78e0fb34d13126301d8861563dcc12a22d62ecb14c4ffb1e0798c6aaccdff34e73bae3fbeeff7b42606c901a2d35e278865cdf35d'
             'c1782b82f9db1d30aece43a07230c5d57370f2494a16e108af03815d83968805472f10f53ea5495cf0e08ff8f245430c3c3bc44025af43aaf9ecd12fcd6afc6c')
-b2sums=('45a6e5e51dc0f8f71bd288f188fd56d78aa09a4aa8e57dd21b4c99a56e5a881f99aac45aa0e4232744077b49a306080c092d3a2da2480bb0712e63723ca77d22'
+b2sums=('1475144c4bc141894f1984500508594fa9f3c8e6196a0328e76649b0e91ddc9e1b7ee5f82f2b5fdda29b17bfc6c8bb4ea870d1c601b219aa954923b560df18f0'
         '77102efd67d46f6887057aee0fd3b19582b08219be7b0aa8db47f0094e1f062fbd8eb98c9f4c9ea35be7823653c54280bc5f62e62a4eb62321e9c12507acaeaf'
         '814c2314de6040e895657a8c8d62f11bc38c224a3c0ef5cbf280c0e141c80f04b0ac5026be06fd5dc4a4b764f3d91ab46f365da0a7bd466abc3aed02b0612165'
         'd7b587c25dd5830c27af475a8fdd8102139d7c8fdd6f04fe23b36be030e4411582e289f575c299255ff8183096f7d47247327276f9a24641cbd032d9675b837a'
@@ -155,7 +154,6 @@ package() {
     opus libopus.so
     sqlite libsqlite3.so
     systemd-libs libsystemd.so
-    yajl libyajl.so
   )
 
   DESTDIR="$pkgdir" ninja -C build install
