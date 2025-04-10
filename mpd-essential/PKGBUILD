@@ -164,7 +164,7 @@ package() {
 
   meson install -C build --destdir "$pkgdir"
   install -vDm 644 $_pkgname/doc/${_pkgname}conf.example -t "$pkgdir/usr/share/doc/$_pkgname/"
-  install -vDm 644 $_pkgname-$pkgver/LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $_pkgname/LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
   install -vDm 644 $_pkgname.service.override "$pkgdir/usr/lib/systemd/system/mpd.service.d/00-arch.conf"
   install -vDm 644 $_pkgname.conf -t "$pkgdir/etc/"
   install -vDm 644 $_pkgname.sysusers "$pkgdir/usr/lib/sysusers.d/$_pkgname.conf"
