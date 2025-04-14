@@ -12,7 +12,7 @@
 pkgname=mpd-essential
 _pkgname=mpd
 pkgver=0.24.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Flexible, powerful, server-side application for playing music built with essential components."
 arch=(x86_64 armv7h aarch64)
 provides=("mpd=$pkgver")
@@ -54,7 +54,6 @@ makedepends=(
   libogg
   libopenmpt
   libupnp
-  liburing
   libvorbis
   meson
   nlohmann-json
@@ -90,6 +89,7 @@ build() {
     -D documentation=enabled
     -D adplug=disabled
     -D audiofile=disabled
+    -D io_uring=disabled  # liburing support broken: https://github.com/MusicPlayerDaemon/MPD/issues/2241
     -D sndio=disabled
     -D shine=disabled
     -D tremor=disabled
@@ -155,7 +155,6 @@ package() {
     libogg libogg.so
     libopenmpt libopenmpt.so
     libupnp libixml.so libupnp.so
-    liburing liburing.so
     libvorbis libvorbis{,enc}.so
     opus libopus.so
     sqlite libsqlite3.so
