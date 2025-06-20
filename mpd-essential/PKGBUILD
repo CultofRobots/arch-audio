@@ -12,7 +12,7 @@
 pkgname=mpd-essential
 _pkgname=mpd
 pkgver=0.24.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Flexible, powerful, server-side application for playing music built with essential components."
 arch=(x86_64 armv7h aarch64)
 provides=("mpd=$pkgver")
@@ -149,7 +149,6 @@ package() {
     fmt libfmt.so
     icu libicui18n.so libicuuc.so
     lame libmp3lame.so
-    libao libao.so
     libid3tag libid3tag.so
     libmpdclient libmpdclient.so
     libogg libogg.so
