@@ -40,7 +40,6 @@ provides=(
   libavfilter.so
   libavformat.so
   libavutil.so
-  libpostproc.so
   libswresample.so
   ffmpeg
 )
@@ -49,11 +48,11 @@ replaces=(
   ffmpeg
   ffmpeg-archphile
 )
-_tag=a1328e68877e12ab5a6e5d92a84aefa566783ea5
+_tag=a4044e04486d1136022498891088a90baf5b2775
 source=(
   git+https://git.ffmpeg.org/ffmpeg.git?signed#tag=${_tag}
 )
-b2sums=('c7b1a56593f123de8e18b3b93c81dca4aff439f5701935cc1fe6316543e8c3256acd7f95b4a533eb7ba30e346fa13bf0ad5bff54b7822c088ef3939882416a7c')
+b2sums=('7c71ec5f098e248b584fd3e28e7f648e5929ff7c5a6cfc5dcce8300a8a0b91de804cd92ef72963ef86dc57a73d15ab03aeab61d99d1872baad1163462730d7d6')
 validpgpkeys=(DD1EC9E8DE085C629B3E1846B18E8928B3948D64) # Michael Niedermayer <michael@niedermayer.cc>
 
 prepare() {
