@@ -9,7 +9,7 @@
 
 _pkgname=ffmpeg
 pkgname=ffmpeg-rpi-audio
-pkgver=8.1
+pkgver=8.1.1
 pkgrel=1
 epoch=1
 pkgdesc='The FFmpeg minimal audio toolkit optimized for headless raspberry pi systems'
@@ -48,11 +48,11 @@ replaces=(
   ffmpeg
   ffmpeg-archphile
 )
-_tag=a65b3bfe9dacc3b20597ef199d0afdd8bc8128e2
+_tag=150ba6ddfabb5c433bb2fb3ee546d2a96e59066d
 source=(
   git+https://git.ffmpeg.org/ffmpeg.git?signed#tag=${_tag}
 )
-b2sums=('8e5818da4965fdd2dc7de521a2f20013a05bd4e9d6fc3eecb6ed261f91c3e4ed4b64687654bee190b0e3b702dc8184f86bfe1941a58cd0b002843c81f70fa904')
+b2sums=('f0725f1156a5fa34fb5ee617c0c02dd3615c91ea1fd6f94c7d622106ecaedeee0ce74d68b9965ceb6aa70ee1c539b409bc2102c3cf2309a85340af63d2a3e03e')
 validpgpkeys=(DD1EC9E8DE085C629B3E1846B18E8928B3948D64) # Michael Niedermayer <michael@niedermayer.cc>
 
 prepare() {
