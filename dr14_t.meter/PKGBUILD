@@ -1,0 +1,43 @@
+# Maintainer: robot <cultofrobots [at] protonmail [dot] com>
+# Website: https://github.com/CultofRobots/
+pkgname=dr14_t.meter
+pkgver=2.1.1
+pkgrel=1
+pkgdesc="Compute the DR14 of a given audio file according to the procedure described by the Pleasurize Music Foundation"
+arch=(x86_64 armv7h aarch64)
+url="https://github.com/simon-r/dr14_t.meter"
+license=('GPL-3.0-only')
+depends=(
+  'python' 
+  'flac' 
+  'lame' 
+  'faad2' 
+  'ffmpeg' 
+  'python-numpy'
+  'python-mutagen'
+  'vorbis-tools' 
+)
+optdepends=(
+  'python-matplotlib: plot support for python' 
+  'python-scipy: dyn compression'
+)
+makedepends=(
+  'python-setuptools' 
+  'python-build' 
+  'python-installer' 
+  'python-wheel'
+)
+provides=("${pkgname}")
+conflicts=("${pkgname}-git")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/simon-r/${pkgname}/archive/v${pkgver}.tar.gz")
+sha256sums=('9463aefef93d7a2458bd69413ebaf01118fae1aabf13b274e2439ac9dcb59f56')
+
+build() {
+	cd "$srcdir/${pkgname}-${pkgver}"
+    python -m build --wheel --no-isolation
+}
+
+package() {
+	cd "$srcdir/${pkgname}-${pkgver}"
+    python -m installer --destdir="$pkgdir" dist/*.whl
+}
