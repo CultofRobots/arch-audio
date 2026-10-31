@@ -1,7 +1,7 @@
 # Maintainer: robot <cultofrobots [at] protonmail [dot] com>
 # Website: https://github.com/CultofRobots/
 pkgname=dr14_t.meter
-pkgver=2.1.2
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="Compute the DR14 of a given audio file according to the procedure described by the Pleasurize Music Foundation"
 arch=(x86_64 armv7h aarch64)
@@ -30,7 +30,7 @@ makedepends=(
 provides=("${pkgname}")
 conflicts=("${pkgname}-git")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/simon-r/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('695f50aeb408ebc7af1a8ee4e40cc37648f09037304d489629b2b4d5e29e45c8')
+sha256sums=('125733b8dc99ec48beaa57293efb23dd937a7bf8342be7cccbd61ca6f33ff56b')
 
 build() {
 	cd "$srcdir/${pkgname}-${pkgver}"
