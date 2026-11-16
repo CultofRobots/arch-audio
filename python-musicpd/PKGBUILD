@@ -4,7 +4,7 @@
 # Contributor: Rasmus Steinke <rasi [at] xssn [dot] at>
 
 pkgname=python-musicpd
-pkgver=0.9.2
+pkgver=0.9.3
 pkgrel=1
 pkgdesc="An MPD (Music Player Daemon) client library written in pure Python."
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -18,7 +18,7 @@ makedepends=('make'
              'python-wheel'
 )
 source=("https://gitlab.com/kaliko/python-musicpd/-/archive/v${pkgver}/python-musicpd-v${pkgver}.tar.gz")
-sha256sums=('9cff1ca68e09250f2ded51bed7dd927b60be7070571140d2fa9cdd9486972446')
+sha256sums=('9a1bf3b6284e9b31826cba611e5ba54ed87aad7873f8cdc89ce2ef7f6c4ba24d')
 
 build() {
   cd "${pkgname}-v${pkgver}"
